@@ -1,0 +1,13 @@
+.vscode/
+.vscode
+commands.sh
+package-lock.json
+target/
+.DS_Store
+upscaleenvdocker.sh 
+upscaleenv.sh
+journeyvalidator/**/journey.feature
+**/journeysetup.sh
+nodesource_setup.sh
+cumtomizedondocker/
+journey/
