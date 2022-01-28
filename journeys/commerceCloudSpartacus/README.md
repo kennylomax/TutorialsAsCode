@@ -123,8 +123,9 @@ rm -rf .git
 
 Install angular CLI:
 
+```commands
 echo y | npm install -g @angular/cli
-
+```
 
 Generate a new module custom-voucher..
 ```commands
