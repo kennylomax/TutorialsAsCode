@@ -70,7 +70,7 @@ Start SAP Commerce in a background process:
 
 Note: if on a Mac..
 - you may get Security notificaitons.  If so, open the "SystemPreferences->Security & Privacy", and respond to the security checks that appear when you run the previous command. You will then have to run *./hybrisserver.sh* start a second time.  If on linux, you do not have to run this command a second time:
-```
+
 
 Wait for Commerce to come online.. (not optimal but until I figure out how to do this in Karate..)
 
