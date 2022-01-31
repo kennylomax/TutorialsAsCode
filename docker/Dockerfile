@@ -1,6 +1,6 @@
 FROM maven:3-jdk-11
 
-# This is identical to Karate, Peter Thomas' https://github.com/karatelabs/karate/tree/develop/karate-docker/karate-chrome but with java11 and a homepage specified for chrome and 
+# This is identical to Karate, Peter Thomas' https://github.com/karatelabs/karate/tree/develop/karate-docker/karate-chrome but with java11 and a homepage specified for chrome
 
 LABEL maintainer="Ken Lomax"
 LABEL url="https://github.com/kennylomax/SelfValidatingJourney"
