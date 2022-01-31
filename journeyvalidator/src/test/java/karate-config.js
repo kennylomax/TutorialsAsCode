@@ -7,7 +7,7 @@ function fn() {
         MY_GITHUB_TOKEN: java.lang.System.getenv('MY_GITHUB_TOKEN'), 
         MY_DOWNLOAD_FOLDER: java.lang.System.getenv('MY_DOWNLOAD_FOLDER'), 
         MY_JOURNEY_DIR: java.lang.System.getenv('MY_JOURNEY_DIR'), 
-        NOW: java.lang.System.getenv('NOW')  
+        NOW: java.lang.System.getenv('NOW')
       }
     if (karate.env === 'docker') {
         var driverConfig = {
