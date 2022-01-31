@@ -20,7 +20,7 @@
     - ./validatejourney.sh upscaleNativeExtension|upscaleCustomExtension|commercecloud1
   - **To execute the tutorials as end2end tests directly in Docker**
     - source ./journeys/upscaleNativeExtension|upscaleCustomExtension|commercecloud1/journeysetup.sh 
-    - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -v $MY_DOWNLOAD_FOLDER:/home/chrome/Downloads -v "$PWD":/src kenlomax/karatejourneys:v1.02
+    - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -v $MY_DOWNLOAD_FOLDER:/home/chrome/Downloads -v "$PWD":/src kenlomax/karatejourneys:v1.05
     - open vnc://localhost:5900
     - docker exec -it -w /src karate bash
     - source ./validatejourney.sh upscaleNativeExtension|upscaleCustomExtension|commercecloudSpartacus
