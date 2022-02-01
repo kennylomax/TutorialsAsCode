@@ -97,7 +97,9 @@ YourUpscaleWorkbenchURL -> Experiences -> Coffeefy Mobile Commerce Experience ->
   PWA Native Extension Component (beta)=<the name used in your registration hello-world${NOW}/projects/my-first-native-extension/src/lib/my-first-native-extension.module.ts>
   -> Save
 ``` 
-https://user-images.githubusercontent.com/6401254/146175247-36879bd8-3330-404d-8658-f08afd2ddabb.mp4
+
+
+https://user-images.githubusercontent.com/6401254/151950936-7bf8c7d5-ae05-4abb-aca9-d5ae046833f4.mp4
 
 
 Remove the previousy downloaded PWA:
@@ -116,7 +118,10 @@ Link experience=Coffeefy Mobile Commerce Experience
 Extensions=NG Coffeefy styling, MyFirstExtension${NOW} 
 -> Save & download project
 ```
-https://user-images.githubusercontent.com/6401254/146175285-30d5266a-a426-4161-a620-9c9e59eb6171.mp4
+
+
+https://user-images.githubusercontent.com/6401254/151951126-c577f946-6ba6-4b0d-ac53-299c57398937.mp4
+
 
 
 Compile and run your new PWA
