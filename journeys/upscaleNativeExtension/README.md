@@ -37,6 +37,11 @@ YourUpscaleWorkbenchURL -> Consumer Applications -> PWA -> Edit application conf
 
 https://user-images.githubusercontent.com/6401254/151949229-98fa20de-7676-46e9-b7b3-cd0bc1bf067a.mp4
 
+| Clickpath | Screengrab |
+| ------ | ------ |
+| YourUpscaleWorkbenchURL -> Consumer Applications -> PWA -> Edit application configuration -> Save & download project | https://user-images.githubusercontent.com/6401254/146175213-1e9cbd06-63e5-44c5-8d73-3ecced3aef19.mp4 |
+
+
 Copy the downloaded libs into your Angular app, which include a thin client SDK, that the PWA uses to access APIs, and the web storefront SDK.
 
 ```commands
