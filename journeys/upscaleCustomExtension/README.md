@@ -78,11 +78,10 @@ https://user-images.githubusercontent.com/6401254/151970668-b6139423-b52f-44b8-b
 
 
 Check for sent events
-https://user-images.githubusercontent.com/6401254/150346397-b7fedd6d-a967-4416-a735-78d589250e92.mp4
+
 ```clickpath:@CheckForEvents
 http://localhost:3000/events -> <Confirm you see Upscale events listed>
 ```
-
 
 https://user-images.githubusercontent.com/6401254/151970681-252810e9-3e7f-4635-ae7e-0a0d146b4927.mp4
 
