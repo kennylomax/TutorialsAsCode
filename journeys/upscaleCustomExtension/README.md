@@ -31,8 +31,6 @@ go run main.go &
 
 Create a Custom Upscale extension:
 
-https://user-images.githubusercontent.com/6401254/150346317-6382de1f-9ea7-4d3b-867d-1209db4499fa.mp4
-
 
 ```clickpath:CreateCustomExtension
 YourUpscaleWorkbenchURL -> Advanced Settings -> Extensions -> + -> Custom component ->
@@ -41,9 +39,13 @@ YourUpscaleWorkbenchURL -> Advanced Settings -> Extensions -> + -> Custom compon
   -> Save
 ``` 
 
+
+
+https://user-images.githubusercontent.com/6401254/151970084-e91d060b-90e4-41d1-87f8-2e4c7b15e03f.mp4
+
+
 Add event bindings
 
-https://user-images.githubusercontent.com/6401254/150346357-c9923b03-b3fc-4c58-9892-299480601e36.mp4
 
 
 ```clickpath:AddEventBindings
@@ -59,19 +61,31 @@ YourUpscaleWorkbenchURL -> Experiences -> Coffeefy Mobile Commerce Experience ->
   -> Save
 ``` 
 
+
+https://user-images.githubusercontent.com/6401254/151970631-34e31436-3882-4abc-9e52-30a627b56813.mp4
+
+
 Preview And Send Events
 
-https://user-images.githubusercontent.com/6401254/150346378-f9828049-567c-4a90-b592-39e25e92747b.mp4
 
 
 ```clickpath:@PreviewAndSendEvents
 YourUpscaleWorkbenchURL -> Experiences -> Coffeefy Mobile Commerce Experience -> Preview -> Preview -> I Agree -> Coffee Makers -> Drinkware -> Cups -> JURA 65037
 ```
 
+
+https://user-images.githubusercontent.com/6401254/151970668-b6139423-b52f-44b8-b211-bce77079a427.mp4
+
+
 Check for sent events
 https://user-images.githubusercontent.com/6401254/150346397-b7fedd6d-a967-4416-a735-78d589250e92.mp4
 ```clickpath:@CheckForEvents
 http://localhost:3000/events -> <Confirm you see Upscale events listed>
 ```
+
+
+https://user-images.githubusercontent.com/6401254/151970681-252810e9-3e7f-4635-ae7e-0a0d146b4927.mp4
+
+
 # Further reading
 - [Based on this demo](https://help.sap.com/viewer/0160c41e0de84b218d05bc1185213d1d/SHIP/en-US/f542f9dc2d744b28b471ca6f044d832c.html)
