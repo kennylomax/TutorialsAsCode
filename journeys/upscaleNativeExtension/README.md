@@ -139,3 +139,7 @@ Access your site at http://localhost:4200/ and confirm the stick man is there.
 ```clickpath:ConfirmLittleStickman
 localhost:4200 -> Account -> confirmYouSeeYourLittleStickMan :)
 ``` 
+
+
+https://user-images.githubusercontent.com/6401254/151963351-752e3612-359c-4fac-a305-fad1585c7928.mp4
+
