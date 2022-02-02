@@ -154,7 +154,7 @@ class JourneyTest {
                 String contents = "";
                 l=lines.get(++j);
                 while  (!l.contains("```")){
-                    contents += l+"\\n";
+                    contents += l+"\n";
                     l=lines.get(++j);
                 } 
                 j--;
