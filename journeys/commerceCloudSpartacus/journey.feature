@@ -53,6 +53,7 @@ https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -
   * watchInput('input[name=j_username]', "admin")
   * watchInput('input[name=j_password]', "nimda")
   * watchFor( '{}Login')
+  * delay(delays)
   * watchFor( '{}User')
   * watchFor( '{}Customers')
   * watchFor( '{}womenvipsilver@hybris.com')

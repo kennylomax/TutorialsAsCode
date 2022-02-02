@@ -8,7 +8,12 @@ Tested on OSX with JDK 11.0.12, and Docker
 
 ## Prerequisites for OSX
 
-- Use [JDK  11.0.12](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)  (To switch version after downloading: /usr/libexec/java_home -V ,export JAVA_HOME=export JAVA_HOME="/usr/libexec/java_home -v 11.0.12" )
+- Use [JDK  11.0.12](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)  
+```
+To switch version after downloading: 
+/usr/libexec/java_home -V 
+export JAVA_HOME=`/usr/libexec/java_home -v 11.0.12` 
+```
 - Download a SAP Commerce 2011 ZIP from [SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, then personalize and source its contents:
   - curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/commercecloud1/journeysetupexample.sh > journeysetup.sh 
