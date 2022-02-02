@@ -47,9 +47,9 @@ Scenario:
 https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -> User -> Customers -> summercustomer@hybris.com -> PASSWORD -> New Password=12345 -> Confirm New Password=12345 -> SAVE
 """
   * driver 'https://localhost:9002/backoffice'
-  * watchFor( '{button}Advanced')
+  * watchForOptional( '{button}Advanced')
   * delay(delays)
-  * watchFor( '{a}Proceed to localhost (unsafe)')
+  * watchForOptional( '{a}Proceed to localhost (unsafe)')
   * watchInput('input[name=j_username]', "admin")
   * watchInput('input[name=j_password]', "nimda")
   * watchFor( '{}Login')
