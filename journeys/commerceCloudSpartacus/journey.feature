@@ -69,9 +69,9 @@ Scenario:
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
 """
   * driver 'https://localhost:4200'
-  * watchFor( '{button}Advanced')
+  * watchForOptional( '{button}Advanced')
   * delay(delays)
-  * watchFor( '{a}Proceed to localhost (unsafe)')
+  * watchForOptional( '{a}Proceed to localhost (unsafe)')
   * delay(delays)
   * delay(delays)
   * watchFor( '{^}Photosmart E317 Digital Camera')

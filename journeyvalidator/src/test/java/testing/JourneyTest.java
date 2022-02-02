@@ -158,7 +158,7 @@ class JourneyTest {
                     l=lines.get(++j);
                 } 
                 j--;
-                contents=contents.replace("|","\\|");
+//                contents=contents.replace("|","\|");
 //                contents=contents.replace("'","\\\"");
                 String command = "echo '"+contents+"' > "+lastBoldText +";";
                 script.append("echo Command["+i++ +"]: ;");               
