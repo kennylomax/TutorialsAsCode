@@ -88,6 +88,12 @@ Access SAP Commerce @ https://localhost:9002
 https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=admin -> password=nimda -> LOGIN
 ``` 
 
+
+
+https://user-images.githubusercontent.com/6401254/152189954-370d501d-b120-4149-8656-fb196ed7f378.mp4
+
+
+
 Build your Spartacus Storefront and run it locally
 
 ```commands
@@ -108,6 +114,12 @@ Access SAP Commerce @ https://localhost:4200
 ```clickpath:LoginToSpartacusViaWarning
 https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 ``` 
+
+
+https://user-images.githubusercontent.com/6401254/152190009-6c76813f-1264-415b-8693-ab6ff2ea415c.mp4
+
+
+
 Access your Spartacus Storefront @ https://localhost:4200/ and confirm you can buy a product with visa card 44444333322221111
 
 Create a new git repository named concerttours-ccloud in your Github account
@@ -300,6 +312,12 @@ Assign a password to a customer in the backoffice:
 https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -> User -> Customers -> summercustomer@hybris.com -> PASSWORD -> New Password=12345 -> Confirm New Password=12345 -> SAVE
 ``` 
 
+
+
+https://user-images.githubusercontent.com/6401254/152190081-0bcb10d5-76d9-4876-a1cd-4a73f0936a6f.mp4
+
+
+
 Login to Spartacus as that user, select an item and confirm you see voucher details..
 
 Confirm that you can see your new module in the spartacus storefront
@@ -307,6 +325,11 @@ Confirm that you can see your new module in the spartacus storefront
 ```clickpath:SpartacusCustomVoucher
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
 ``` 
+
+
+https://user-images.githubusercontent.com/6401254/152190148-3814ea1a-52ca-4223-aae2-e277332f6cba.mp4
+
+
 
 Commit your code to your Github repository:
 
