@@ -98,7 +98,7 @@ class JourneyTest {
             }
 
             if ( commands &&  !l.startsWith("```commands")){
-                if (l.length()>0){              
+                if (l.length()>0){         
                     if (i>=fromCmd&& i<=toCmd) {
                         script.append("echo Command["+i +"]: ;");               
                         script.append("echo \"\u001b[31m $PWD : \u001b[32m"+l+"\u001b[0m\"; ");
@@ -174,7 +174,6 @@ class JourneyTest {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileTo));
         writer.write(script.toString());
         writer.close();
-        //System.out.println(script.toString());
     }
 
     public void runCommand(String s) throws IOException, InterruptedException {

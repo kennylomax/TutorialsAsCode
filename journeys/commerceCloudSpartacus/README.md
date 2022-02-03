@@ -114,7 +114,7 @@ Create a new git repository named concerttours-ccloud in your Github account
 
 
 ```commands
-curl --user "$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN" -X POST https://api.github.com/user/repos -d "{"name": "concerttours-ccloud", "private": "true"}"
+curl --user "$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN" -X POST https://api.github.com/user/repos -d '{"name": "concerttours-ccloud", "private": "true"}'
 ```
 
 We are now ready to push your code to your Github repository. Before doing so, remove the existing .git folder from your cloud-commerce-sample-setup
