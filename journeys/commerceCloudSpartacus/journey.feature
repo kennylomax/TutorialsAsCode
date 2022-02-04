@@ -5,7 +5,7 @@ Background:
   * def watchInput = function(loc, v) { waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
   * def watchSubmit = function() { waitFor('button[type=submit]').highlight(); click('button[type=submit]') }
   * def watchFor =  function(loc) {  waitFor(loc).highlight().click()   }
-  * def watchForOptional =  function(loc) {  optional(loc).highlight().click()   }
+  * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
 
 @preflightChecks
 Scenario:
@@ -48,7 +48,6 @@ https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -
 """
   * driver 'https://localhost:9002/backoffice'
   * watchForOptional( '{button}Advanced')
-  * delay(delays)
   * watchForOptional( '{a}Proceed to localhost (unsafe)')
   * watchInput('input[name=j_username]', "admin")
   * watchInput('input[name=j_password]', "nimda")
@@ -70,7 +69,6 @@ https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summa
 """
   * driver 'https://localhost:4200'
   * watchForOptional( '{button}Advanced')
-  * delay(delays)
   * watchForOptional( '{a}Proceed to localhost (unsafe)')
   * delay(delays)
   * delay(delays)
@@ -210,16 +208,20 @@ https://portal.commerce.ondemand.com -> Environments -> Backoffice URL ->
   * watchFor( '{}Properties')
   * delay(10000)
   * locateAll("//a[contains(@class, 'sap-icon--show')]")[0].click() 
-  * delay(1000)
-  * watchFor( '{}Copy to Clipboard')
-
+  * delay(5000)
+  * mouse('{}Copy to Clipboard').click()
+  * delay(5000)
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(20000)
+  * delay(40000)
   * watchFor( '{a}dev')
   * delay(20000)
   * locateAll("//fd-icon[starts-with(@class, 'icon-external-link ')]")[1].click() 
   * switchPage('SAP CX Backoffice | Login')
-  * watchInput('input[name=j_username]', robot.clipboard)
+  * input('input[name=j_username]',  Key.META+'v')
+  
+  * delay(5000)
+  * watchInput('input[name=j_username]', ""+Key.Meta+'v'+Key.Meta)
+  * delay(5000)
   * watchInput('input[name=j_password]', robot.clipboard)
   * watchFor( '{}Login')
   * delay(delays)
