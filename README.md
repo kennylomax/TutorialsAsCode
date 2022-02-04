@@ -26,3 +26,27 @@
     - source ./validatejourney.sh upscaleNativeExtension|upscaleCustomExtension|commercecloudSpartacus
     - Videos are generated in the journey folder and can be modified as needed, then dragged into the README
 
+## To add a journey ABC, use the existing ones as examples:
+  - Add a new folder journeys/ABC
+  - Start writing the new tutorial in journeys/ABC/README.md, and embed, as needed,  with
+    - **Terminal commands**:
+      -  preceed with **\```commands** and end with **\```** 
+    - **File contents**:
+      - the closest previous bold text is taken as the absolute location of the file being described
+      - preceed the file contents with **\```file** and end with **\```**
+    - **Clickpaths**:
+      - preceed the clickpath with  **\```clickpath:thisClickPathName** and end with  **\```**
+      - add a karate scenario in a neighbouring **journey.feature** file, in the format:
+```     
+@thisClickPathName
+Scenario:
+"""
+Clickpath text Identical to that in the README (otherwise the text validator will deliberately fail)
+"""
+  * the karate commands that replicate/perform this clickpath
+```
+  - Your README assumes the existence of environment variables:
+    - include a neighbouring **journeysetupexample.sh** file that has anonymized/non sensitive data that you and others will use a a basis to create a neighbouring **journeysetup.sh** file that does contain personalized (sensitive) data. At the start of your README you can tell the user to source that file: **source ./journeysetup.sh**
+
+
+
