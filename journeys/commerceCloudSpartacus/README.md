@@ -343,6 +343,9 @@ git branch -M main
 git remote add origin https://$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN@github.com/$MY_GITHUB_USERNAME/concerttours-ccloud.git
 git push -u origin main
 ```
+
+---
+# The next steps are still under development ...
 ## Deploying to SAP Commerce Cloud
 
 
