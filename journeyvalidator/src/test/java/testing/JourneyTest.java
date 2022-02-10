@@ -21,6 +21,10 @@ class JourneyTest {
 
     @Test
     public void runThruTutorial() throws Exception{
+        System.out.println("!!!!!!!!!!!!!!");
+        System.out.println("!!!!!!!!!!!!!!");
+        System.out.println("!!!!!!!!!!!!!!");
+        System.out.println("!!!!!!!!!!!!!!");
         String journeyName = System.getProperty("journey");
         String fromCmd = System.getProperty("fromCmd");
         String toCmd = System.getProperty("toCmd");
@@ -184,14 +188,18 @@ class JourneyTest {
         Process process = builder.start();
         BufferedReader reader =  new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
-            assertFalse( line.toLowerCase().contains("err!") || 
+        while ((line = reader.readLine()) != null) {       
+            if( line.toLowerCase().contains("err!") || 
                 line.toLowerCase().contains("[error]") || 
                 line.toLowerCase().contains("not found: npm") ||
                 line.toLowerCase().contains("fatal: authentication failed") ||
                 line.toLowerCase().contains("no such file")
-            );
+            ){
+                System.out.println("Erroneous Line is: "+line);
+                fail("Erroneous Line is: "+line);
+            }
+            else
+                System.out.println(line);
          }
         int exitCode = process.waitFor();
         assert exitCode == 0;

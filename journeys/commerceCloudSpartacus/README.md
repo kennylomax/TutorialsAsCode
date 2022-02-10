@@ -167,23 +167,23 @@ import { CustomVoucherModule } from "./custom-voucher/custom-voucher.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+  AppComponent
   ],
   imports: [ 
-    CustomVoucherModule, 
-    BrowserModule.withServerTransition({ appId: "serverApp" }),
-    HttpClientModule,
-    AppRoutingModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    SpartacusModule,
-    ServiceWorkerModule.register("ngsw-worker.js", {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: "registerWhenStable:30000"
-    }),
-    BrowserTransferStateModule
+  CustomVoucherModule, 
+  BrowserModule.withServerTransition({ appId: "serverApp" }),
+  HttpClientModule,
+  AppRoutingModule,
+  StoreModule.forRoot({}),
+  EffectsModule.forRoot([]),
+  SpartacusModule,
+  ServiceWorkerModule.register("ngsw-worker.js", {
+  enabled: environment.production,
+  // Register the ServiceWorker as soon as the app is stable
+  // or after 30 seconds (whichever comes first).
+  registrationStrategy: "registerWhenStable:30000"
+  }),
+  BrowserTransferStateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -213,16 +213,16 @@ import { CmsConfig, ConfigModule } from "@spartacus/core"
  
 @NgModule({
   declarations: [
-    CustomProductSummaryComponent
+  CustomProductSummaryComponent
   ],
   imports: [
-    CommonModule,
-    ConfigModule.withConfig({
-      cmsComponents : {
-        ProductSummaryComponent: {
-          component: CustomProductSummaryComponent
-        }}
-    } as CmsConfig )
+  CommonModule,
+  ConfigModule.withConfig({
+  cmsComponents : {
+  ProductSummaryComponent: {
+  component: CustomProductSummaryComponent
+  }}
+  } as CmsConfig )
   ]
 })
 export class CustomVoucherModule { }
@@ -236,18 +236,18 @@ Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spar
 ```file
 <p>custom-product-summary works!</p>
 <ng-container *ngIf="product$ | async as product">
-    <h1>Product Info: {{product.summary}}</h1>
+  <h1>Product Info: {{product.summary}}</h1>
 </ng-container>
  
  
 <ng-container *ngIf="user$ | async as user">
-    <h1>User info: {{user.name}}</h1>
+  <h1>User info: {{user.name}}</h1>
 </ng-container>
  
 <ng-container *ngIf="voucher">
-    <div class="alert alert-success">
-     Voucher Info : {{voucher[0].code}}
-    </div>
+  <div class="alert alert-success">
+    Voucher Info : {{voucher[0].code}}
+  </div>
 </ng-container>
 ```
 
@@ -274,15 +274,15 @@ export class CustomProductSummaryComponent implements OnInit {
   constructor( private currentProductService: CurrentProductService, private userService:UserAccountFacade, private voucherService:VoucherService) { }
 
   ngOnInit(): void {
-    this.getVoucherDetails()
+  this.getVoucherDetails()
   }
 
   getVoucherDetails(){
-    this.voucherService.getVoucher("an", "example").subscribe(
-      res =>  {  this.voucher = res;}, 
-      err=> {console.log(err);}, 
-      () => {console.log("Get response is completed");}
-    )
+  this.voucherService.getVoucher("an", "example").subscribe(
+  res =>  {  this.voucher = res;}, 
+  err=> {console.log(err);}, 
+  () => {console.log("Get response is completed");}
+  )
   }
 }
 ```
@@ -300,8 +300,8 @@ export class VoucherService {
   constructor(private httpClient:HttpClient) { }
 
   public getVoucher (_userId: any, _productId: any){
-    // const params = new HttpParams().set("userId", userId).set("productId",productId);
-    return this.httpClient.get( "https://my-json-server.typicode.com/kennylomax/spartacusdemojson/vouchers?id=1" )
+  // const params = new HttpParams().set("userId", userId).set("productId",productId);
+  return this.httpClient.get( "https://my-json-server.typicode.com/kennylomax/spartacusdemojson/vouchers?id=1" )
   }
 }
 
@@ -371,7 +371,7 @@ On the assumption that this Build was successfull...
 
 Deploy the build to your SAP Commerce Cloud "dev" Environment:
 ```clickpath:DeployBuild
-https://portal.commerce.ondemand.com -> Builds -> LatestBuild  ->  Deploy to Environment   
+https://portal.commerce.ondemand.com -> Builds -> LatestBuild  ->  Deploy to Environment    
   -> Target Environment = dev 
   -> Data Migration Mode = Initialize database
   -> Deployment Mode = Recreate (fastest, with downtime)
@@ -390,16 +390,59 @@ https://portal.commerce.ondemand.com -> Environments
   -> JS Storefront URL
 ```
 
-Get backoffice admin password and log into back office...
+Get backoffice admin password, log into back office, and also log into the hac
 ```clickpath:GetAdminPwdAndLoginToBackoffice
 https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all -> hcs_admin -> Properties -> admin -> Copy to clipboard
-https://portal.commerce.ondemand.com -> Environments -> Backoffice URL ->
-  -> username = Admin
+<New Browser Tab> -> https://portal.commerce.ondemand.com -> Environments -> Backoffice URL ->
+  -> username = admin
+  -> Password = Password from clipboard
+  -> Login
+<New Browser Tab> -> Backoffice URL with the tail "backoffice/" replaced by "hac/"->
+  -> username = admin
   -> Password = Password from clipboard
   -> Login
 ```
+
 Also log into hac
 
 Configure OCC Credentials (https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
 
-Try purchasing something using visa number 4444333322221111
+You should now have 3 browser tabs open: "SAP Commerce Cloud", "hybris administration console" and "SAP CX Backoffice"
+
+Assuming you have set:
+
+export MY_COMMERCE_CLOUD_DOMAIN=cqz1m-softwarea1-d57-public.model-t.cc.commerce.ondemand.com
+
+and
+
+export MY_COMMERCE_CLOUD_PASSWORD=xxx
+
+
+
+Personalize, then import the impex via the hac:
+```clickpath:ImportCorsFilters
+https://backoffice/hac/
+-> Console -> ImpEx Import 
+-> Import content
+```
+
+
+Personalize, then add corsfilter properties via the hac:
+```clickpath:AddCorsFilterProperties
+https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/
+-> New key...=corsfilter.ycommercewebservices.allowedOrigin
+-> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
+-> add
+-> New key...=corsfilter.ycommercewebservices.allowedMethods
+-> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
+-> add
+-> New key...=corsfilter.ycommercewebservices.allowedHeaders
+-> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
+-> add
+```
+
+Confirm you can purchase an item from Spartacus. Use visa card number 4444333322221111 (with any other card details).
+
+```clickpath:PurchaseWithVisa4444333322221111
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+```

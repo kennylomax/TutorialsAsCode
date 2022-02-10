@@ -10,6 +10,5 @@ public class WebRunner {
     void test() {
         Results results = Runner.path("classpath:testing").parallel(1);
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
-    }     
-   
+    }       
 }

@@ -3,6 +3,7 @@ Feature: CommerceCloud
 Background:
   * def delays = 10000
   * def watchInput = function(loc, v) { waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
+  * def watchAppendInput = function(loc, v) { input(loc, v )  }
   * def watchSubmit = function() { waitFor('button[type=submit]').highlight(); click('button[type=submit]') }
   * def watchFor =  function(loc) {  waitFor(loc).highlight().click()   }
   * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
@@ -13,8 +14,6 @@ Scenario:
   * watchFor( '{a}64-bit / ARM64')
   * delay(delays)
   * waitFor( '{a}64-bit / ARM64')
-
-# pushd; popd;
 
 @LoginToCommerceCloudViaWarning2
 Scenario:
@@ -118,7 +117,7 @@ https://portal.commerce.ondemand.com -> Builds -> Create
 @DeployBuild
 Scenario:
 """
-https://portal.commerce.ondemand.com -> Builds -> LatestBuild  ->  Deploy to Environment   
+https://portal.commerce.ondemand.com -> Builds -> LatestBuild  ->  Deploy to Environment    
   -> Target Environment = dev 
   -> Data Migration Mode = Initialize database
   -> Deployment Mode = Recreate (fastest, with downtime)
@@ -194,8 +193,12 @@ https://portal.commerce.ondemand.com -> Environments
 Scenario:
 """
 https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all -> hcs_admin -> Properties -> admin -> Copy to clipboard
-https://portal.commerce.ondemand.com -> Environments -> Backoffice URL ->
-  -> username = Admin
+<New Browser Tab> -> https://portal.commerce.ondemand.com -> Environments -> Backoffice URL ->
+  -> username = admin
+  -> Password = Password from clipboard
+  -> Login
+<New Browser Tab> -> Backoffice URL with the tail "backoffice/" replaced by "hac/"->
+  -> username = admin
   -> Password = Password from clipboard
   -> Login
 """
@@ -217,11 +220,121 @@ https://portal.commerce.ondemand.com -> Environments -> Backoffice URL ->
   * delay(20000)
   * locateAll("//fd-icon[starts-with(@class, 'icon-external-link ')]")[1].click() 
   * switchPage('SAP CX Backoffice | Login')
-  * input('input[name=j_username]',  Key.META+'v')
-  
+  * delay(2000)
+  * input('input[name=j_username]', 'admin' )
   * delay(5000)
-  * watchInput('input[name=j_username]', ""+Key.Meta+'v'+Key.Meta)
-  * delay(5000)
-  * watchInput('input[name=j_password]', robot.clipboard)
-  * watchFor( '{}Login')
+  * watchFor( '{}Login') 
   * delay(delays)
+  * watchFor( '{}Home') 
+  * switchPage('SAP Commerce Cloud')
+  * delay(5000)
+  * locateAll("//fd-icon[starts-with(@class, 'icon-external-link ')]")[1].click() 
+  * delay(5000)
+  * switchPage('SAP CX Backoffice')
+  * delay(5000)
+  * def getHacUrl = function(locator){ return driver.url.replace("backoffice/", "hac/");  }
+  * def hacUrl = getHacUrl()
+  * driver hacUrl
+  * delay(5000)
+  * input('input[name=j_username]', 'admin' )
+  * delay(5000)
+  * watchFor( '{}login') 
+  * delay(10000)
+
+@ImportCorsFilters
+Scenario:
+"""
+https://backoffice/hac/
+-> Console -> ImpEx Import 
+-> Import content
+"""
+  * def hacURL = 'https://backoffice.'+MY_COMMERCE_CLOUD_DOMAIN+'/hac/'
+  * driver hacURL
+  * delay(5000)
+  * input('input[name=j_username]', 'admin' )
+  * input('input[name=j_password]', MY_COMMERCE_CLOUD_PASSWORD )
+  * watchFor( '{}login') 
+  * delay(5000)
+  * watchFor('/html/body/div[2]/header/div[3]/nav[1]/ul/li[4]/a')
+  * mouse().move('/html/body/div[2]/header/div[3]/nav[1]/ul/li[4]/a').click()
+  * watchFor('{a}ImpEx import')
+  * watchInput( '//html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', 'INSERT_UPDATE OAuthClientDetails;clientId[unique=true]    ;resourceIds       ;scope        ;authorizedGrantTypes                                            ;authorities             ;clientSecret    ;registeredRedirectUri')
+  * watchAppendInput('//html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', [Key.ENTER,'                                   ;client-side              ;hybris            ;basic        ;implicit,client_credentials                                     ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;'])
+  * watchAppendInput( '//html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre',[Key.ENTER,';mobile_android           ;hybris            ;basic        ;authorization_code,refresh_token,password,client_credentials    ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_callback;'])
+  * watchFor('/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[2]')
+  * delay(5000)
+  * watchFor('/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[1]')
+  * delay(69000)
+
+
+@AddCorsFilterProperties
+Scenario:
+"""
+https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/
+-> New key...=corsfilter.ycommercewebservices.allowedOrigin
+-> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
+-> add
+-> New key...=corsfilter.ycommercewebservices.allowedMethods
+-> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
+-> add
+-> New key...=corsfilter.ycommercewebservices.allowedHeaders
+-> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
+-> add
+"""
+  * def hacURL = 'https://backoffice.'+MY_COMMERCE_CLOUD_DOMAIN+'/hac/'
+  * driver hacURL
+  * delay(5000)
+  * input('input[name=j_username]', 'admin' )
+  * input('input[name=j_password]', MY_COMMERCE_CLOUD_PASSWORD )
+  * watchFor( '{}login') 
+  * delay(5000)
+  * watchFor('/html/body/div[2]/header/div[3]/nav[1]/ul/li[1]/a')
+  * mouse().move('/html/body/div[2]/header/div[3]/nav[1]/ul/li[1]/a').click()
+  * watchFor('{a}configuration')
+  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigin')
+  * watchInput( 'input[id=configValue]', ['https://jsapps.', MY_COMMERCE_CLOUD_DOMAIN])
+  * watchFor( 'button[id=addButton]')
+  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
+  * watchInput( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
+  * watchFor( 'button[id=addButton]')
+  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
+  * watchInput( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
+  * watchFor( 'button[id=addButton]')
+  * delay(69000)
+
+
+@PurchaseWithVisa4444333322221111
+Scenario:
+"""
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+"""
+  * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
+  * driver spartacusURL
+  * watchFor('{a}Sign In / Register')
+  * watchFor('{a}Register')
+  * watchInput( 'input[name=firstname]', 'Bob')
+  * watchInput( 'input[name=lastname]', 'Builder')
+  * watchInput( 'input[name=email]', 'bob@builder.com')
+  * watchInput( 'input[name=password]', 'Builder123!')
+  * watchInput( 'input[name=confirmpassword]', 'Builder123!')
+  * watchFor( 'input[name=newsletter]')
+  * watchFor( 'input[name=termsandconditions]')
+  * watchSubmit()
+  * watchFor( '{h3}DSC-T90')
+  * watchFor( '{button}Add to cart')
+  * watchFor( '{a}proceed to checkout')
+  * watchInput( 'input[type=email]', 'bob@builder.com')
+  * watchInput( 'input[type=password]', 'Builder123!')
+  * watchSubmit()
+
+
+   Add to cart 
+  
+
+
+  
+
+
+
+
+  
