@@ -2,9 +2,9 @@
 
 - these journeys serve as demos and tutorials, **and  as end2end tests, that can be executed automatically on Docker and in CICD Pipelines** 
 - Current Tutorials are:
+  - [Running CCV2 and Spartacus locally, then on Commerce Cloud, then with Kyma](journeys/commerceCloudSpartacus)
   - [Upscale Custom Extension](journeys/upscaleCustomExtension)
   - [Upscale Native Extension](journeys/upscaleNativeExtension)
-  - [CCV2 and Spartacus](journeys/commerceCloudSpartacus)
 - their particular format makes them followable by humans but also by a computer, meaning they can be run and the journey verified in CICD pipeline.
 - when run in Docker/CICD
   - **Karate** features execute the clickpaths 
