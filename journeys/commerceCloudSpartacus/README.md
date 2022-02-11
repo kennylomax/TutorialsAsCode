@@ -1,19 +1,13 @@
 # Tutorials as Code - Tutorial and End2End Test in One: Spartacus and CCV2
 
-## Background
-these journeys serve as tutorials and end2end tests, that can be run automatically on Docker (for inclusion in CICDs)
-when run in Docker, videos of the clickpaths are created, for optional inclusion in the respective READMEs.
-The proposal is to have a series of these journey, to serve as tutorials, demos, and also as end-to-end tests for inclusion in CICD pipelines and onboarding material.
-Tested on OSX with JDK 11.0.12, and Docker
+* Get CCV2 and Spartacus running locally.
+* Then deploy to BTP
+* Then wire up to Kyma for further fun
 
 ## Prerequisites for OSX
 
-- Use [JDK  11.0.12](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)  
-```
-To switch version after downloading: 
-/usr/libexec/java_home -V 
-export JAVA_HOME=`/usr/libexec/java_home -v 11.0.12` 
-```
+- Use [JDK  11.0.12](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)   To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
+
 - Download a SAP Commerce 2011 ZIP from [SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, then personalize and source its contents:
   - curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/commercecloud1/journeysetupexample.sh > journeysetup.sh 
@@ -23,6 +17,7 @@ export JAVA_HOME=`/usr/libexec/java_home -v 11.0.12`
 
 # Journey
 
+## Get Commerce Cloud running locally 
 Create a new directory and clone the Cloud Commerce Sample Setup into it:
 
 ```commands
@@ -93,7 +88,7 @@ https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=
 https://user-images.githubusercontent.com/6401254/152189954-370d501d-b120-4149-8656-fb196ed7f378.mp4
 
 
-
+## Get Spartacus running locally 
 Build your Spartacus Storefront and run it locally
 
 ```commands
@@ -122,21 +117,8 @@ https://user-images.githubusercontent.com/6401254/152190009-6c76813f-1264-415b-8
 
 Access your Spartacus Storefront @ https://localhost:4200/ and confirm you can buy a product with visa card 44444333322221111
 
-Create a new git repository named concerttours-ccloud in your Github account
 
-
-```commands
-curl --user "$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN" -X POST https://api.github.com/user/repos -d '{"name": "concerttours-ccloud", "private": "true"}'
-```
-
-We are now ready to push your code to your Github repository. Before doing so, remove the existing .git folder from your cloud-commerce-sample-setup
-
-```commands
-cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
-rm -rf .git
-```
-
-## Modifying your Spartacus storefront
+## Modify your Spartacus storefront
 
 Install angular CLI:
 
@@ -312,10 +294,7 @@ Assign a password to a customer in the backoffice:
 https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -> User -> Customers -> summercustomer@hybris.com -> PASSWORD -> New Password=12345 -> Confirm New Password=12345 -> SAVE
 ``` 
 
-
-
 https://user-images.githubusercontent.com/6401254/152190081-0bcb10d5-76d9-4876-a1cd-4a73f0936a6f.mp4
-
 
 
 Login to Spartacus as that user, select an item and confirm you see voucher details..
@@ -327,6 +306,22 @@ https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summa
 ``` 
 
 https://user-images.githubusercontent.com/6401254/152190148-3814ea1a-52ca-4223-aae2-e277332f6cba.mp4
+
+
+## Check your CCV2 Spartacus code into github
+Create a new git repository named concerttours-ccloud in your Github account
+
+
+```commands
+curl --user "$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN" -X POST https://api.github.com/user/repos -d '{"name": "concerttours-ccloud", "private": "true"}'
+```
+
+Remove the existing .git folder from your cloud-commerce-sample-setup
+
+```commands
+cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
+rm -rf .git
+```
 
 Commit your code to your Github repository:
 
@@ -340,15 +335,10 @@ git branch -M main
 git remote add origin https://$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN@github.com/$MY_GITHUB_USERNAME/concerttours-ccloud.git
 git push -u origin main
 ```
-
 ---
-# The next steps are still under development ...
-## Deploying to SAP Commerce Cloud
 
-
-These steps require that you already have :
-- a subscription @ https://portal.commerce.ondemand.com/subscription, with an environment in there called "dev". If not you should ping XXXX?
-- a commerce cloud repo checked into github.com/$MY_GITHUB_USERNAME/concerttours-ccloud.git
+## Deploy your CCV2 and Spartacus solution to SAP Commerce Cloud
+The following steps assume you have a subscription @ https://portal.commerce.ondemand.com/subscription, with an environment in there called "dev". 
 
 Create a reference to your Github Commerce Cloud Repository from Commerce Cloud:
 ```clickpath:CreateCCRepo
@@ -403,11 +393,10 @@ https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all 
   -> Login
 ```
 
-Also log into hac
-
-Configure OCC Credentials (https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
-
-You should now have 3 browser tabs open: "SAP Commerce Cloud", "hybris administration console" and "SAP CX Backoffice"
+You should now have 3 browser tabs open:
+* "SAP Commerce Cloud", 
+* "hybris administration console" and 
+* "SAP CX Backoffice"
 
 Assuming you have set:
 
@@ -417,16 +406,22 @@ and
 
 export MY_COMMERCE_CLOUD_PASSWORD=xxx
 
-Personalize, then import the impex via the hac:
+The following steps are required to set up OCC credentials as discussed  [here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors). To do so:
+
+
+Import this impex via the hac (hybris Administration Console):
 ```clickpath:ImportCorsFilters
-https://backoffice/hac/
--> Console -> ImpEx Import 
+https://backoffice/hac/ -> Console -> ImpEx Import  
 -> Import content
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;authorizedGrantTypes  ;authorities   ;clientSecret  ;registeredRedirectUri
+  ;client-side  ;hybris  ;basic  ;implicit,client_credentials   ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;
+  ;mobile_android   ;hybris  ;basic  ;authorization_code,refresh_token,password,client_credentials  ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_callback;
 ```
 
-Personalize, then add corsfilter properties via the hac:
+Personalize, then add corsfilter properties via the hac (hybris Administration Console):
 ```clickpath:AddCorsFilterProperties
-https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/
+https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/-
+-> Platform -> Configuration
 -> New key...=corsfilter.ycommercewebservices.allowedOrigin
 -> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
 -> add
@@ -437,9 +432,39 @@ https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/
 -> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
 -> add
 ```
+## Use Spartacus
+
 Register an account in Spartacus so you can then  buy something
 
 ```clickpath:RegisterInSpartacus
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} -> Sign In / Register -> Register ->
+  -> Register yourself
+  -> Check both checkboxes
+  -> Register
+```
+
+Confirm you can purchase an item from Spartacus. Use visa card number 4444333322221111 (with any other card details).
+```clickpath:MakeFirstPurchaseWithVisa4444333322221111
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
+  -> DSC-T90 -> Add To Cart -> Proceed To Checkout 
+  -> Fill in Shipping Address -> Continue
+  -> Fill in Shipping Address -> Continue
+  -> Specify Shipping Method -> Continue
+  -> Specify payment type as Visa card with number 4444333322221111 -> Continue
+  -> Check "I am confirming.." -> Place Order
+
+```
+
+---
+Under construction....
+
+## Interacting with Kyma
+
+(More at ) https://developers.sap.com/tutorials/cp-kyma-mocks.html)
+
+Create a System in the SAP BTP which will be used to pair SAP Commerce  to the Kyma runtime. This step will be performed at the Global account level of your SAP BTP account.  Open your global SAP BTP account and choose the System Landscape > Systems menu options.
+
+```clickpath:CreateBTPSystem
 https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
 ```
 
@@ -447,3 +472,35 @@ Confirm you can purchase an item from Spartacus. Use visa card number 4444333322
 ```clickpath:MakeFirstPurchaseWithVisa4444333322221111
 https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
 ```
+Choose the Register System option, provide the name commerce-mock, set the type to SAP Commerce Cloud and then choose Register.
+
+
+Copy the Token value and close the window. This value will expire in five minutes and will be needed in a subsequent step.
+
+If the token expires before use, you can obtain a new one by choosing the Display Token option shown next to the entry in the Systems list.
+
+
+Create a Formation
+In this step, you will create a Formation. A Formation is used to connect one or more Systems created in the SAP BTP to a runtime. This step will be performed at the Global account level of your SAP BTP account.
+
+Within your global SAP BTP account, choose the System Landscape > Formations menu options. Choose the Create Formation option.
+
+Provide a Name, choose your Subaccount where the Kyma runtime is enabled, choose the commerce-mock System. Choose Create.
+
+
+The pairing process will establish a trust between the Commerce mock application and in this case the SAP Kyma runtime. Once the pairing is complete, the registration of APIs and business events can be performed. This process allow developers to utilize the APIs and business events with the authentication aspects handled automatically.
+
+CCV2 Backoffice → System → API → Destination Target → Default_Template → Wizard → Paste URL
+Kyma → Application/Systems → Create Application → CreateBinding → Namespace
+
+
+CCV2 Backoffice → System → API → Destination Target → Default_Template → Wizard → Paste URL
+Kyma → Application/Systems → Create Application → CreateBinding → Namespace
+
+Set up Events
+
+Kyma → Service Management → Catalog → CC Events v1 → Add Once
+
+Kyma → Workloads → Function → Configuration → CreateEventSubscription → <Event>
+
+OrderCreation works, some do not.
