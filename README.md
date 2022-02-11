@@ -1,16 +1,14 @@
 # Tutorials as Code - Tutorials and End2End Tests in one:
-
-- these journeys serve as demos and tutorials, **and  as end2end tests, that can be executed automatically on Docker and in CICD Pipelines** 
 - Current Tutorials are:
   - [Running CCV2 and Spartacus locally, then on Commerce Cloud, then with Kyma](journeys/commerceCloudSpartacus)
   - [Upscale Custom Extension](journeys/upscaleCustomExtension)
   - [Upscale Native Extension](journeys/upscaleNativeExtension)
+- these journeys serve as demos and tutorials, **and  as end2end tests, that can be executed automatically on Docker and in CICD Pipelines** 
 - their particular format makes them followable by humans but also by a computer, meaning they can be run and the journey verified in CICD pipeline.
 - when run in Docker/CICD
   - **Karate** features execute the clickpaths 
   - **videos of the clickpaths** are created, for optional inclusion in the respective READMEs.
 - The proposal is to have a series of these journey, to  serve as *tutorials*, *demos*, and also as *end-to-end tests* for inclusion in CICD pipelines and onboarding material.
-
 
 ## Options:
   - **To follow those tutorials manually**, simply follow the readmes in those tutorials
