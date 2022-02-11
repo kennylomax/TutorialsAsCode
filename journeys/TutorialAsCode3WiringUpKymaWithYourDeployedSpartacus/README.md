@@ -6,7 +6,7 @@ In this journey we:
 
 ## Prerequisites for OSX
 
-- You have CCV2 and Spartacus running locally, and you have personalized and sourced journeysetup.sh, both of which are described in  [TutorialAsCode1: Running CCV2 and Spartacus locally](journeys/TutorialAsCode1LocalCCV2AndSpartacus)
+- You have CCV2 and Spartacus running locally, and you have personalized and sourced journeysetup.sh, both of which are described in  [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)
 - You have deployed CCV2 and Spartacus to SAP Commerce Cloud as described in [TutorialAsCode2: Deploying CCV2 and Spartacus to Commerce Cloud](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode2DeployCCV2AndSpartacusToCommerceCloud)
 
 # Journey
