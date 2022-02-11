@@ -302,8 +302,7 @@ https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/
   * watchFor( 'button[id=addButton]')
   * delay(69000)
 
-
-@PurchaseWithVisa4444333322221111
+@RegisterInSpartacus
 Scenario:
 """
 https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
@@ -320,17 +319,53 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
   * watchFor( 'input[name=newsletter]')
   * watchFor( 'input[name=termsandconditions]')
   * watchSubmit()
+
+@MakeFirstPurchaseWithVisa4444333322221111
+Scenario:
+"""
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+"""
+  * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
+  * driver spartacusURL
   * watchFor( '{h3}DSC-T90')
   * watchFor( '{button}Add to cart')
   * watchFor( '{a}proceed to checkout')
   * watchInput( 'input[type=email]', 'bob@builder.com')
   * watchInput( 'input[type=password]', 'Builder123!')
   * watchSubmit()
-
-
-   Add to cart 
+  * delay(5000)
+  * waitFor('/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').click()
+  * delay(5000)
+  * watchFor( '{}Albania')
+  * watchInput( 'input[formcontrolname=firstName]', 'Bob')
+  * watchInput( 'input[formcontrolname=lastName]', 'Builder')
+  * watchInput( 'input[formcontrolname=line1]', 'BobStreet')
+  * watchInput( 'input[formcontrolname=town]', 'BobTown')
+  * watchInput( 'input[formcontrolname=line1]', 'Bob1')
+  * watchInput( 'input[formcontrolname=postalCode]', '80798')
+  * watchFor( '{button}Continue')
+  * delay(5000)
+  * watchFor( '{button}Continue')
+  * delay(5000)
+  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').click()
+  * watchFor( '{}Visa')
+  * watchInput( 'input[formcontrolname=accountHolderName]', 'Bob Builder')
+  * watchInput( 'input[formcontrolname=cardNumber]', '4444333322221111')
+  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').click()
+  * watchFor( '{}01')
+  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').click()
+  * watchFor( '{}2024')
+  * watchInput( 'input[formcontrolname=cvn]', '123')
+  * watchFor( '{button}Continue')
+  * delay(5000)
+  * watchFor( 'input[formcontrolname=termsAndConditions]')
+  * watchFor( '{button}Place Order')
+  * delay(5000)
   
-
 
   
 

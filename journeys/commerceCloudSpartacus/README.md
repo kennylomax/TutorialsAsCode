@@ -326,10 +326,7 @@ Confirm that you can see your new module in the spartacus storefront
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
 ``` 
 
-
 https://user-images.githubusercontent.com/6401254/152190148-3814ea1a-52ca-4223-aae2-e277332f6cba.mp4
-
-
 
 Commit your code to your Github repository:
 
@@ -420,15 +417,12 @@ and
 
 export MY_COMMERCE_CLOUD_PASSWORD=xxx
 
-
-
 Personalize, then import the impex via the hac:
 ```clickpath:ImportCorsFilters
 https://backoffice/hac/
 -> Console -> ImpEx Import 
 -> Import content
 ```
-
 
 Personalize, then add corsfilter properties via the hac:
 ```clickpath:AddCorsFilterProperties
@@ -443,9 +437,13 @@ https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/
 -> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
 -> add
 ```
+Register an account in Spartacus so you can then  buy something
+
+```clickpath:RegisterInSpartacus
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+```
 
 Confirm you can purchase an item from Spartacus. Use visa card number 4444333322221111 (with any other card details).
-
-```clickpath:PurchaseWithVisa4444333322221111
+```clickpath:MakeFirstPurchaseWithVisa4444333322221111
 https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
 ```
