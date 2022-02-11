@@ -8,7 +8,7 @@
 
 - install golang: brew install go
 - Download the file journeysetupexample.sh to journeysetup.sh and personalize its contents
-  - curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/upscaleNativeExtension/journeysetupexample.sh > journeysetup.sh
+  - curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleNativeExtension/journeysetupexample.sh > journeysetup.sh
   - source ./journeysetup.sh
 
 # Journey
@@ -17,9 +17,9 @@ Create a website in $MY_JOURNEY_DIR with the following 3 files:
 ```commands
 mkdir -p $MY_JOURNEY_DIR
 cd $MY_JOURNEY_DIR
-curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/upscaleCustomExtension/material/main.go > main.go
-curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/upscaleCustomExtension/material/index.html > index.html
-curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/upscaleCustomExtension/material/script.js > script.js
+curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleCustomExtension/material/main.go > main.go
+curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleCustomExtension/material/index.html > index.html
+curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleCustomExtension/material/script.js > script.js
 ```
 
 Run the server that will listen on port 3000:

@@ -12,7 +12,7 @@
 - pm2: npm install pm2 -g
 - mvn: brew install mvn
 - Download the file journeysetupexample.sh to journeysetup.sh and personalize its contents:
-  - curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/upscaleNativeExtension/journeysetupexample.sh > journeysetup.sh 
+  - curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleNativeExtension/journeysetupexample.sh > journeysetup.sh 
   - source ./journeysetup.sh 
 
 # Journey
@@ -57,8 +57,8 @@ sed -i -e 's/"inlineSources": true,/"inlineSources": true, "strictNullChecks":fa
 
 Adjust/Create 2 new files:
 ```commands 
-curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/upscaleNativeExtension/my-first-native-extension.component.ts > projects/my-first-native-extension/src/lib/my-first-native-extension.component.ts
-curl https://raw.githubusercontent.com/kennylomax/SelfValidatingJourney/main/journeys/upscaleNativeExtension/my-first-native-extension.module.ts > projects/my-first-native-extension/src/lib/my-first-native-extension.module.ts
+curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleNativeExtension/my-first-native-extension.component.ts > projects/my-first-native-extension/src/lib/my-first-native-extension.component.ts
+curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleNativeExtension/my-first-native-extension.module.ts > projects/my-first-native-extension/src/lib/my-first-native-extension.module.ts
 ``` 
  
 Build and package:
