@@ -1,6 +1,6 @@
 # Tutorials as Code - Tutorial and End2End Test in One: Spartacus and CCV2
 In this journey we:
-* Get CCV2 and Spartacus running locally.
+* Get CCV2 and Spartacus running locally and extends Spartacus with custom component
 * Other journies deploy to BTP and wire up to Kyma for further fun
 
 ## Prerequisites for OSX
@@ -110,7 +110,6 @@ https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 
 
 https://user-images.githubusercontent.com/6401254/152190009-6c76813f-1264-415b-8693-ab6ff2ea415c.mp4
-
 
 
 Access your Spartacus Storefront @ https://localhost:4200/ and confirm you can buy a product with visa card 44444333322221111
