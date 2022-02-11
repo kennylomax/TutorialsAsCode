@@ -8,10 +8,10 @@ In this journey we:
 - Use [JDK  11.0.12](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)   To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
 
 - Download a SAP Commerce 2011 ZIP from [SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
-- Download the file journeysetupexample.sh to journeysetup.sh, then personalize and source its contents:
+- Download the file journeysetupexample.sh to journeysetup.sh, 
   - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus/journeysetupexample.sh > journeysetup.sh 
-  - personlize its contents
-  - source the file: source journeysetup.sh 
+  - personalize its contents, and then
+  - source its contents: source journeysetup.sh 
 
 # Journey
 
