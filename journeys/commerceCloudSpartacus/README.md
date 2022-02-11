@@ -1,5 +1,5 @@
 # Tutorials as Code - Tutorial and End2End Test in One: Spartacus and CCV2
-
+In this journey we:
 * Get CCV2 and Spartacus running locally.
 * Then deploy to BTP
 * Then wire up to Kyma for further fun
