@@ -85,13 +85,17 @@ https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all 
   -> Login
 ```
 
+
+https://user-images.githubusercontent.com/6401254/153720221-8df0d4db-9768-4123-9149-c28eab7cbf65.mov
+
+
 You should now have 3 browser tabs open:
 * "SAP Commerce Cloud", 
 * "hybris administration console" and 
 * "SAP CX Backoffice"
 
 Set 2 more useful environment variables:
-* MY_COMMERCE_CLOUD_DOMAIN to the domain assigned to your backoffice, for example:
+* MY_COMMERCE_CLOUD_DOMAIN to the domain assigned to your backoffice,
 * MY_COMMERCE_CLOUD_PASSWORD the admin password you found in the above clickpaths
 
 for example: 
