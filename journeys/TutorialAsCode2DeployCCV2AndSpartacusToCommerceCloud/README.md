@@ -130,6 +130,9 @@ https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/-
 -> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
 -> add
 ```
+
+https://user-images.githubusercontent.com/6401254/153720457-54561ef2-befb-492b-9885-c66b55d4d1a7.mov
+
 ## You can now use your deployed Spartacus
 
 Register an account in Spartacus so you can purchase something
