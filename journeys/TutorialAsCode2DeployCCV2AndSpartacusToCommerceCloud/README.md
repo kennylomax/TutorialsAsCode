@@ -44,6 +44,9 @@ https://portal.commerce.ondemand.com -> Builds -> LatestBuild  ->  Deploy to Env
   -> Deployment Mode = Recreate (fastest, with downtime)
   -> Deploy -> Deploy
 ```
+
+https://user-images.githubusercontent.com/6401254/153718241-9189418f-0b71-44e9-bb35-b9b2ce44c2d1.mp4
+
 On the assumption that the deployment was successful...
 
 Allow access to the endpoints, and access Spartacus..
