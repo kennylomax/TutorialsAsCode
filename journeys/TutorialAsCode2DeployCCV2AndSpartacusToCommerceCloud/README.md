@@ -19,6 +19,10 @@ https://portal.commerce.ondemand.com -> Repository
   -> Save
 ```
 
+
+https://user-images.githubusercontent.com/6401254/153717099-1a72c469-0dbe-453b-aa77-422551c72b01.mp4
+
+
 Trigger a build of this repository in SAP Commerce Cloud:
 ```clickpath:TriggerABuild
 https://portal.commerce.ondemand.com -> Builds -> Create 
@@ -26,6 +30,10 @@ https://portal.commerce.ondemand.com -> Builds -> Create
   -> Git Branch or Tag = main
   -> Save
 ```
+
+https://user-images.githubusercontent.com/6401254/153717152-c68550b8-699c-4534-8f7f-71a22cb79d0e.mp4
+
+
 On the assumption that this Build was successful...
 
 Deploy the build to your SAP Commerce Cloud "dev" Environment:
