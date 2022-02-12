@@ -267,59 +267,6 @@ https://backoffice/hac/
   * delay(69000)
 
 
-@AddCorsFilterProperties
-Scenario:
-"""
-https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/
--> New key...=corsfilter.ycommercewebservices.allowedOrigin
--> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
--> add
--> New key...=corsfilter.ycommercewebservices.allowedMethods
--> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
--> add
--> New key...=corsfilter.ycommercewebservices.allowedHeaders
--> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
--> add
-"""
-  * def hacURL = 'https://backoffice.'+MY_COMMERCE_CLOUD_DOMAIN+'/hac/'
-  * driver hacURL
-  * delay(5000)
-  * input('input[name=j_username]', 'admin' )
-  * input('input[name=j_password]', MY_COMMERCE_CLOUD_PASSWORD )
-  * watchFor( '{}login') 
-  * delay(5000)
-  * watchFor('/html/body/div[2]/header/div[3]/nav[1]/ul/li[1]/a')
-  * mouse().move('/html/body/div[2]/header/div[3]/nav[1]/ul/li[1]/a').click()
-  * watchFor('{a}configuration')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigin')
-  * watchInput( 'input[id=configValue]', ['https://jsapps.', MY_COMMERCE_CLOUD_DOMAIN])
-  * watchFor( 'button[id=addButton]')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
-  * watchInput( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
-  * watchFor( 'button[id=addButton]')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
-  * watchInput( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
-  * watchFor( 'button[id=addButton]')
-  * delay(69000)
-
-@RegisterInSpartacus
-Scenario:
-"""
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
-"""
-  * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
-  * driver spartacusURL
-  * watchFor('{a}Sign In / Register')
-  * watchFor('{a}Register')
-  * watchInput( 'input[name=firstname]', 'Bob')
-  * watchInput( 'input[name=lastname]', 'Builder')
-  * watchInput( 'input[name=email]', 'bob@builder.com')
-  * watchInput( 'input[name=password]', 'Builder123!')
-  * watchInput( 'input[name=confirmpassword]', 'Builder123!')
-  * watchFor( 'input[name=newsletter]')
-  * watchFor( 'input[name=termsandconditions]')
-  * watchSubmit()
-
 @MakeFirstPurchaseWithVisa4444333322221111
 Scenario:
 """
