@@ -1,5 +1,5 @@
-# Tutorials as Code - Tutorial and End2End Test in One: Spartacus and CCV2
-In this journey we:
+# Tutorials as Code - Getting CCV2 and Spartacus to run locally, then customizing Spartacus
+In this journey we
 * Get CCV2 and Spartacus running locally, then extend Spartacus with a custom component
 * Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondemand.com/), then wire up to [Kyma](https://github.com/kyma-project/kyma) for further fun
 
