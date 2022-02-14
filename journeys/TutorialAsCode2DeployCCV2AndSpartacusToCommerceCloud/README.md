@@ -1,4 +1,4 @@
-# Tutorials as Code - Tutorial and End2End Test in One: Spartacus and CCV2
+# Tutorials as Code - Deploying Spartacus and CCV2 to SAP Commerce Cloud
 In this journey we  deploy to SAP Commerce Cloud and configure Spartacus so we can purchase something.
 
 ## Prerequisites for OSX
