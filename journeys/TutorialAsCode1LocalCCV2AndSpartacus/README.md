@@ -307,13 +307,8 @@ https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summa
 https://user-images.githubusercontent.com/6401254/152190148-3814ea1a-52ca-4223-aae2-e277332f6cba.mp4
 
 
-## Check your CCV2 Spartacus code into github
-Create a new git repository named concerttours-ccloud in your Github account
-
-
-```commands
-curl --user "$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN" -X POST https://api.github.com/user/repos -d '{"name": "concerttours-ccloud", "private": "true"}'
-```
+## Check your CCV2 Spartacus code into Github.tools.sap
+Create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account
 
 Remove the existing .git folder from your cloud-commerce-sample-setup
 
@@ -331,6 +326,6 @@ git init
 git add *
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN@github.com/$MY_GITHUB_USERNAME/concerttours-ccloud.git
+git remote add origin https://$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN@github.tools.sap/$MY_GITHUB_USERNAME/concerttours-ccloud.git
 git push -u origin main
 ```
