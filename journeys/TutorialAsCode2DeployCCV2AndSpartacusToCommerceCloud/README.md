@@ -13,7 +13,7 @@ In this journey we  deploy to SAP Commerce Cloud and configure Spartacus so we c
 Create a reference to your Github Commerce Cloud Repository from within Commerce Cloud:
 ```clickpath:CreateCCRepo
 https://portal.commerce.ondemand.com -> Repository 
-  -> Repository URL = github.com/$MY_GITHUB_USERNAME/concerttours-ccloud
+  -> Repository URL = github.tools.sap/$MY_GITHUB_USERNAME/concerttours-ccloud.git
   -> Username = $MY_GITHUB_USERNAME
   -> Token = $MY_GITHUB_TOKEN
   -> Save
