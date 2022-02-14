@@ -114,7 +114,7 @@ https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 https://user-images.githubusercontent.com/6401254/152190009-6c76813f-1264-415b-8693-ab6ff2ea415c.mp4
 
 
-Access your Spartacus Storefront @ https://localhost:4200/ and confirm you can buy a product with visa card 44444333322221111
+Access your Spartacus Storefront @ https://localhost:4200/ and look around :)
 
 
 ## Modify your Spartacus storefront
