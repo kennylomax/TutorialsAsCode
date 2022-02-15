@@ -5,7 +5,6 @@ export MY_GITHUB_USERNAME=xx
 # Token with repo and write:packages permissions
 export MY_GITHUB_TOKEN=xx
 export MY_GITHUB_EMAIL=xx
-export NOW=$( date '+%s000' )
 export MY_JOURNEY_DIR=~/journey/$NOW
 
 # Set to the version you are downlading

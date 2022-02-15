@@ -10,9 +10,9 @@ export MY_UPSCALE_EMAIL=xx
 export MY_UPSCALE_PASSWORD=xx
 export MY_GITHUB_USERNAME=xx
 export MY_GITHUB_EMAIL=xx
+# Token to your (new?) github repo that you will be pushing to, with repo and write:packages permissions
 export MY_GITHUB_TOKEN=xx
 export MY_DOWNLOAD_FOLDER=xx
-export NOW=$( date '+%s000' )
 export MY_JOURNEY_DIR=~/journey/$NOW
 
 

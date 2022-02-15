@@ -21,11 +21,7 @@ class JourneyTest {
 
     @Test
     public void runThruTutorial() throws Exception{
-        System.out.println("!!!!!!!!!!!!!!");
-        System.out.println("!!!!!!!!!!!!!!");
-        System.out.println("!!!!!!!!!!!!!!");
-        System.out.println("!!!!!!!!!!!!!!");
-        String journeyName = System.getProperty("journey");
+        String journeyName = System.getProperty("journey");        
         String fromCmd = System.getProperty("fromCmd");
         String toCmd = System.getProperty("toCmd");
         String path = String.valueOf(System.getProperty("Path"));
@@ -79,7 +75,6 @@ class JourneyTest {
         int i=0;
         for (int j=0; j<lines.size() ; j++){
             String l=lines.get(j);
-            
             if ( l.contains("**") && l.indexOf("**")  != l.lastIndexOf("**")){
                 lastBoldText = l.substring(l.indexOf("**")+2, l.lastIndexOf("**"));
             }
@@ -162,16 +157,16 @@ class JourneyTest {
                     l=lines.get(++j);
                 } 
                 j--;
-//                contents=contents.replace("|","\|");
+//                contents=contents.replace("|","\\|");  // Command 36 of TutorialAsCode1LocalCCV2AndSpartacus
 //                contents=contents.replace("'","\\\"");
                 String command = "echo '"+contents+"' > "+lastBoldText +";";
                 script.append("echo Command["+i++ +"]: ;");               
                     if (i>fromCmd&& i<toCmd){
-                        script.append("echo \"\u001b[32m $PWD :  \u001b[32m"+command+"\u001b[0m\"; ");
+                        script.append("echo \"\u001b[32m $PWD :  \u001b[32m"+command.replace("|","\\|")+"\u001b[0m\"; ");
                         script.append(command);
                     }
                     else {
-                        script.append("echo \"\u001b[31m $PWD :  \u001b[31m"+command+"\u001b[0m\"; ");
+                        script.append("echo \"\u001b[31m $PWD :  \u001b[31m"+command.replace("|","\\|")+"\u001b[0m\"; ");
                     }
             }
         }

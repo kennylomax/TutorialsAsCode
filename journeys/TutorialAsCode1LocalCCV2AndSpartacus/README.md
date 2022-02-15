@@ -83,8 +83,6 @@ Access SAP Commerce @ https://localhost:9002
 https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=admin -> password=nimda -> LOGIN
 ``` 
 
-
-
 https://user-images.githubusercontent.com/6401254/152189954-370d501d-b120-4149-8656-fb196ed7f378.mp4
 
 
@@ -115,6 +113,8 @@ https://user-images.githubusercontent.com/6401254/152190009-6c76813f-1264-415b-8
 
 
 Access your Spartacus Storefront @ https://localhost:4200/ and look around :)
+
+Note we have not yet set up OCC  Credentials, as [discussed here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors), so you will not be able, for example, to register a user.   This is done in the next tutorial.
 
 
 ## Modify your Spartacus storefront
@@ -211,7 +211,6 @@ export class CustomVoucherModule { }
 
 Confirm that you can see your new module in the spartacus storefront
 
-**CLICKPath to see custom-product-summary works!
 
 Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore/src/app/custom-voucher/custom-product-summary/custom-product-summary.component.html** to
 ```file
@@ -300,11 +299,14 @@ Login to Spartacus as that user, select an item and confirm you see voucher deta
 
 Confirm that you can see your new module in the spartacus storefront
 
+(Note for testing team: Karate can run this clickpath for version CXCOMM201100P_15-70005693 but  gives an error when running CXCOMM210500P_8-70005661..  GET .../occ/v2/electronics-spa/cms/pages?lang=en&curr=USD net::ERR_CERT_AUTHORITY_INVALID.  To be investigated..)
+
 ```clickpath:SpartacusCustomVoucher
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
 ``` 
 
 https://user-images.githubusercontent.com/6401254/152190148-3814ea1a-52ca-4223-aae2-e277332f6cba.mp4
+
 
 
 ## Check your CCV2 Spartacus code into Github.tools.sap
