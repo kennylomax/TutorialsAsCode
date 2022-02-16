@@ -155,7 +155,7 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} -> Sign In / Register -> Register ->
   * watchFor('{a}Register')
   * watchInput( 'input[name=firstname]', 'Bob')
   * watchInput( 'input[name=lastname]', 'Builder')
-  * watchInput( 'input[name=email]', 'bob@builder.com')
+  * watchInput( 'input[name=email]', 'bob@tbuilder.com')
   * watchInput( 'input[name=password]', 'Builder123!')
   * watchInput( 'input[name=confirmpassword]', 'Builder123!')
   * watchFor( 'input[name=newsletter]')
@@ -172,7 +172,7 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
   * watchFor( '{h3}DSC-T90')
   * watchFor( '{button}Add to cart')
   * watchFor( '{a}proceed to checkout')
-  * watchInput( 'input[type=email]', 'bob@builder.com')
+  * watchInput( 'input[type=email]', 'bob@thebuilder.com')
   * watchInput( 'input[type=password]', 'Builder123!')
   * watchSubmit()
   * delay(5000)
@@ -193,7 +193,7 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
   * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
   * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').click()
   * watchFor( '{}Visa')
-  * watchInput( 'input[formcontrolname=accountHolderName]', 'Bob Builder')
+  * watchInput( 'input[formcontrolname=accountHolderName]', 'Bob The Builder')
   * watchInput( 'input[formcontrolname=cardNumber]', '4444333322221111')
   * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').highlight()
   * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').click()
@@ -207,8 +207,6 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
   * watchFor( 'input[formcontrolname=termsAndConditions]')
   * watchFor( '{button}Place Order')
   * delay(5000)
-  
-
   
   
 @DeployBuild
@@ -374,7 +372,7 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
   * watchFor( '{h3}DSC-T90')
   * watchFor( '{button}Add to cart')
   * watchFor( '{a}proceed to checkout')
-  * watchInput( 'input[type=email]', 'bob@builder.com')
+  * watchInput( 'input[type=email]', 'bob@thebuilder.com')
   * watchInput( 'input[type=password]', 'Builder123!')
   * watchSubmit()
   * delay(5000)

@@ -153,9 +153,7 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
   -> Specify Shipping Method -> Continue
   -> Specify payment type as Visa card with number 4444333322221111 -> Continue
   -> Check "I am confirming.." -> Place Order
-
 ```
-
 
 https://user-images.githubusercontent.com/6401254/153721176-74605164-9a7a-454e-bbcb-1a47150a3c57.mov
 
