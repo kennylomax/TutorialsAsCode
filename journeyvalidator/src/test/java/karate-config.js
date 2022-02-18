@@ -9,6 +9,8 @@ function fn() {
         MY_JOURNEY_DIR: java.lang.System.getenv('MY_JOURNEY_DIR'), 
         MY_COMMERCE_CLOUD_DOMAIN: java.lang.System.getenv('MY_COMMERCE_CLOUD_DOMAIN'), 
         MY_COMMERCE_CLOUD_PASSWORD: java.lang.System.getenv('MY_COMMERCE_CLOUD_PASSWORD'), 
+        KYMA_COCKPIT: java.lang.System.getenv('KYMA_COCKPIT'), 
+        BTP_COCKPIT: java.lang.System.getenv('BTP_COCKPIT'), 
         NOW: java.lang.System.getenv('NOW')
       }
     if (karate.env === 'docker') {

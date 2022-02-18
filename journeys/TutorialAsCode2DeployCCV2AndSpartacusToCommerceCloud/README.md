@@ -1,7 +1,7 @@
 # Tutorials as Code - Deploying Spartacus and CCV2 to SAP Commerce Cloud
 In this journey we  deploy to SAP Commerce Cloud and configure Spartacus so we can purchase something.
 
-## Prerequisites for OSX
+## Prerequisites 
 
 - You have CCV2 and Spartacus running locally,as described in this  [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)
 - You have a (free) trial account @ https://portal.commerce.ondemand.com/subscription, with an environment in there called "dev". 
@@ -105,7 +105,7 @@ export MY_COMMERCE_CLOUD_DOMAIN=cqz1m-softwarea1-d57-public.model-t.cc.commerce.
 export MY_COMMERCE_CLOUD_PASSWORD=xxx
 ```
 
-Set up OCC credentials [(for reasons why see here)](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors). as follows:
+Set up OCC credentials [(for reasons why see here)](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors) as follows:
 
 Import this impex via the hac (hybris Administration Console):
 ```clickpath:ImportCorsFilters

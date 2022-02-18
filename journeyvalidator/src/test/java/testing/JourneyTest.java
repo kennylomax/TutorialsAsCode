@@ -38,8 +38,8 @@ class JourneyTest {
     }
 
     public void confirmEachClickPathAppearsInAScenario(String readMeFile, String featureFile) throws IOException{
-        String content = Files.readString(Paths.get(readMeFile), StandardCharsets.US_ASCII);
-        String feature = Files.readString(Paths.get(featureFile), StandardCharsets.US_ASCII);
+        String content = Files.readString(Paths.get(readMeFile));
+        String feature = Files.readString(Paths.get(featureFile));
         // ```clickpath[0-9a-zA-Z_:. &()${}/+\\,\-=<>\n]*```
         String regexp = "```clickpath[0-9a-zA-Z_:. &()${}/+\\\\,\\-=<>\\n]*```";
         Pattern p = Pattern.compile(regexp);

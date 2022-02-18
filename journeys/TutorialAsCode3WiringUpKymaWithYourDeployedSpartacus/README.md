@@ -1,55 +1,73 @@
-# Tutorials as Code - Tutorial and End2End Test in One: Spartacus and CCV2
-In this journey we wire up Spartacus to Kyma for further fun
+# Tutorials as Code - Wiring Spartacus up to Kyma
 
-## Prerequisites for OSX
+## Prerequisites 
 
-- You have completed the previous 2 journeys [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus) and  [TutorialAsCode2: Deploying CCV2 and Spartacus to Commerce Cloud](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode2DeployCCV2AndSpartacusToCommerceCloud)
+- You have completed the previous 2 journeys 
+  - [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus) and  
+  - [TutorialAsCode2: Deploying CCV2 and Spartacus to Commerce Cloud](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode2DeployCCV2AndSpartacusToCommerceCloud)
+- You have a (free) BTP trial account @ [SAP's BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) and **have enabled Kyma**  on it, and can access your Kyma dashboard via it.
+- You have downloaded, personlized and sourced the file journeysetupexample.sh:
+  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode3WiringUpKymaWithYourDeployedSpartacus/journeysetupexample.sh > journeysetup.sh 
+  - personalize its contents, 
+  - then source it with the command **source journeysetup.sh**
+# Journey Under construction....
+This is based on [this cool tutorial](https://developers.sap.com/tutorials/cp-kyma-mocks.html)
 
-# Journey
 
-## Interacting with Kyma
-Under construction....
+Add a new namespace in Kyma 
+```clickpath:AddKymaNamespace
+KYMA_COCKPIT -> Add new namespace ->
+  name=mykymanamespace
+```
 
-(More at ) https://developers.sap.com/tutorials/cp-kyma-mocks.html)
-
-Create a System in the SAP BTP which will be used to pair SAP Commerce  to the Kyma runtime. This step will be performed at the Global account level of your SAP BTP account.  Open your global SAP BTP account and choose the System Landscape > Systems menu options.
+## Create a System on BTP
 
 ```clickpath:CreateBTPSystem
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
+  System Name = Something
+  Type = SAP Commerce Cloud
+  -> Register
+  -> Copy the token to your clipboard
 ```
 
-Confirm you can purchase an item from Spartacus. Use visa card number 4444333322221111 (with any other card details).
-```clickpath:MakeFirstPurchaseWithVisa4444333322221111
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+Copy the Token value 
+
+## Create a Formation on BTP
+
+```clickpath:CreateBTPFormation
+https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
+  Name = $(NOW) 
+  Select Subaccount=trial
+  Select Systems = mykymasystem
+  -> Create
 ```
-Choose the Register System option, provide the name commerce-mock, set the type to SAP Commerce Cloud and then choose Register.
+
+Wait a few minutes, until it appears in your list of Applications/Systems in Kyma:
+Kyma -> Integration -> Applications/Systems
 
 
-Copy the Token value and close the window. This value will expire in five minutes and will be needed in a subsequent step.
-
-If the token expires before use, you can obtain a new one by choosing the Display Token option shown next to the entry in the Systems list.
-
-
-Create a Formation
-In this step, you will create a Formation. A Formation is used to connect one or more Systems created in the SAP BTP to a runtime. This step will be performed at the Global account level of your SAP BTP account.
-
-Within your global SAP BTP account, choose the System Landscape > Formations menu options. Choose the Create Formation option.
-
-Provide a Name, choose your Subaccount where the Kyma runtime is enabled, choose the commerce-mock System. Choose Create.
-
-The pairing process will establish a trust between the Commerce mock application and in this case the SAP Kyma runtime. Once the pairing is complete, the registration of APIs and business events can be performed. This process allow developers to utilize the APIs and business events with the authentication aspects handled automatically.
+## Pair your SAP Commerce with Kyma
 
 CCV2 Backoffice → System → API → Destination Target → Default_Template → Wizard → Paste URL
+
 Kyma → Application/Systems → Create Application → CreateBinding → Namespace
 
 
-CCV2 Backoffice → System → API → Destination Target → Default_Template → Wizard → Paste URL
-Kyma → Application/Systems → Create Application → CreateBinding → Namespace
-
-Set up Events
+## Set up Events
 
 Kyma → Service Management → Catalog → CC Events v1 → Add Once
 
 Kyma → Workloads → Function → Configuration → CreateEventSubscription → <Event>
+Note that OrderCreation works, some do not.
 
-OrderCreation works, some do not.
+Modify your function to send output to the console..
+
+module.exports = { 
+  main: function (event, context) {
+     console.log( "Hello World ! "+event);
+    return "Hello World !";
+  }
+}
+
+## Purchase something in Kyma
+.. and you should see that your function has been called

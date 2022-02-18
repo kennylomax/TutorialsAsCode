@@ -3,7 +3,7 @@ In this journey we
 * Get CCV2 and Spartacus running locally, then extend Spartacus with a custom component
 * Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondemand.com/), then wire up to [Kyma](https://github.com/kyma-project/kyma) for further fun
 
-## Prerequisites for OSX
+## Prerequisites 
 
 - Use [JDK  11.0.12](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)   To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
 
