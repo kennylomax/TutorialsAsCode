@@ -9,7 +9,7 @@ Background:
   * def watchFor =  function(loc) {    delay(delays);  waitFor(loc).highlight().click()  }
   * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
   * def btpMouseDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).down().up() }
-  * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click }
+  * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click()}
 
 @AddKymaNamespace
 Scenario:
@@ -70,4 +70,128 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   * btpMouseDownUp('{*:2}trial')
   * watchAppendInput( '{input:3}', ["m",Key.ENTER])
   * btpMouseClick('{}Create')
+  # We need Click and DownUp - otherwise the data is not read correctly...
+  * btpMouseDownUp('{}Create')  
   * delay(delays); 
+
+
+@ConfirmSystemAppearsInKyma
+Scenario:
+"""
+KYMA_COCKPIT -> Integration -> Applications/Systems ->  mp-mykymasystem 
+"""
+  * driver KYMA_COCKPIT
+  * delay(delays)
+  * watchFor( '{}Applications/Systems')
+  * delay(delays)
+  * switchFrame(0)
+  * watchFor( '{a}mp-mykymasystem')
+  * delay(delays)4
+  
+
+@PairBackoffice
+Scenario:
+"""
+BACKOFFICE → System → API → Destination Target → Default_Template → Wizard → Paste URL
+"""
+  * driver BACKOFFICE
+  * delay(delays)
+  * watchInput('input[name=j_username]', "admin")
+  * watchInput('input[name=j_password]', BACKOFFICE_PASSWORD)
+  * watchFor( '{}Login')
+  * delay(delays)
+  * watchFor( '{}System')
+  * watchFor( '{}API')
+  * watchFor( '{}Destination Targets')
+  * watchFor( '{}Default_Template')
+  * watchFor( "//img[@src='/backoffice/widgetClasspathResource/widgets/actions/registerdestinationtarget/icons/icon_action_register_destination_target_default.png']")
+  * watchInput('input[ytestid=newDestinationTargetId]', "mykmyasystem")
+  * btpMouseDownUp( "input[ytestid=newDestinationTargetId]")
+  * btpMouseDownUp( "input[ytestid=tokenUrl]")
+  * watchFor('{button}Register Destination Target')
+  * delay(delays)
+  
+@createKymaBinding
+Scenario:
+"""
+Kyma → Application/Systems → Create Application → CreateBinding → Namespace
+"""
+  * driver KYMA_COCKPIT
+  * delay(delays)
+  * watchFor( '{}Integration')
+  * watchFor( '{}Applications/Systems')
+  * delay(delays)
+  * switchFrame(0)
+  * watchFor( '{}mp-mykymasystem')
+  * switchFrame(null)
+  * delay(delays)
+  * switchFrame(0)
+  * watchFor( '{^}Namespace Bindings')
+  * watchFor( '{^}Create Binding')
+  * delay(delays)
+  * watchInput("//input[@placeholder='Select namespace']", ["default",Key.ENTER])
+  * watchFor('{}Create Namespace Binding')
+  * watchFor( '{button}Create')
+  * delay(delays)
+
+@setUpEventsInKyma
+Scenario:
+"""
+Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add -> Create
+"""
+  * driver KYMA_COCKPIT
+  * delay(delays)
+  * switchFrame(0)
+  * watchFor( '{}default')
+  * switchFrame(null)
+  * watchFor( '{}Service Management')
+  * watchFor( '{}Catalog')
+  * switchFrame(null)
+  * delay(delays)
+  * switchFrame(0)
+  * delay(delays)
+  * watchFor( '{}mykymasystem')
+  * watchFor( '{}CC Events v1')
+  * watchFor( '{^}Add')
+  * watchFor( '{button}Create')
+  * delay(delays)
+
+
+@createKymaFunction
+Scenario:
+"""
+Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create -> 
+  Configuration -> Create Event Subscription -> order.created -> Save -> 
+  Code ->
+    Source = module.exports = { main: function (event, context) { console.log("Hi there"); return "Hello World!";} }
+  -> Save
+"""
+  * driver KYMA_COCKPIT
+  * delay(delays)
+  * switchFrame(0)
+  * watchFor( '{}default')
+  * switchFrame(null)
+  * watchFor( '{}Workloads')
+  * watchFor( '{}Functions')
+  * switchFrame(null)
+  * delay(delays)
+  * switchFrame(0)
+  * delay(delays)
+  * watchFor( '{^}Create Function')
+  * watchFor( '{button}Create')
+  * switchFrame(null)
+  * delay(delays)
+  * switchFrame(0)
+  * watchFor( '{}Configuration')
+  * watchFor( '{^}Create Event Subscription')
+  * switchFrame(0)
+  * delay(delays)
+  * watchInput('/html/body/div[5]/div/div/div/div[2]/div/div[1]/div[2]/section/section/div/div/div/input', "Submit Order Event")
+  * watchFor( '/html/body/div[5]/div/div/div/div[2]/div/div[2]/table/tbody/tr[1]/td[2]/div/label/input')
+  * watchFor( '{button}Save')
+  * watchFor( '{}Code')
+  * delay(delays)
+  * watchFor( '{button}Save')
+  
+
+

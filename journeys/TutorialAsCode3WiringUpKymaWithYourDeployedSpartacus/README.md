@@ -42,32 +42,37 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   -> Create
 ```
 
-Wait a few minutes, until it appears in your list of Applications/Systems in Kyma:
-Kyma -> Integration -> Applications/Systems
+Wait a few minutes, until it the System appears in your list of Applications/Systems in Kyma:
 
+```clickpath:ConfirmSystemAppearsInKyma
+KYMA_COCKPIT -> Integration -> Applications/Systems ->  mp-mykymasystem 
+```
 
 ## Pair your SAP Commerce with Kyma
 
-CCV2 Backoffice → System → API → Destination Target → Default_Template → Wizard → Paste URL
+```clickpath:PairBackoffice
+BACKOFFICE → System → API → Destination Target → Default_Template → Wizard → Paste URL
+```
 
+## Creating a binding in Kyma
+```clickpath:createKymaBinding
 Kyma → Application/Systems → Create Application → CreateBinding → Namespace
-
+```
 
 ## Set up Events
+```clickpath:setUpEventsInKyma
+Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add -> Create
+```
 
-Kyma → Service Management → Catalog → CC Events v1 → Add Once
+## Creating a Kyma Function
+```clickpath:createKymaFunction
+Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create -> 
+  Configuration -> Create Event Subscription -> order.created -> Save -> 
+  Code ->
+    Source = module.exports = { main: function (event, context) { console.log("Hi there"); return "Hello World!";} }
+  -> Save
+```
 
-Kyma → Workloads → Function → Configuration → CreateEventSubscription → <Event>
-Note that OrderCreation works, some do not.
-
-Modify your function to send output to the console..
-
-module.exports = { 
-  main: function (event, context) {
-     console.log( "Hello World ! "+event);
-    return "Hello World !";
-  }
-}
 
 ## Purchase something in Kyma
 .. and you should see that your function has been called
