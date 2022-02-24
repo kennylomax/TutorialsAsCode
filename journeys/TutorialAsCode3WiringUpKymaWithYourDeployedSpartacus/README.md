@@ -73,6 +73,5 @@ Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create
   -> Save
 ```
 
-
-## Purchase something in Kyma
+## Purchase something in Spartacus
 .. and you should see that your function has been called

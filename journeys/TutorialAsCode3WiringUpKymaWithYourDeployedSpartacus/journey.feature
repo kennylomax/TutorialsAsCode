@@ -86,7 +86,7 @@ KYMA_COCKPIT -> Integration -> Applications/Systems ->  mp-mykymasystem
   * delay(delays)
   * switchFrame(0)
   * watchFor( '{a}mp-mykymasystem')
-  * delay(delays)4
+  * delay(delays)
   
 
 @PairBackoffice
@@ -129,7 +129,7 @@ Kyma → Application/Systems → Create Application → CreateBinding → Namesp
   * watchFor( '{^}Namespace Bindings')
   * watchFor( '{^}Create Binding')
   * delay(delays)
-  * watchInput("//input[@placeholder='Select namespace']", ["default",Key.ENTER])
+  * watchInput("//input[@placeholder='Select namespace']", ["mykymanamespace",Key.ENTER])
   * watchFor('{}Create Namespace Binding')
   * watchFor( '{button}Create')
   * delay(delays)
@@ -142,7 +142,7 @@ Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add ->
   * driver KYMA_COCKPIT
   * delay(delays)
   * switchFrame(0)
-  * watchFor( '{}default')
+  * watchFor( '{}mykymanamespace')
   * switchFrame(null)
   * watchFor( '{}Service Management')
   * watchFor( '{}Catalog')
@@ -169,7 +169,7 @@ Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create
   * driver KYMA_COCKPIT
   * delay(delays)
   * switchFrame(0)
-  * watchFor( '{}default')
+  * watchFor( '{}mykymanamespace')
   * switchFrame(null)
   * watchFor( '{}Workloads')
   * watchFor( '{}Functions')
@@ -188,10 +188,56 @@ Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create
   * delay(delays)
   * watchInput('/html/body/div[5]/div/div/div/div[2]/div/div[1]/div[2]/section/section/div/div/div/input', "Submit Order Event")
   * watchFor( '/html/body/div[5]/div/div/div/div[2]/div/div[2]/table/tbody/tr[1]/td[2]/div/label/input')
-  * watchFor( '{button}Save')
+  * watchFor( '/html/body/div[5]/div/div/div/footer/button[2]')
   * watchFor( '{}Code')
   * delay(delays)
   * watchFor( '{button}Save')
   
 
 
+@MakeFirstPurchaseWithVisa4444333322221111
+Scenario:
+"""
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+"""
+  * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
+  * driver spartacusURL
+  * watchFor( '{h3}DSC-T90')
+  * watchFor( '{button}Add to cart')
+  * watchFor( '{a}proceed to checkout')
+  * watchInput( 'input[type=email]', 'bob@thebuilder.com')
+  * watchInput( 'input[type=password]', 'Builder123!')
+  * watchSubmit()
+  * delay(5000)
+  * waitFor('/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').click()
+  * delay(5000)
+  * watchFor( '{}Albania')
+  * watchInput( 'input[formcontrolname=firstName]', 'Bob')
+  * watchInput( 'input[formcontrolname=lastName]', 'Builder')
+  * watchInput( 'input[formcontrolname=line1]', 'BobStreet')
+  * watchInput( 'input[formcontrolname=town]', 'BobTown')
+  * watchInput( 'input[formcontrolname=line1]', 'Bob1')
+  * watchInput( 'input[formcontrolname=postalCode]', '80798')
+  * watchFor( '{button}Continue')
+  * delay(5000)
+  * watchFor( '{button}Continue')
+  * delay(5000)
+  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').click()
+  * watchFor( '{}Visa')
+  * watchInput( 'input[formcontrolname=accountHolderName]', 'Bob Builder')
+  * watchInput( 'input[formcontrolname=cardNumber]', '4444333322221111')
+  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').click()
+  * watchFor( '{}01')
+  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').highlight()
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').click()
+  * watchFor( '{}2024')
+  * watchInput( 'input[formcontrolname=cvn]', '123')
+  * watchFor( '{button}Continue')
+  * delay(5000)
+  * watchFor( 'input[formcontrolname=termsAndConditions]')
+  * watchFor( '{button}Place Order')
+  * delay(5000)
+  
