@@ -20,11 +20,7 @@ KYMA_COCKPIT -> Add new namespace ->
   name=mykymanamespace
 ```
 
-
-
 https://user-images.githubusercontent.com/6401254/155516810-53c7cb7d-6cda-4cd8-896c-67fd5ec11b85.mp4
-
-
 
 ## Create a System on BTP
 
@@ -56,7 +52,6 @@ Wait a few minutes, until it the System appears in your list of Applications/Sys
 KYMA_COCKPIT -> Integration -> Applications/Systems ->  mp-mykymasystem 
 ```
 
-
 https://user-images.githubusercontent.com/6401254/155516968-c5b29037-2194-48d2-a878-e7249b3b6a2a.mp4
 
 
@@ -68,27 +63,18 @@ BACKOFFICE → System → API → Destination Target → Default_Template → Wi
 
 https://user-images.githubusercontent.com/6401254/155516989-8d66671c-a071-4c0b-b450-d6dea5ef47cd.mp4
 
-
-
 ## Creating a binding in Kyma
 ```clickpath:createKymaBinding
 Kyma → Application/Systems → mp-mykymaststem → CreateBinding → Namespace
 ```
 https://user-images.githubusercontent.com/6401254/155517031-1258aa96-0acf-406e-9d05-a37e3809dcbd.mp4
 
-
 ## Set up Events
 ```clickpath:setUpEventsInKyma
 Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add -> Create
 ```
 
-
-
 https://user-images.githubusercontent.com/6401254/155518322-60a9f641-d7fc-45b4-a9a4-24b84b30d233.mp4
-
-
-
-
 
 ## Creating a Kyma Function
 ```clickpath:createKymaFunction
@@ -98,6 +84,9 @@ Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create
     Source = module.exports = { main: function (event, context) { console.log("Hi there"); return "Hello World!";} }
   -> Save
 ```
+
+https://user-images.githubusercontent.com/6401254/155518857-31d86ac5-d3f3-448e-b5c2-f8dc72c5f248.mp4
+
 
 ## Purchase something in Spartacus
 .. and you should see that your function has been called
