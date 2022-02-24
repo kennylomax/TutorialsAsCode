@@ -30,7 +30,7 @@ https://user-images.githubusercontent.com/6401254/155516810-53c7cb7d-6cda-4cd8-8
 
 ```clickpath:CreateBTPSystem
 https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
-  System Name = Something
+  System Name = mykymasystem
   Type = SAP Commerce Cloud
   -> Register
   -> Copy the token to your clipboard
