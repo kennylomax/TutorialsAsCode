@@ -84,6 +84,10 @@ Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add ->
 
 
 
+https://user-images.githubusercontent.com/6401254/155518322-60a9f641-d7fc-45b4-a9a4-24b84b30d233.mp4
+
+
+
 
 
 ## Creating a Kyma Function
@@ -94,7 +98,6 @@ Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create
     Source = module.exports = { main: function (event, context) { console.log("Hi there"); return "Hello World!";} }
   -> Save
 ```
-https://user-images.githubusercontent.com/6401254/155512532-be843808-4144-4494-9c28-94338a0136ba.mov
 
 ## Purchase something in Spartacus
 .. and you should see that your function has been called
