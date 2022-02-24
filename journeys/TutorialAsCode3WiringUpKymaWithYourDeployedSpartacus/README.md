@@ -42,7 +42,7 @@ https://user-images.githubusercontent.com/6401254/155516849-ac36f2ac-3a3b-44d6-8
 
 ```clickpath:CreateBTPFormation
 https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
-  Name = $(NOW) 
+  Name = myformation
   Select Subaccount=trial
   Select Systems = mykymasystem
   -> Create
