@@ -72,8 +72,9 @@ https://user-images.githubusercontent.com/6401254/155516989-8d66671c-a071-4c0b-b
 
 ## Creating a binding in Kyma
 ```clickpath:createKymaBinding
-Kyma → Application/Systems → Create Application → CreateBinding → Namespace
+Kyma → Application/Systems → mp-mykymaststem → CreateBinding → Namespace
 ```
+https://user-images.githubusercontent.com/6401254/155517031-1258aa96-0acf-406e-9d05-a37e3809dcbd.mp4
 
 
 ## Set up Events
@@ -81,7 +82,6 @@ Kyma → Application/Systems → Create Application → CreateBinding → Namesp
 Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add -> Create
 ```
 
-https://user-images.githubusercontent.com/6401254/155517031-1258aa96-0acf-406e-9d05-a37e3809dcbd.mp4
 
 
 
