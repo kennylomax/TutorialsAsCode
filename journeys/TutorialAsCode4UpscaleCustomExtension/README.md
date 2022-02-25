@@ -1,8 +1,7 @@
 # Tutorials as Code - Tutorial and End2End Test in One: Upscale Custom Extension
 
-## Background
-- these journeys serve as demos, tutorials, **and end2end tests, that can be run automatically on Docker** (for inclusion in CICDs)
-- The proposal is to have a series of these journey, to  serve as *tutorials*, *demos*, and also as *end-to-end tests* for inclusion in CICD pipelines and onboarding material.
+(TutorialAsCode serve as demos, tutorials, and as end2end tests, that can be executed automatically in CICD Pipelines. Their particular format makes them followable by humans but also by a computer, meaning they can be tested in a CICD pipeline. More [here](https://github.com/kennylomax/TutorialsAsCode). )
+
 
 ## Prerequisites for OSX
 
@@ -10,6 +9,7 @@
 - Download the file journeysetupexample.sh to journeysetup.sh and personalize its contents
   - curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleNativeExtension/journeysetupexample.sh > journeysetup.sh
   - source ./journeysetup.sh
+
 
 # Journey
 
