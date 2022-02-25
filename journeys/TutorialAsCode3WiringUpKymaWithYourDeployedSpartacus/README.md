@@ -21,10 +21,7 @@ KYMA_COCKPIT -> Add new namespace ->
   name=mykymanamespace
 ```
 
-
-https://user-images.githubusercontent.com/6401254/155688366-5910acf0-0024-4ac0-a22b-d4286514fede.mp4
-
-
+https://user-images.githubusercontent.com/6401254/155689125-d8cb53ce-ef6c-452a-8eee-fe4cc9b31463.mp4
 
 ## Create a System on BTP
 
@@ -36,7 +33,7 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   -> Copy the token to your clipboard
 ```
 
-https://user-images.githubusercontent.com/6401254/155688425-e70e8b77-e9b2-4884-911f-7b47b74b5963.mp4
+https://user-images.githubusercontent.com/6401254/155689156-5ab4bb67-98ff-463a-9297-6f4675044174.mp4
 
 ## Create a Formation on BTP
 
