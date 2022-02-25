@@ -61,8 +61,7 @@ https://user-images.githubusercontent.com/6401254/155516968-c5b29037-2194-48d2-a
 ```clickpath:PairBackoffice
 BACKOFFICE → System → API → Destination Target → Default_Template → Wizard → Paste URL
 ```
-
-https://user-images.githubusercontent.com/6401254/155516989-8d66671c-a071-4c0b-b450-d6dea5ef47cd.mp4
+https://user-images.githubusercontent.com/6401254/155705067-9a03b1e6-6722-4394-8d9a-4aa90beba308.mp4
 
 ## Creating a binding in Kyma
 ```clickpath:createKymaBinding
