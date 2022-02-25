@@ -6,6 +6,8 @@ In this journey we  deploy to SAP Commerce Cloud and configure Spartacus so we c
 - You have CCV2 and Spartacus running locally,as described in this  [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)
 - You have a (free) trial account @ https://portal.commerce.ondemand.com/subscription, with an environment in there called "dev". 
 
+(TutorialAsCode serve as demos, tutorials, and as end2end tests, that can be executed automatically in CICD Pipelines. Their particular format makes them followable by humans but also by a computer, meaning they can be tested in a CICD pipeline. More [here](https://github.com/kennylomax/TutorialsAsCode). )
+
 # Journey
 
 ## Deploy your CCV2 and Spartacus solution to SAP Commerce Cloud
