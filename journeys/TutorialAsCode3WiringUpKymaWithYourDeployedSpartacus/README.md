@@ -13,12 +13,13 @@
  - This takes inspiration from [this cool tutorial](https://developers.sap.com/tutorials/cp-kyma-mocks.html), which you might want to read first.
 # Journey
 
+## !!Kyma Cockpit has had breaking changes, so this journey needs updating...#
 
 
 Add a new namespace in Kyma 
 ```clickpath:AddKymaNamespace
-KYMA_COCKPIT -> Add new namespace ->
-  name=mykymanamespace
+KYMA_COCKPIT -> Create Namespace ->
+  Name=mykymanamespace
 ```
 
 https://user-images.githubusercontent.com/6401254/155689125-d8cb53ce-ef6c-452a-8eee-fe4cc9b31463.mp4

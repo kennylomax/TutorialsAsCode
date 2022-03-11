@@ -14,8 +14,8 @@ Background:
 @AddKymaNamespace
 Scenario:
 """
-KYMA_COCKPIT -> Add new namespace ->
-  name=mykymanamespace
+KYMA_COCKPIT -> Create Namespace ->
+  Name=mykymanamespace
 """
   * driver KYMA_COCKPIT
   * delay(delays)
@@ -29,7 +29,7 @@ KYMA_COCKPIT -> Add new namespace ->
 Scenario:
 """
 https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
-  System Name = Something
+  System Name = mykymasystem
   Type = SAP Commerce Cloud
   -> Register
   -> Copy the token to your clipboard
@@ -55,7 +55,7 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
 Scenario:
 """
 https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
-  Name = $(NOW) 
+  Name = myformation
   Select Subaccount=trial
   Select Systems = mykymasystem
   -> Create

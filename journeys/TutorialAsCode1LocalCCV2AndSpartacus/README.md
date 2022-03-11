@@ -333,3 +333,7 @@ git branch -M main
 git remote add origin https://$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN@github.tools.sap/$MY_GITHUB_USERNAME/concerttours-ccloud.git
 git push -u origin main
 ```
+
+## Next
+
+For a comprehensive, handson walk-through of CCV2 capabilities, use the Learning System and supprting Book from Training in their [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a) 
