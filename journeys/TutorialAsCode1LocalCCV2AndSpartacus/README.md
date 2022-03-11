@@ -336,5 +336,6 @@ git push -u origin main
 
 ## Next
 
-For a comprehensive, handson walk-through of CCV2 capabilities, use the Learning System and supprting Book from Training in their [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a) 
+For a comprehensive, hands-on walk-through of CCV2 capabilities, use the Learning System and supporting EBook from our Training Depts' [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a)  These give you a preconfigured CCV2 environment, and exercises to work through :)
+
 <img width="791" alt="Screenshot 2022-03-11 at 10 47 37" src="https://user-images.githubusercontent.com/6401254/157843905-63ba9a77-e433-4eed-97bd-c2132a0e8c02.png">
