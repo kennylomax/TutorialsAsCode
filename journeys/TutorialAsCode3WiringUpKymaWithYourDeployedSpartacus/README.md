@@ -61,7 +61,10 @@ https://user-images.githubusercontent.com/6401254/155516968-c5b29037-2194-48d2-a
 ## Pair your SAP Commerce with Kyma
 
 ```clickpath:PairBackoffice
-BACKOFFICE → System → API → Destination Target → Default_Template → Wizard → Paste URL
+BACKOFFICE → System → API → Destination Target → Default_Template → Wizard →
+  -> TOken URL = <Paste URL that you copied earlier>
+  -> New Destination's Id = mykmyasystem{UNIQUEID}
+  -> Register Destination Target
 ```
 https://user-images.githubusercontent.com/6401254/155705067-9a03b1e6-6722-4394-8d9a-4aa90beba308.mp4
 

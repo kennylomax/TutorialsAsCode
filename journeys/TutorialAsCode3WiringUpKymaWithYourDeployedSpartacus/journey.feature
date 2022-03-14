@@ -10,11 +10,12 @@ Background:
   * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
   * def btpMouseDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).down().up() }
   * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click()}
-  * def btpMouseClickDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).click(); mouse(loc).down().up() }
+  * def btpMouseClickDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).click(); delay(delays); mouse(loc).down().up() }
   * def waitPage = function(p) { delay(delays); delay(delays); switchPage(p) }
   * def waitFrame = function(f) { delay(delays); switchFrame(f) }
   * def resetFrame = function(f) { waitFrame(null); waitFrame(f) }
-  
+  * def wrapup = function() { delay(delays),  delay(delays) }
+
   # Perhaps needed for Kyma Dhasboard
   # * driver "https://account.hanatrial.ondemand.com"
   # * delay(delays)
@@ -27,23 +28,23 @@ Background:
 Scenario:
 """
 KymaCockpit -> Namespaces  -> Create Namespace 
-  Name=UNIQUEID 
+  Name={UNIQUEID} 
 -> Create
 """
   * driver KYMA_COCKPIT
   * watchFor( '{span}Namespaces')
   * waitFrame(0)
-  * watchFor( '{span}Create Namespace')
+  * watchFor( '{span}Create Namespace' )
   * waitFrame(0)
   * watchInput('/html/body/div[5]/div/div/div[2]/section/form/div[1]/div/div[2]/div/div/div/input', ""+UNIQUEID )
   * watchFor( '{span}Create')
-  * delay(delays)
+  * wrapup()
 
 @CreateBTPSystem
 Scenario:
 """
 https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
-  System Name = mykymasystem
+  System Name = mykymasystem{UNIQUEID}
   Type = SAP Commerce Cloud
   -> Register
   -> Copy the token to your clipboard
@@ -54,22 +55,23 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   * btpMouseDownUp('{}Systems')
   * btpMouseDownUp('{}Register System')
   * delay(delays)
-  * input('body', "mykymasystem"+UNIQUEID, 200)
+  * input('body', "mykymasystem"+UNIQUEID, 100)
   * mouse('#newSystemDialogView--systemTypeSelect-arrow').click()
   * mouse("{}SAP Commerce Cloud").down().up()
   * highlight("#newSystemDialogView--registerButton")
   * mouse("#newSystemDialogView--registerButton").click()
   * delay(delays)
   * mouse("#newSystemDialogView--tokenCopyButton").click()
-  * delay(delays)
+  * wrapup()
+
 
 @CreateBTPFormation
 Scenario:
 """
 https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
-  Name = myformation
+  Name = myformation{UNIQUEID}
   Select Subaccount=trial
-  Select Systems = mykymasystem
+  Select Systems = mykymasystem{UNIQUEID}
   -> Create
 """
   * driver BTP_COCKPIT
@@ -84,12 +86,13 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   * watchInput( '/html/body/div[1]/div[1]/section/div/div/div/div/div/div/div[6]/div/div/input', "mykymasystem"+UNIQUEID )
   * btpMouseDownUp('{*:1}mykymasystem'+UNIQUEID)
   * btpMouseClickDownUp('{}Create')
-  * delay(delays); 
+  * wrapup()
+
 
 @ConfirmSystemAppearsInKyma
 Scenario:
 """
-KymaCockpit -> Integration -> Applications ->  mp-mykymasystem 
+KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
 """
   * driver KYMA_COCKPIT
   * delay(delays)
@@ -97,20 +100,21 @@ KymaCockpit -> Integration -> Applications ->  mp-mykymasystem
   * watchFor( '{span}Applications')
   * waitFrame(0)
   * watchFor( '{a}mp-mykymasystem'+UNIQUEID)
-  * delay(delays)
-  
+  * wrapup()
+
 
 @PairBackoffice
 Scenario:
 """
-BACKOFFICE → System → API → Destination Target → Default_Template → Wizard → Paste URL
+BACKOFFICE → System → API → Destination Target → Default_Template → Wizard →
+  -> TOken URL = <Paste URL that you copied earlier>
+  -> New Destination's Id = mykmyasystem{UNIQUEID}
+  -> Register Destination Target
 """
   * driver BACKOFFICE
-  * delay(delays)
   * watchInput('input[name=j_username]', "admin")
   * watchInput('input[name=j_password]', BACKOFFICE_PASSWORD)
   * watchFor( '{}Login')
-  * delay(delays)
   * watchFor( '{}System')
   * watchFor( '{}API')
   * watchFor( '{}Destination Targets')
@@ -120,9 +124,8 @@ BACKOFFICE → System → API → Destination Target → Default_Template → Wi
   * btpMouseDownUp( "input[ytestid=newDestinationTargetId]")
   * btpMouseDownUp( "input[ytestid=tokenUrl]")
   * watchFor('{button}Register Destination Target')
-  * delay(delays)
-  * delay(delays)
-  
+  * wrapup()
+
 @createKymaBinding
 Scenario:
 """
@@ -140,7 +143,8 @@ KymaCockpit-> Integration -> Applications → mp-mykmyasystem20220314a → Creat
   * watchInput("//input[@placeholder='Namespace']", ""+UNIQUEID)
   * watchFor('{b}'+UNIQUEID)
   * watchFor( '{span}Create')
-  * delay(delays)
+  * wrapup()
+
 
 @setUpEventsInKyma
 Scenario:
@@ -158,7 +162,7 @@ Kyma → defaultNamespace -> Catalog -> mykymasystem20220314a -> + Add -> Create
   * watchFor( '{}mykymasystem'+UNIQUEID)
   * watchFor( '{^}Add')
   * watchFor( '{span}Create')
-  * delay(delays)
+  * wrapup()
 
 @createKymaFunction
 Scenario:
@@ -194,7 +198,8 @@ Kyma -> Namespaces -> 20220314a -> Workloads -> Functions ->  Create Function ->
   * watchFor( '/html/body/div[6]/div/div/div[2]/section/form/div[1]/div[6]/div[2]/div/div/div/div/div/div/div/div/div/span/button/i')
   * watchFor( '{}v1')
   * watchFor( '{span}Create')
-  * delay(delays)
+  * wrapup()
+
 
 @MakeFirstPurchaseWithVisa4444333322221111
 Scenario:
@@ -240,5 +245,4 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
   * delay(5000)
   * watchFor( 'input[formcontrolname=termsAndConditions]')
   * watchFor( '{button}Place Order')
-  * delay(5000)
-  
+  * wrapup()
