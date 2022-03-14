@@ -18,8 +18,9 @@
 
 Add a new namespace in Kyma 
 ```clickpath:AddKymaNamespace
-KYMA_COCKPIT -> Create Namespace ->
-  Name=mykymanamespace
+KymaCockpit -> Namespaces  -> Create Namespace 
+  Name=UNIQUEID 
+-> Create
 ```
 
 https://user-images.githubusercontent.com/6401254/155689125-d8cb53ce-ef6c-452a-8eee-fe4cc9b31463.mp4
@@ -51,7 +52,7 @@ https://user-images.githubusercontent.com/6401254/155516878-0222d239-5245-4e58-a
 Wait a few minutes, until it the System appears in your list of Applications/Systems in Kyma:
 
 ```clickpath:ConfirmSystemAppearsInKyma
-KYMA_COCKPIT -> Integration -> Applications/Systems ->  mp-mykymasystem 
+KymaCockpit -> Integration -> Applications ->  mp-mykymasystem 
 ```
 
 https://user-images.githubusercontent.com/6401254/155516968-c5b29037-2194-48d2-a878-e7249b3b6a2a.mp4
@@ -66,13 +67,13 @@ https://user-images.githubusercontent.com/6401254/155705067-9a03b1e6-6722-4394-8
 
 ## Creating a binding in Kyma
 ```clickpath:createKymaBinding
-Kyma → Application/Systems → mp-mykymaststem → CreateBinding → Namespace
+KymaCockpit -> Integration -> Applications → Create Application → CreateBinding → Namespace
 ```
 https://user-images.githubusercontent.com/6401254/155517031-1258aa96-0acf-406e-9d05-a37e3809dcbd.mp4
 
 ## Set up Events
 ```clickpath:setUpEventsInKyma
-Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add -> Create
+Kyma → defaultNamespace -> Catalog -> mykymasystem20220314a -> + Add -> Create
 ```
 
 https://user-images.githubusercontent.com/6401254/155518322-60a9f641-d7fc-45b4-a9a4-24b84b30d233.mp4
@@ -90,4 +91,8 @@ https://user-images.githubusercontent.com/6401254/155518857-31d86ac5-d3f3-448e-b
 
 
 ## Purchase something in Spartacus
+```clickpath:MakeFirstPurchaseWithVisa4444333322221111
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
+```
+
 .. and you should see that your function has been called

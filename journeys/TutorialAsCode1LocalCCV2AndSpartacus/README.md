@@ -336,6 +336,9 @@ git push -u origin main
 
 ## Next
 
-For a comprehensive, hands-on walk-through of CCV2 capabilities, use the Learning System and supporting EBook from our Training Depts' [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a)  These give you a preconfigured CCV2 environment, and exercises to work through :)
-
+For a comprehensive, hands-on walk-through of CCV2 capabilities:
+-  use the Learning System and supporting EBook from our Training Depts' [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a)  These give you a preconfigured CCV2 environment, and exercises to work through :)
 <img width="791" alt="Screenshot 2022-03-11 at 10 47 37" src="https://user-images.githubusercontent.com/6401254/157843905-63ba9a77-e433-4eed-97bd-c2132a0e8c02.png">
+- try [Commerce 123](https://help.sap.com/viewer/3fb5dcdfe37f40edbac7098ed40442c0/2105/en-US/a1ef894ac89545e79c470c726b487d13.html) which is similar to the (in)famous Cuppy Trail of yore.
+
+

@@ -10,19 +10,33 @@ Background:
   * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
   * def btpMouseDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).down().up() }
   * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click()}
+  * def btpMouseClickDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).click(); mouse(loc).down().up() }
+  * def waitPage = function(p) { delay(delays); delay(delays); switchPage(p) }
+  * def waitFrame = function(f) { delay(delays); switchFrame(f) }
+  * def resetFrame = function(f) { waitFrame(null); waitFrame(f) }
+  
+  # Perhaps needed for Kyma Dhasboard
+  # * driver "https://account.hanatrial.ondemand.com"
+  # * delay(delays)
+  # * btpMouseDownUp( '{}Go To Your Trial Account')
+  # * btpMouseDownUp( '{}trial')
+  # * btpMouseDownUp( '{}Link to dashboard')
+  # * waitPage('Cluster Overview')
 
 @AddKymaNamespace
 Scenario:
 """
-KYMA_COCKPIT -> Create Namespace ->
-  Name=mykymanamespace
+KymaCockpit -> Namespaces  -> Create Namespace 
+  Name=UNIQUEID 
+-> Create
 """
   * driver KYMA_COCKPIT
-  * delay(delays)
-  * watchFor( '/html/body/div/div[2]/div[2]/div[1]/div/div[1]/button')
-  * watchFor( '{}+ New Namespace')
-  * switchFrame(0)
-  * input('body', ["mykymanamespace",Key.ENTER],500)
+  * watchFor( '{span}Namespaces')
+  * waitFrame(0)
+  * watchFor( '{span}Create Namespace')
+  * waitFrame(0)
+  * watchInput('/html/body/div[5]/div/div/div[2]/section/form/div[1]/div/div[2]/div/div/div/input', ""+UNIQUEID )
+  * watchFor( '{span}Create')
   * delay(delays)
 
 @CreateBTPSystem
@@ -34,14 +48,13 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   -> Register
   -> Copy the token to your clipboard
 """
-  * driver "https://account.hanatrial.ondemand.com"
+  * driver BTP_COCKPIT
   * btpMouseDownUp('{}Go To Your Trial Account')
   * btpMouseDownUp('{}System Landscape')
   * btpMouseDownUp('{}Systems')
   * btpMouseDownUp('{}Register System')
-
   * delay(delays)
-  * input('body', "mykymasystem",200)
+  * input('body', "mykymasystem"+UNIQUEID, 200)
   * mouse('#newSystemDialogView--systemTypeSelect-arrow').click()
   * mouse("{}SAP Commerce Cloud").down().up()
   * highlight("#newSystemDialogView--registerButton")
@@ -49,7 +62,6 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   * delay(delays)
   * mouse("#newSystemDialogView--tokenCopyButton").click()
   * delay(delays)
-
 
 @CreateBTPFormation
 Scenario:
@@ -60,32 +72,31 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   Select Systems = mykymasystem
   -> Create
 """
-  * driver "https://account.hanatrial.ondemand.com"
+  * driver BTP_COCKPIT
   * btpMouseDownUp('{}Go To Your Trial Account')
   * btpMouseDownUp('{}System Landscape')
   * btpMouseDownUp('{}Formations')
   * btpMouseDownUp('{}Create Formation')
-  * watchAppendInput('{input:0}', "myformation")
+  * watchAppendInput('{input:0}', "myformation"+UNIQUEID  )
   * btpMouseDownUp('span[class=sapMSltLabel]')
   * btpMouseDownUp('{*:2}trial')
-  * watchAppendInput( '{input:3}', ["m",Key.ENTER])
-  * btpMouseClick('{}Create')
-  # We need Click and DownUp - otherwise the data is not read correctly...
-  * btpMouseDownUp('{}Create')  
+  # Selected Systems
+  * watchInput( '/html/body/div[1]/div[1]/section/div/div/div/div/div/div/div[6]/div/div/input', "mykymasystem"+UNIQUEID )
+  * btpMouseDownUp('{*:1}mykymasystem'+UNIQUEID)
+  * btpMouseClickDownUp('{}Create')
   * delay(delays); 
-
 
 @ConfirmSystemAppearsInKyma
 Scenario:
 """
-KYMA_COCKPIT -> Integration -> Applications/Systems ->  mp-mykymasystem 
+KymaCockpit -> Integration -> Applications ->  mp-mykymasystem 
 """
   * driver KYMA_COCKPIT
   * delay(delays)
-  * watchFor( '{}Applications/Systems')
-  * delay(delays)
-  * switchFrame(0)
-  * watchFor( '{a}mp-mykymasystem')
+  * watchFor( '{span}Integration')
+  * watchFor( '{span}Applications')
+  * waitFrame(0)
+  * watchFor( '{a}mp-mykymasystem'+UNIQUEID)
   * delay(delays)
   
 
@@ -105,100 +116,90 @@ BACKOFFICE → System → API → Destination Target → Default_Template → Wi
   * watchFor( '{}Destination Targets')
   * watchFor( '{}Default_Template')
   * watchFor( "//img[@src='/backoffice/widgetClasspathResource/widgets/actions/registerdestinationtarget/icons/icon_action_register_destination_target_default.png']")
-  * watchInput('input[ytestid=newDestinationTargetId]', "mykmyasystem")
+  * watchInput('input[ytestid=newDestinationTargetId]', "mykmyasystem"+UNIQUEID)
   * btpMouseDownUp( "input[ytestid=newDestinationTargetId]")
   * btpMouseDownUp( "input[ytestid=tokenUrl]")
   * watchFor('{button}Register Destination Target')
+  * delay(delays)
   * delay(delays)
   
 @createKymaBinding
 Scenario:
 """
-Kyma → Application/Systems → Create Application → CreateBinding → Namespace
+KymaCockpit-> Integration -> Applications → mp-mykmyasystem20220314a → Create Namespace Binding 
+  -> Namespace = 20220314a
+  -> Create
 """
   * driver KYMA_COCKPIT
-  * delay(delays)
   * watchFor( '{}Integration')
-  * watchFor( '{}Applications/Systems')
-  * delay(delays)
-  * switchFrame(0)
-  * watchFor( '{}mp-mykymasystem')
-  * switchFrame(null)
-  * delay(delays)
-  * switchFrame(0)
-  * watchFor( '{^}Namespace Bindings')
-  * watchFor( '{^}Create Binding')
-  * delay(delays)
-  * watchInput("//input[@placeholder='Select namespace']", ["mykymanamespace",Key.ENTER])
-  * watchFor('{}Create Namespace Binding')
-  * watchFor( '{button}Create')
+  * watchFor( '{}Applications')
+  * waitFrame(0)
+  * watchFor( '{}mp-mykymasystem'+UNIQUEID)
+  * resetFrame(0)
+  * watchFor( '{^}Create Namespace Binding')
+  * watchInput("//input[@placeholder='Namespace']", ""+UNIQUEID)
+  * watchFor('{b}'+UNIQUEID)
+  * watchFor( '{span}Create')
   * delay(delays)
 
 @setUpEventsInKyma
 Scenario:
 """
-Kyma → defaultNamespace -> Catalog -> mykymasystem -> CC Events v1 -> + Add -> Create
+Kyma → defaultNamespace -> Catalog -> mykymasystem20220314a -> + Add -> Create
 """
   * driver KYMA_COCKPIT
-  * delay(delays)
-  * switchFrame(0)
-  * watchFor( '{}mykymanamespace')
-  * switchFrame(null)
+  * watchFor( '{span}Namespaces')
+  * waitFrame(0)
+  * watchFor( '{}'+UNIQUEID)
+  * waitFrame(null)
   * watchFor( '{}Service Management')
   * watchFor( '{}Catalog')
-  * switchFrame(null)
-  * delay(delays)
-  * switchFrame(0)
-  * delay(delays)
-  * watchFor( '{}mykymasystem')
-  * watchFor( '{}CC Events v1')
+  * resetFrame(0)
+  * watchFor( '{}mykymasystem'+UNIQUEID)
   * watchFor( '{^}Add')
-  * watchFor( '{button}Create')
+  * watchFor( '{span}Create')
   * delay(delays)
-
 
 @createKymaFunction
 Scenario:
 """
-Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create -> 
-  Configuration -> Create Event Subscription -> order.created -> Save -> 
+Kyma -> Namespaces -> 20220314a -> Workloads -> Functions ->  Create Function -> Create -> 
+  Configuration -> Create Subscription -> order.created -> Save -> 
   Code ->
     Source = module.exports = { main: function (event, context) { console.log("Hi there"); return "Hello World!";} }
   -> Save
 """
   * driver KYMA_COCKPIT
   * delay(delays)
-  * switchFrame(0)
-  * watchFor( '{}mykymanamespace')
-  * switchFrame(null)
+  * watchFor( '{span}Namespaces')
+  * waitFrame(0)
+  * watchFor( '{}'+UNIQUEID)
+  * waitFrame(null)
   * watchFor( '{}Workloads')
   * watchFor( '{}Functions')
-  * switchFrame(null)
-  * delay(delays)
-  * switchFrame(0)
-  * delay(delays)
+  * resetFrame(0)
   * watchFor( '{^}Create Function')
-  * watchFor( '{button}Create')
-  * switchFrame(null)
-  * delay(delays)
-  * switchFrame(0)
+  * watchFor( '{span}Create')
+  * resetFrame(0)
   * watchFor( '{}Configuration')
-  * watchFor( '{^}Create Event Subscription')
-  * switchFrame(0)
+  * watchFor( '{^}Create Subscription')
+  # Name
+  * watchInput('/html/body/div[6]/div/div/div[2]/section/form/div[1]/div[1]/div[2]/div/div/div/input', "submitorder")
+  # Application name
+  * watchFor( '/html/body/div[6]/div/div/div[2]/section/form/div[1]/div[4]/div[2]/div/div/div/div/div/div/div/div/div/span/button/i')
+  * watchFor( '{}mp-mykymasystem'+UNIQUEID)
+  # Event name
+  * watchInput(  '/html/body/div[6]/div/div/div[2]/section/form/div[1]/div[5]/div[2]/div/div/div/input',  "order.created")
+  # Event version
+  * watchFor( '/html/body/div[6]/div/div/div[2]/section/form/div[1]/div[6]/div[2]/div/div/div/div/div/div/div/div/div/span/button/i')
+  * watchFor( '{}v1')
+  * watchFor( '{span}Create')
   * delay(delays)
-  * watchInput('/html/body/div[5]/div/div/div/div[2]/div/div[1]/div[2]/section/section/div/div/div/input', "Submit Order Event")
-  * watchFor( '/html/body/div[5]/div/div/div/div[2]/div/div[2]/table/tbody/tr[1]/td[2]/div/label/input')
-  * watchFor( '/html/body/div[5]/div/div/div/footer/button[2]')
-  * watchFor( '{}Code')
-  * delay(delays)
-  * watchFor( '{button}Save')
-  
-
 
 @MakeFirstPurchaseWithVisa4444333322221111
 Scenario:
 """
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
+https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
 """
   * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
   * driver spartacusURL

@@ -13,6 +13,7 @@ function fn() {
         BTP_COCKPIT: java.lang.System.getenv('BTP_COCKPIT'), 
         BACKOFFICE: java.lang.System.getenv('BACKOFFICE'), 
         BACKOFFICE_PASSWORD: java.lang.System.getenv('BACKOFFICE_PASSWORD'), 
+        UNIQUEID: java.lang.System.getenv('UNIQUEID'), 
         NOW: java.lang.System.getenv('NOW')
       }
     if (karate.env === 'docker') {
