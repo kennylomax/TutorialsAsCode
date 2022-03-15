@@ -2,18 +2,20 @@ Feature: CommerceCloud
 
 Background:
   * def delays = 10000
+  * def waitFrame = function(f) { delay(delays); switchFrame(f) }
+  * def resetFrame = function(f) { waitFrame(null); waitFrame(f) }
   * def setVal = function(loc, v){ script(loc, "_.value = v");}
   * def watchInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
+  * def reframeThenWatchInput = function(f, loc, v) { waitFrame(f);  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
   * def watchAppendInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); input(loc, v, 200 )  }
   * def watchSubmit = function() {  delay(delays); waitFor('button[type=submit]').highlight(); click('button[type=submit]') }
+  * def reframeThenWatchFor =  function(f, loc) { waitFrame(f);  delay(delays);  waitFor(loc).highlight().click()  }
   * def watchFor =  function(loc) {    delay(delays);  waitFor(loc).highlight().click()  }
   * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
   * def btpMouseDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).down().up() }
   * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click()}
   * def btpMouseClickDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).click(); delay(delays); mouse(loc).down().up() }
   * def waitPage = function(p) { delay(delays); delay(delays); switchPage(p) }
-  * def waitFrame = function(f) { delay(delays); switchFrame(f) }
-  * def resetFrame = function(f) { waitFrame(null); waitFrame(f) }
   * def wrapup = function() { delay(delays),  delay(delays) }
 
   # Perhaps needed for Kyma Dhasboard
@@ -33,18 +35,16 @@ KymaCockpit -> Namespaces  -> Create Namespace
 """
   * driver KYMA_COCKPIT
   * watchFor( '{span}Namespaces')
-  * waitFrame(0)
-  * watchFor( '{span}Create Namespace' )
-  * waitFrame(0)
-  * watchInput('/html/body/div[5]/div/div/div[2]/section/form/div[1]/div/div[2]/div/div/div/input', ""+UNIQUEID )
+  * reframeThenWatchFor( 0,'{span}Create Namespace' )
+  * reframeThenWatchInput( 0, '/html/body/div[5]/div/div/div[2]/section/form/div[1]/div/div[2]/div/div/div/input', ""+UNIQUEID )
   * watchFor( '{span}Create')
   * wrapup()
 
 @CreateBTPSystem
 Scenario:
 """
-https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
-  System Name = mykymasystem{UNIQUEID}
+BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
+  System Name = mykymasystem
   Type = SAP Commerce Cloud
   -> Register
   -> Copy the token to your clipboard
@@ -56,19 +56,17 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   * btpMouseDownUp('{}Register System')
   * delay(delays)
   * input('body', "mykymasystem"+UNIQUEID, 100)
-  * mouse('#newSystemDialogView--systemTypeSelect-arrow').click()
-  * mouse("{}SAP Commerce Cloud").down().up()
-  * highlight("#newSystemDialogView--registerButton")
-  * mouse("#newSystemDialogView--registerButton").click()
-  * delay(delays)
-  * mouse("#newSystemDialogView--tokenCopyButton").click()
+  #* watchInput('input[id="newSystemDialogView--systemNameInput-inner"]', "mykymasystem"+UNIQUEID, 100)
+  * btpMouseClick('#newSystemDialogView--systemTypeSelect-arrow')
+  * btpMouseDownUp("{}SAP Commerce Cloud")
+  * btpMouseClick("#newSystemDialogView--registerButton")
+  * btpMouseClick("#newSystemDialogView--tokenCopyButton")
   * wrapup()
-
 
 @CreateBTPFormation
 Scenario:
 """
-https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
+BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
   Name = myformation{UNIQUEID}
   Select Subaccount=trial
   Select Systems = mykymasystem{UNIQUEID}
@@ -88,7 +86,6 @@ https://account.hanatrial.ondemand.com -> Go To Your Trial Account -> System Lan
   * btpMouseClickDownUp('{}Create')
   * wrapup()
 
-
 @ConfirmSystemAppearsInKyma
 Scenario:
 """
@@ -98,8 +95,7 @@ KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
   * delay(delays)
   * watchFor( '{span}Integration')
   * watchFor( '{span}Applications')
-  * waitFrame(0)
-  * watchFor( '{a}mp-mykymasystem'+UNIQUEID)
+  * reframeThenWatchFor( 0, '{a}mp-mykymasystem'+UNIQUEID)
   * wrapup()
 
 
@@ -136,8 +132,7 @@ KymaCockpit-> Integration -> Applications → mp-mykmyasystem20220314a → Creat
   * driver KYMA_COCKPIT
   * watchFor( '{}Integration')
   * watchFor( '{}Applications')
-  * waitFrame(0)
-  * watchFor( '{}mp-mykymasystem'+UNIQUEID)
+  * reframeThenWatchFor( 0, '{}mp-mykymasystem'+UNIQUEID)
   * resetFrame(0)
   * watchFor( '{^}Create Namespace Binding')
   * watchInput("//input[@placeholder='Namespace']", ""+UNIQUEID)
@@ -153,10 +148,8 @@ Kyma → defaultNamespace -> Catalog -> mykymasystem20220314a -> + Add -> Create
 """
   * driver KYMA_COCKPIT
   * watchFor( '{span}Namespaces')
-  * waitFrame(0)
-  * watchFor( '{}'+UNIQUEID)
-  * waitFrame(null)
-  * watchFor( '{}Service Management')
+  * reframeThenWatchFor( 0, '{}'+UNIQUEID)
+  * reframeThenWatchFor( null, '{}Service Management')
   * watchFor( '{}Catalog')
   * resetFrame(0)
   * watchFor( '{}mykymasystem'+UNIQUEID)
@@ -176,10 +169,8 @@ Kyma -> Namespaces -> 20220314a -> Workloads -> Functions ->  Create Function ->
   * driver KYMA_COCKPIT
   * delay(delays)
   * watchFor( '{span}Namespaces')
-  * waitFrame(0)
-  * watchFor( '{}'+UNIQUEID)
-  * waitFrame(null)
-  * watchFor( '{}Workloads')
+  * reframeThenWatchFor( 0,  '{}'+UNIQUEID)
+  * reframeThenWatchFor( null, '{}Workloads')
   * watchFor( '{}Functions')
   * resetFrame(0)
   * watchFor( '{^}Create Function')
@@ -214,10 +205,8 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
   * watchInput( 'input[type=email]', 'bob@thebuilder.com')
   * watchInput( 'input[type=password]', 'Builder123!')
   * watchSubmit()
-  * delay(5000)
   * waitFor('/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
   * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').click()
-  * delay(5000)
   * watchFor( '{}Albania')
   * watchInput( 'input[formcontrolname=firstName]', 'Bob')
   * watchInput( 'input[formcontrolname=lastName]', 'Builder')
@@ -226,9 +215,7 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
   * watchInput( 'input[formcontrolname=line1]', 'Bob1')
   * watchInput( 'input[formcontrolname=postalCode]', '80798')
   * watchFor( '{button}Continue')
-  * delay(5000)
   * watchFor( '{button}Continue')
-  * delay(5000)
   * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
   * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').click()
   * watchFor( '{}Visa')
@@ -242,7 +229,6 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
   * watchFor( '{}2024')
   * watchInput( 'input[formcontrolname=cvn]', '123')
   * watchFor( '{button}Continue')
-  * delay(5000)
   * watchFor( 'input[formcontrolname=termsAndConditions]')
   * watchFor( '{button}Place Order')
   * wrapup()
