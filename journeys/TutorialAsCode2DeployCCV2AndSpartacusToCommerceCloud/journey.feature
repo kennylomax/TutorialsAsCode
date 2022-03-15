@@ -105,41 +105,6 @@ https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -
 
 
 
-@AddCorsFilterProperties
-Scenario:
-"""
-https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/-
--> Platform -> Configuration
--> New key...=corsfilter.ycommercewebservices.allowedOrigin
--> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
--> add
--> New key...=corsfilter.ycommercewebservices.allowedMethods
--> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
--> add
--> New key...=corsfilter.ycommercewebservices.allowedHeaders
--> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
--> add
-"""
-  * def hacURL = 'https://backoffice.'+MY_COMMERCE_CLOUD_DOMAIN+'/hac/'
-  * driver hacURL
-  * delay(5000)
-  * input('input[name=j_username]', 'admin' )
-  * input('input[name=j_password]', MY_COMMERCE_CLOUD_PASSWORD )
-  * watchFor( '{}login') 
-  * delay(5000)
-  * watchFor('/html/body/div[2]/header/div[3]/nav[1]/ul/li[1]/a')
-  * mouse().move('/html/body/div[2]/header/div[3]/nav[1]/ul/li[1]/a').click()
-  * watchFor('{a}configuration')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigin')
-  * watchInput( 'input[id=configValue]', ['https://jsapps.', MY_COMMERCE_CLOUD_DOMAIN])
-  * watchFor( 'button[id=addButton]')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
-  * watchInput( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
-  * watchFor( 'button[id=addButton]')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
-  * watchInput( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
-  * watchFor( 'button[id=addButton]')
-  * delay(69000)
 
 @RegisterInSpartacus
 Scenario:
@@ -289,30 +254,7 @@ https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all 
   * watchFor( '{}login') 
   * delay(10000)
 
-@ImportCorsFilters
-Scenario:
-"""
-https://backoffice/hac/
--> Console -> ImpEx Import 
--> Import content
-"""
-  * def hacURL = 'https://backoffice.'+MY_COMMERCE_CLOUD_DOMAIN+'/hac/'
-  * driver hacURL
-  * delay(5000)
-  * input('input[name=j_username]', 'admin' )
-  * input('input[name=j_password]', MY_COMMERCE_CLOUD_PASSWORD )
-  * watchFor( '{}login') 
-  * delay(5000)
-  * watchFor('/html/body/div[2]/header/div[3]/nav[1]/ul/li[4]/a')
-  * mouse().move('/html/body/div[2]/header/div[3]/nav[1]/ul/li[4]/a').click()
-  * watchFor('{a}ImpEx import')
-  * watchInput( '//html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', 'INSERT_UPDATE OAuthClientDetails;clientId[unique=true]    ;resourceIds       ;scope        ;authorizedGrantTypes                                            ;authorities             ;clientSecret    ;registeredRedirectUri')
-  * watchAppendInput('//html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', [Key.ENTER,'                                   ;client-side              ;hybris            ;basic        ;implicit,client_credentials                                     ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;'])
-  * watchAppendInput( '//html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre',[Key.ENTER,';mobile_android           ;hybris            ;basic        ;authorization_code,refresh_token,password,client_credentials    ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_callback;'])
-  * watchFor('/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[2]')
-  * delay(5000)
-  * watchFor('/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[1]')
-  * delay(69000)
+
 
 
 @MakeFirstPurchaseWithVisa4444333322221111

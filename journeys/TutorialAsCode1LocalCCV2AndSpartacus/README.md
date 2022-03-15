@@ -17,7 +17,7 @@ In this journey we
 
 # Journey
 
-## Get Commerce Cloud and Spartacus running locally 
+## Clone and prepare cloud-commerce-sample-setup.
 Create a new directory and clone the Cloud Commerce Sample Setup into it:
 
 ```commands
@@ -25,6 +25,7 @@ mkdir -p $MY_JOURNEY_DIR
 cd $MY_JOURNEY_DIR
 git clone https://github.com/SAP-samples/cloud-commerce-sample-setup.git
 ```
+
 Unzip your downloaded Commerce
 
 ```commands
@@ -33,6 +34,7 @@ cd $MY_JOURNEY_DIR/$SAP_COMMERCE
 cp $MY_DOWNLOAD_FOLDER/$SAP_COMMERCE.ZIP .
 unzip $SAP_COMMERCE.ZIP
 ```
+
 Move folders  hybris/bin/modules and hybris/bin/platform in your unzipped SAP Commerce core directory to your core-customize/hybris/bin:
 
 ```commands
@@ -41,6 +43,8 @@ export SAP_COMMERCE_BIN=$MY_JOURNEY_DIR/$SAP_COMMERCE/hybris/bin
 mv $SAP_COMMERCE_BIN/modules $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin
 mv $SAP_COMMERCE_BIN/platform $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin
 ```
+
+##  Build your cloud-commerce-sample-setup
 
 Set up Apache Ant, then run an ant command to add Addons to your SAP Commerce:
 
@@ -63,7 +67,7 @@ ant clean all
 ant initialize
 ``` 
 
-Start SAP Commerce
+## Run your cloud-commerce-sample-setup and access it
 
 You can start it in the background as below, or run in the forgroung with **./hybrisserver.sh**, to ensure you see all log output.  But then place in the background once it has started (**ctrl-z; bg** ) 
 ```commands
@@ -85,10 +89,9 @@ Access SAP Commerce @ https://localhost:9002
 https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=admin -> password=nimda -> LOGIN
 ``` 
 
-https://user-images.githubusercontent.com/6401254/152189954-370d501d-b120-4149-8656-fb196ed7f378.mp4
 
+## Get Spartacus running 
 
-## Get Spartacus running locally 
 Build your Spartacus Storefront and run it locally
 
 ```commands
@@ -110,13 +113,8 @@ Access SAP Commerce @ https://localhost:4200
 https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 ``` 
 
-
-https://user-images.githubusercontent.com/6401254/152190009-6c76813f-1264-415b-8693-ab6ff2ea415c.mp4
-
-
-Access your Spartacus Storefront @ https://localhost:4200/ and look around :)
-
-Note we have not yet set up OCC  Credentials, as [discussed here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors), so you will not be able, for example, to register a user.   This is done in the next tutorial.
+## Explore Spartacus and buy something..
+Access your Spartacus Storefront @ https://localhost:4200/ and look around. (Note you cannot purchase anything due to CORS issues that we will address below)
 
 
 ## Modify your Spartacus storefront
@@ -233,7 +231,6 @@ Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spar
 </ng-container>
 ```
 
-
 Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore/src/app/custom-voucher/custom-product-summary/custom-product-summary.component.ts** to
 ```file
 import { Component, OnInit } from "@angular/core";
@@ -288,31 +285,57 @@ export class VoucherService {
 }
 
 ```
-
+## Prepare a user account for Spartacus
 Assign a password to a customer in the backoffice:
 ```clickpath:BackofficeUserPassword
-https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -> User -> Customers -> summercustomer@hybris.com -> PASSWORD -> New Password=12345 -> Confirm New Password=12345 -> SAVE
+https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -> User -> Customers -> womenvipsilver@hybris.com -> PASSWORD -> New Password=12345 -> Confirm New Password=12345 -> SAVE
 ``` 
 
 https://user-images.githubusercontent.com/6401254/152190081-0bcb10d5-76d9-4876-a1cd-4a73f0936a6f.mp4
 
 
-Login to Spartacus as that user, select an item and confirm you see voucher details..
-
-Confirm that you can see your new module in the spartacus storefront
-
-(Note for testing team: Karate can run this clickpath for version CXCOMM201100P_15-70005693 but  gives an error when running CXCOMM210500P_8-70005661..  GET .../occ/v2/electronics-spa/cms/pages?lang=en&curr=USD net::ERR_CERT_AUTHORITY_INVALID.  To be investigated..)
+Login to Spartacus as that user. If you seen an error in Spartacus that the user is disabled, register a new user in Spartacus and login with as that new user.   Then select an item and confirm you see the voucher details component.. 
 
 ```clickpath:SpartacusCustomVoucher
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
 ``` 
 
-https://user-images.githubusercontent.com/6401254/152190148-3814ea1a-52ca-4223-aae2-e277332f6cba.mp4
+(Note for testing team: Karate can run this clickpath for version CXCOMM201100P_15-70005693 but  gives an error when running CXCOMM210500P_8-70005661..  GET .../occ/v2/electronics-spa/cms/pages?lang=en&curr=USD net::ERR_CERT_AUTHORITY_INVALID.  To be investigated..)
+
+## Set up OCC credentials
+
+ [For an explanation why this is necessary , see here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
+
+Import this impex via the hac (hybris Administration Console):
+```clickpath:ImportCorsFilters
+https://localhost:9002 -> Console -> ImpEx Import 
+ -> Import content
+
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;authorizedGrantTypes  ;authorities   ;clientSecret  ;registeredRedirectUri
+  ;client-side  ;hybris  ;basic  ;implicit,client_credentials   ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;
+  ;mobile_android   ;hybris  ;basic  ;authorization_code,refresh_token,password,client_credentials  ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_callback;
+```
+
+Add corsfilter properties via the hac (hybris Administration Console):
+```clickpath:AddCorsFilterProperties
+https://localhost:9002 -> Platform -> Configuration
+-> New key...=corsfilter.ycommercewebservices.allowedOrigins
+-> New value...=http://localhost:4200 https://localhost:4200
+-> add
+-> New key...=corsfilter.ycommercewebservices.allowedMethods
+-> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
+-> add
+-> New key...=corsfilter.ycommercewebservices.allowedHeaders
+-> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
+-> add
+```
+
+You should now be able to select and purchase an article in Spartacus, using the fake VISA card number 4444333322221111.
 
 
+## Prepare this for SAP Commerce Cloud 
 
-## Check your CCV2 Spartacus code into Github.tools.sap
-Create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account
+To deploy this to SAP Commerce Cloud (in a following tutorial) you need to check your CCV2 Spartacus code into Github.tools.sap.  Create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account
 
 Remove the existing .git folder from your cloud-commerce-sample-setup
 
@@ -339,6 +362,7 @@ git push -u origin main
 For a comprehensive, hands-on walk-through of CCV2 capabilities:
 -  use the Learning System and supporting EBook from our Training Depts' [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a)  These give you a preconfigured CCV2 environment, and exercises to work through :)
 <img width="791" alt="Screenshot 2022-03-11 at 10 47 37" src="https://user-images.githubusercontent.com/6401254/157843905-63ba9a77-e433-4eed-97bd-c2132a0e8c02.png">
-- try [Commerce 123](https://help.sap.com/viewer/3fb5dcdfe37f40edbac7098ed40442c0/2105/en-US/a1ef894ac89545e79c470c726b487d13.html) which is similar to the (in)famous Cuppy Trail of yore.
+- and/or try [Commerce 123](https://help.sap.com/viewer/3fb5dcdfe37f40edbac7098ed40442c0/2105/en-US/a1ef894ac89545e79c470c726b487d13.html) which is similar to the (in)famous Cuppy Trail of yore.
+- and/or try the next tutorials in this TutorialsAsCode set.
 
 

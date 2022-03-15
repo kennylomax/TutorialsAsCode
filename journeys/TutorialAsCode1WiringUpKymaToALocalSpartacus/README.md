@@ -1,24 +1,24 @@
 # Tutorials as Code - Wiring Spartacus up to Kyma
 
+# THIS TUTORIAL IS UNDER CONSTRUCTION _ NOT YET READY FOR USE..
 ## Prerequisites 
 
-- You have completed the previous 2 journeys 
-  - [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus) and  
-  - [TutorialAsCode2: Deploying CCV2 and Spartacus to Commerce Cloud](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode2DeployCCV2AndSpartacusToCommerceCloud)
+- You have completed the previous journey
+  - [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)  and have 
+    - a running Commerce Backoffice at https://localhost:9002/backoffice
+    - a running Spartacus at https://localhost:4200
 - You have a (free) BTP trial account @ [SAP's BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) and **have enabled Kyma**  on it, and can access your Kyma dashboard via it.
+- You have opened a tunnel to your Commerce backoffice with [ngrok](https://ngrok.com/download): 
+  - download [ngrok](https://ngrok.com/download) 
+  - run the command **ngrok tls 9002** to open an https tunnel to your Commerce, 
+  - identify the URL the ngrok has activated (it should be something like **tls://xxx.ngrok.io** )
+  - assign the URL that ngrok has activated to the TUNNEL variable in your  **journeysetup.sh** file, with an https prefix, so something like **https://xxx.ngrok.io**
 - You have downloaded, personalized and sourced the file journeysetupexample.sh:
-  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode3WiringUpKymaWithYourDeployedSpartacus/journeysetupexample.sh > journeysetup.sh 
+  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode1WiringUpKymaToALocalSpartacus/journeysetupexample.sh > journeysetup.sh 
   - personalize its contents, 
   - then source it with the command **source journeysetup.sh**
- - This takes inspiration from [this cool tutorial](https://developers.sap.com/tutorials/cp-kyma-mocks.html), which you might want to read first.
 # Journey
 
-Add a new namespace in Kyma 
-```clickpath:AddKymaNamespace
-KymaCockpit -> Namespaces  -> Create Namespace 
-  Name={UNIQUEID} 
--> Create
-```
 
 ## Create a System on BTP
 
