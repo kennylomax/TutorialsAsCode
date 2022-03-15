@@ -7,7 +7,7 @@
   - [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)  and have 
     - a running Commerce Backoffice at https://localhost:9002/backoffice
     - a running Spartacus at https://localhost:4200
-- You have a (free) BTP trial account @ [SAP's BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) and **have enabled Kyma**  on it, and can access your Kyma dashboard via it.
+- You have a (free) BTP trial account on [SAP's BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) and **have enabled Kyma**  on it, and can access your Kyma dashboard via it.
 - You have opened a tunnel to your Commerce backoffice with [ngrok](https://ngrok.com/download): 
   - download [ngrok](https://ngrok.com/download) 
   - run the command **ngrok tls 9002** to open an https tunnel to your Commerce, 

@@ -7,13 +7,13 @@ In this journey we
 
 ## Prerequisites 
 
-- Use [JDK  11.0.12](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)   To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
+- Use [JDK  11.0.12 or 14](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html).  To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
 
 - Download a SAP Commerce **2105** ZIP from [SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, 
   - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus/journeysetupexample.sh > journeysetup.sh 
-  - personalize its contents, and then
-  - source its contents: source journeysetup.sh 
+- personalize the contents of journeysetup.sh, and then source its contents: 
+  - source journeysetup.sh 
 
 # Journey
 
@@ -113,7 +113,7 @@ Access SAP Commerce @ https://localhost:4200
 https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 ``` 
 
-## Explore Spartacus and buy something..
+## Explore Spartacus 
 Access your Spartacus Storefront @ https://localhost:4200/ and look around. (Note you cannot purchase anything due to CORS issues that we will address below)
 
 
@@ -363,6 +363,6 @@ For a comprehensive, hands-on walk-through of CCV2 capabilities:
 -  use the Learning System and supporting EBook from our Training Depts' [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a)  These give you a preconfigured CCV2 environment, and exercises to work through :)
 <img width="791" alt="Screenshot 2022-03-11 at 10 47 37" src="https://user-images.githubusercontent.com/6401254/157843905-63ba9a77-e433-4eed-97bd-c2132a0e8c02.png">
 - and/or try [Commerce 123](https://help.sap.com/viewer/3fb5dcdfe37f40edbac7098ed40442c0/2105/en-US/a1ef894ac89545e79c470c726b487d13.html) which is similar to the (in)famous Cuppy Trail of yore.
-- and/or try the next tutorials in this TutorialsAsCode set.
+
 
 
