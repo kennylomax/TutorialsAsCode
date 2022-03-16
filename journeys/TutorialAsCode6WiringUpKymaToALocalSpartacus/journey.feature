@@ -4,7 +4,6 @@ Background:
   * def delays = 10000
   * def waitFrame = function(f) { delay(delays); switchFrame(f) }
   * def resetFrame = function(f) { waitFrame(null); waitFrame(f) }
-  * def setVal = function(loc, v){ script(loc, "_.value = v");}
   * def watchInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
   * def reframeThenWatchInput = function(f, loc, v) { waitFrame(f);  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
   * def watchAppendInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); input(loc, v, 200 )  }

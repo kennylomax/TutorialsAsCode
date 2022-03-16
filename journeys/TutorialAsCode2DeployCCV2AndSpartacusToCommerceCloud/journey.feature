@@ -1,12 +1,13 @@
 Feature: CommerceCloud
 
 Background:
-  * def delays = 10000
+  * def delays = 20000
   * def watchInput = function(loc, v) { waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
   * def watchAppendInput = function(loc, v) { input(loc, v )  }
   * def watchSubmit = function() { waitFor('button[type=submit]').highlight(); click('button[type=submit]') }
   * def watchFor =  function(loc) {  waitFor(loc).highlight().click()   }
   * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
+
 
 @preflightChecks
 Scenario:
@@ -53,7 +54,6 @@ https://portal.commerce.ondemand.com -> Repository
   * delay(60000)
   * watchFor( '{}Repository')
   * delay(10000)
-
   * watchInput("//input[@data-placeholder='Repository URL']", "github.tools.sap/"+MY_GITHUB_USERNAME+"/concerttours-ccloud")
   * watchInput("//input[@data-placeholder='Username']", ""+MY_GITHUB_USERNAME )
   * watchInput("//input[@data-placeholder='Token']", ""+MY_GITHUB_TOKEN )
@@ -70,11 +70,12 @@ https://portal.commerce.ondemand.com -> Builds -> Create
   -> Save
 """
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(10000)
+  * delay(60000)
   * watchFor( '{}Repository')
-  * delay(10000)
+  * delay(60000)
   * watchFor( '{}Builds')
-  * watchFor( '{button}Create')
+  * delay(30000)
+  * watchFor( '{^a}Create')
   * watchInput("//input[@data-placeholder='Name']", 'Build'+NOW  )
   * watchInput("//input[@data-placeholder='Git Branch or Tag']", 'main' )
   * watchFor( '{button}Save')
@@ -328,9 +329,10 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
 @AddCorsFilterProperties
 Scenario:
 """
-https://localhost:9002 -> Platform -> Configuration
--> New key...=corsfilter.ycommercewebservices.allowedOrigins
--> New value...=http://localhost:4200 https://localhost:4200
+https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/-
+-> Platform -> Configuration
+-> New key...=corsfilter.ycommercewebservices.allowedOrigin
+-> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
 -> add
 -> New key...=corsfilter.ycommercewebservices.allowedMethods
 -> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE

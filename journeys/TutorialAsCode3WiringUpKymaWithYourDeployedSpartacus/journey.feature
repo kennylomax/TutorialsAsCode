@@ -4,7 +4,6 @@ Background:
   * def delays = 10000
   * def waitFrame = function(f) { delay(delays); switchFrame(f) }
   * def resetFrame = function(f) { waitFrame(null); waitFrame(f) }
-  * def setVal = function(loc, v){ script(loc, "_.value = v");}
   * def watchInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
   * def reframeThenWatchInput = function(f, loc, v) { waitFrame(f);  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
   * def watchAppendInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); input(loc, v, 200 )  }
@@ -16,7 +15,7 @@ Background:
   * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click()}
   * def btpMouseClickDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).click(); delay(delays); mouse(loc).down().up() }
   * def waitPage = function(p) { delay(delays); delay(delays); switchPage(p) }
-  * def wrapup = function() { delay(delays),  delay(delays) }
+  * def wrapup = function() { delay(delays);  delay(delays) }
 
   # Perhaps needed for Kyma Dhasboard
   # * driver "https://account.hanatrial.ondemand.com"

@@ -112,17 +112,13 @@ Wait for Spartacus to come online.. (not optimal but until I figure out how to d
 until $(curl -k --output /dev/null --silent --fail https://localhost:4200); do printf "."; sleep 5; done
 ```
 
-
-## Explore Spartacus 
-
-
 Access Spartaus @ https://localhost:4200  and look around. (Note you cannot purchase anything due to CORS issues that we will address below)
 
 ```clickpath:LoginToSpartacusViaWarning
 https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 ``` 
 
-## Customize your Spartacus Storefront to add functionality
+## Customize your Spartacus Storefront with new functionality
 
 Install angular CLI:
 
@@ -300,7 +296,7 @@ https://user-images.githubusercontent.com/6401254/158601033-3dade944-38a3-4fee-b
 
 (Note for testing team: Karate can run this clickpath for version CXCOMM201100P_15-70005693 but  gives an error when running CXCOMM210500P_8-70005661..  GET .../occ/v2/electronics-spa/cms/pages?lang=en&curr=USD net::ERR_CERT_AUTHORITY_INVALID.  To be investigated..)
 
-## Set up OCC credentials
+## Set up OCC credentials to enable the Spartacus purchase workflow
  [For an explanation why this is necessary, see here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
 
 Import this impex via the hac (hybris Administration Console):
@@ -332,16 +328,15 @@ You should now be able to select and purchase an article in Spartacus, using the
 
 ## Prepare this for SAP Commerce Cloud 
 
-To deploy this to SAP Commerce Cloud (in a following tutorial) you need to check your CCV2 Spartacus code into Github.tools.sap.  So create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account.
-
-Remove the existing .git folder from your cloud-commerce-sample-setup:
+To deploy this to SAP Commerce Cloud (in a following tutorial) you need to check your CCV2 Spartacus code into Github.tools.sap.  So 
+- create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account, then
+- remove the existing .git folder from your cloud-commerce-sample-setup:
 
 ```commands
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
 rm -rf .git
 ```
-
-Commit your code to your Github repository:
+- Commit your code to your new concerttours-ccloud repository:
 
 ```commands
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup

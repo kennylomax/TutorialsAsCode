@@ -7,12 +7,6 @@ Background:
   * def watchFor =  function(loc) {  waitFor(loc).highlight().click()   }
   * def watchForOptional =  function(loc) {  optional(loc).highlight().click()   }
 
-@preflightChecks
-Scenario:
-  * driver "https://nodejs.org/en/download/"
-  * watchFor( '{a}64-bit / ARM64')
-  * delay(delays)
-  * waitFor( '{a}64-bit / ARM64')
 
 @logvariables
 Scenario:
