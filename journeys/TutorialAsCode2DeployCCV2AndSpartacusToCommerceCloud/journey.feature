@@ -81,27 +81,6 @@ https://portal.commerce.ondemand.com -> Builds -> Create
   * watchFor( '{button}Save')
   * delay(delays)
 
-@BackofficeUserPassword
-Scenario:
-"""
-https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -> User -> Customers -> summercustomer@hybris.com -> PASSWORD -> New Password=12345 -> Confirm New Password=12345 -> SAVE
-"""
-  * driver 'https://localhost:9002/backoffice'
-  * watchForOptional( '{button}Advanced')
-  * watchForOptional( '{a}Proceed to localhost (unsafe)')
-  * watchInput('input[name=j_username]', "admin")
-  * watchInput('input[name=j_password]', "nimda")
-  * watchFor( '{}Login')
-  * delay(delays)
-  * watchFor( '{}User')
-  * watchFor( '{}Customers')
-  * watchFor( '{}womenvipsilver@hybris.com')
-  * watchFor( '{span}Password')
-  * watchInput("//input[@placeholder='New Password']", "12345")
-  * watchInput("//input[@placeholder='Confirm New Password']", "12345")
-  * watchFor( '{button}Save')
-  * delay(delays)
-
 @RegisterInSpartacus
 Scenario:
 """

@@ -29,26 +29,7 @@ https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
   * driver 'https://localhost:4200'
   * click( '{button}Advanced')
   * click( '{a}Proceed to localhost (unsafe)')
-  * wrapup()
-
-@BackofficeUserPassword
-Scenario:
-"""
-https://localhost:9002/backoffice -> username=admin -> password=nimda -> Login -> User -> Customers -> womenvipsilver@hybris.com -> PASSWORD -> New Password=12345 -> Confirm New Password=12345 -> SAVE
-"""
-  * driver 'https://localhost:9002/backoffice'
-  * clickOptional( '{button}Advanced')
-  * clickOptional( '{a}Proceed to localhost (unsafe)')
-  * input( 'input[name=j_username]', "admin")
-  * input( 'input[name=j_password]', "nimda")
-  * click( '{}Login')
-  * click( '{}User')
-  * click( '{}Customers')
-  * click( '{}womenvipsilver@hybris.com')
-  * click( '{span}Password')
-  * input( "//input[@placeholder='New Password']", "12345")
-  * input( "//input[@placeholder='Confirm New Password']", "12345")
-  * click( '{button}Save')
+  * click( '{a}Sign In / Register')
   * wrapup()
 
 @SpartacusCustomVoucher
@@ -82,8 +63,11 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
   * click( '{a}console')
   * click( '{a}ImpEx import')
   * input( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', 'INSERT_UPDATE OAuthClientDetails;clientId[unique=true]    ;resourceIds       ;scope        ;authorizedGrantTypes                                            ;authorities             ;clientSecret    ;registeredRedirectUri')
+  * delay( delays )
   * append( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', [Key.ENTER,'                                   ;client-side              ;hybris            ;basic        ;implicit,client_credentials                                     ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;'])
+  * delay( delays )
   * append( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre',[Key.ENTER,';mobile_android           ;hybris            ;basic        ;authorization_code,refresh_token,password,client_credentials    ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_callback;'])
+  * delay( delays )
   * click( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[2]')
   * click( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[1]')
   * wrapup()
@@ -101,6 +85,7 @@ https://localhost:9002 -> Platform -> Configuration
 -> New key...=corsfilter.ycommercewebservices.allowedHeaders
 -> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
 -> add
+-> apply all
 """
   * driver 'https://localhost:9002'
   * click( '{}Advanced') 
@@ -112,11 +97,18 @@ https://localhost:9002 -> Platform -> Configuration
   * click( '{a}configuration')
   * input( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigins')
   * input( 'input[id=configValue]', 'http://localhost:4200 https://localhost:4200')
+  * delay( delays )
   * click( 'button[id=addButton]')
+  * delay( delays )
   * input( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
   * input( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
+  * delay( delays )
   * click( 'button[id=addButton]')
+  * delay( delays )
   * input( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
   * input( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
+  * delay( delays )
   * click( 'button[id=addButton]')
+  * delay( delays )
+  * click( '{button}apply all')
   * wrapup()

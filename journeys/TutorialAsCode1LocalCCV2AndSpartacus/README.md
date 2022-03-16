@@ -5,7 +5,7 @@ In this journey we
 * Extend Spartacus with a custom component.
  
  
-Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondemand.com/), then wire up to [Kyma](https://github.com/kyma-project/kyma) for further fun
+Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondemand.com/), then wire up to [Kyma](https://github.com/kyma-project/kyma) for further fun.
 
 ## Prerequisites 
 
@@ -112,7 +112,7 @@ Wait for Spartacus to come online.. (not optimal but until I figure out how to d
 until $(curl -k --output /dev/null --silent --fail https://localhost:4200); do printf "."; sleep 5; done
 ```
 
-Access Spartaus @ https://localhost:4200  and look around. (Note you cannot purchase anything due to CORS issues that we will address below)
+Access Spartaus @ https://localhost:4200  and look around. (Note you cannot yet register a user, or purchase anything in Spartacus, due to CORS issues that we will address below)
 
 ```clickpath:LoginToSpartacusViaWarning
 https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
@@ -321,6 +321,7 @@ https://localhost:9002 -> Platform -> Configuration
 -> New key...=corsfilter.ycommercewebservices.allowedHeaders
 -> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
 -> add
+-> apply all
 ```
 
 You should now be able to select and purchase an article in Spartacus, using the fake VISA card number 4444333322221111.
