@@ -290,7 +290,7 @@ export class VoucherService {
 }
 ```
 
-Open Spartacus, select an item in Spartacus, and confirm you the custom component in the Spartacus storefront.. 
+Open Spartacus, select an item in Spartacus, and confirm you see the custom component in the Spartacus storefront.. 
 
 ```clickpath:SpartacusCustomVoucher
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
