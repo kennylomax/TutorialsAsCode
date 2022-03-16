@@ -288,6 +288,7 @@ export class VoucherService {
   return this.httpClient.get( "https://my-json-server.typicode.com/kennylomax/spartacusdemojson/vouchers?id=1" )
   }
 }
+```
 
 Open Spartacus, select an item in Spartacus, and confirm you the custom component in the Spartacus storefront.. 
 
