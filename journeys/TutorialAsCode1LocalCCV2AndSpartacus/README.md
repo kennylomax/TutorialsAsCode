@@ -295,6 +295,8 @@ Open Spartacus, select an item in Spartacus, and confirm you the custom componen
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
 ``` 
 
+https://user-images.githubusercontent.com/6401254/158601033-3dade944-38a3-4fee-b8cb-12b1e1a1c20c.mp4
+
 (Note for testing team: Karate can run this clickpath for version CXCOMM201100P_15-70005693 but  gives an error when running CXCOMM210500P_8-70005661..  GET .../occ/v2/electronics-spa/cms/pages?lang=en&curr=USD net::ERR_CERT_AUTHORITY_INVALID.  To be investigated..)
 
 ## Set up OCC credentials
