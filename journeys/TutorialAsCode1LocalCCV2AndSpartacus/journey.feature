@@ -39,6 +39,7 @@ https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
   * delay(delays)
   * watchFor( '{a}Proceed to localhost (unsafe)')
   * delay(delays)
+  * delay(delays)
 
 @BackofficeUserPassword
 Scenario:

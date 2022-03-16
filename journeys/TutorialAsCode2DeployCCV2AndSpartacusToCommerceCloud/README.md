@@ -1,18 +1,23 @@
 # Tutorials as Code - Deploying Spartacus and CCV2 to SAP Commerce Cloud
-In this journey we  deploy to SAP Commerce Cloud and configure Spartacus so we can purchase something.
+In this journey we deploy CCV2 and Spartacus to SAP Commerce Cloud and configure Spartacus so we can purchase something.
 
 ## Prerequisites 
 
 - You have CCV2 and Spartacus running locally,as described in this  [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)
-- You have a (free) trial account @ https://portal.commerce.ondemand.com/subscription, with an environment in there called "dev". 
+- You have a (free) trial account @ [SAP COmmerce Cloud](https://portal.commerce.ondemand.com/subscription), with an environment in there called "dev". 
+- Download the file journeysetupexample.sh to journeysetup.sh, personalize the data in journeysetup.sh and then source its contents:
+```
+curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus/journeysetupexample.sh > journeysetup.sh 
 
-(TutorialAsCode serve as demos, tutorials, and as end2end tests, that can be executed automatically in CICD Pipelines. Their particular format makes them followable by humans but also by a computer, meaning they can be tested in a CICD pipeline. More [here](https://github.com/kennylomax/TutorialsAsCode). )
+.. then personalize its contents and then..
 
+source journeysetup.sh 
+```
 # Journey
 
 ## Deploy your CCV2 and Spartacus solution to SAP Commerce Cloud
 
-Create a reference to your Github Commerce Cloud Repository from within Commerce Cloud:
+Create a reference in SAP Commerce Cloud to your Github Commerce Cloud Repository:
 ```clickpath:CreateCCRepo
 https://portal.commerce.ondemand.com -> Repository 
   -> Repository URL = github.tools.sap/$MY_GITHUB_USERNAME/concerttours-ccloud.git
@@ -62,15 +67,14 @@ https://portal.commerce.ondemand.com -> Environments
   -> JS Storefront URL
 ```
 
-In the following clickpaths you will find:
-
-* your Backoffice Admin password, 
-* your Backoffice URL, which will be of the form https://backoffice.(yourCommerceCloudEnvironmentDomain)/backoffice
-* your hac (hybris Administration Console) URL, which will be https://backoffice.(yourCommerceCloudEnvironmentDomain)/hac
-
-and you will open:
-* your Backoffice
-* your hac
+For the next steps, you need access to our backoffice and Hybris Admin Console.  So in the following clickpaths you will:
+ - identify:
+   - your Backoffice Admin password, 
+   - your Backoffice URL, which will be of the form https://backoffice.(yourCommerceCloudEnvironmentDomain)/backoffice
+   - your Hybris Administration Console URL, which will be of the form https://backoffice.(yourCommerceCloudEnvironmentDomain)/hac
+  - and  open:
+    - your Backoffice and
+    - your Hac (Hybris Administration Console)
 
 ```clickpath:GetAdminPwdAndLoginToBackoffice
 https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all -> hcs_admin -> Properties -> admin -> Copy to clipboard
@@ -87,7 +91,6 @@ https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all 
   -> Login
 ```
 
-
 https://user-images.githubusercontent.com/6401254/153720221-8df0d4db-9768-4123-9149-c28eab7cbf65.mov
 
 
@@ -103,7 +106,6 @@ Set 2 more useful environment variables:
 for example: 
 ```
 export MY_COMMERCE_CLOUD_DOMAIN=cqz1m-softwarea1-d57-public.model-t.cc.commerce.ondemand.com
-
 export MY_COMMERCE_CLOUD_PASSWORD=xxx
 ```
 
@@ -111,7 +113,7 @@ Set up OCC credentials [(for reasons why see here)](https://sap.github.io/sparta
 
 Import this impex via the hac (hybris Administration Console):
 ```clickpath:ImportCorsFilters
-https://backoffice/hac/ -> Console -> ImpEx Import  
+https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/ -> Console -> ImpEx Import  
 -> Import content
 INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;authorizedGrantTypes  ;authorities   ;clientSecret  ;registeredRedirectUri
   ;client-side  ;hybris  ;basic  ;implicit,client_credentials   ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;

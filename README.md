@@ -13,7 +13,7 @@
 - The proposal is to have a series of these journey, to  serve as *tutorials*, *demos*, and also as *end-to-end tests* for inclusion in CICD pipelines and onboarding material.
 
 ## Options:
-  - **To follow those tutorials manually**, simply follow the readmes in those tutorials
+  - **To follow those tutorials manually**, simply follow the "ReadMe"s in them
   - **To execute the tutorials as end2end tests directly on OSX**:
     - Copy journeys/xx/journeysetupexample.sh to journeys/xx/journeysetup.sh and personalize it, then:
     - ./validatejourney.sh upscaleNativeExtension|upscaleCustomExtension|commercecloudSpartacus

@@ -109,7 +109,7 @@ BACKOFFICE → System → API → Destination Target → Default_Template → Wi
 """
   * driver BACKOFFICE
   * watchInput('input[name=j_username]', "admin")
-  * watchInput('input[name=j_password]', BACKOFFICE_PASSWORD)
+  * watchInput('input[name=j_password]', "nimda")
   * watchFor( '{}Login')
   * watchFor( '{}System')
   * watchFor( '{}API')
