@@ -112,7 +112,7 @@ Set up OCC credentials [(for reasons why see here)](https://sap.github.io/sparta
 
 Import this impex via the hac (hybris Administration Console):
 ```clickpath:ImportCorsFilters
-https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/ -> Console -> ImpEx Import  
+https://portal.commerce.ondemand.com -> Environments -> dev -> Backoffice URL -> <adjust url's /backoffice/xxx to /hac to reach the hac> -> Console -> ImpEx Import  
 -> Import content
 INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;authorizedGrantTypes  ;authorities   ;clientSecret  ;registeredRedirectUri
   ;client-side  ;hybris  ;basic  ;implicit,client_credentials   ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;

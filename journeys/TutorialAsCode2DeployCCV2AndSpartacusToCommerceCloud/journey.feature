@@ -1,20 +1,14 @@
 Feature: CommerceCloud
 
 Background:
-  * def delays = 20000
-  * def watchInput = function(loc, v) { waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
-  * def watchAppendInput = function(loc, v) { input(loc, v )  }
-  * def watchSubmit = function() { waitFor('button[type=submit]').highlight(); click('button[type=submit]') }
-  * def watchFor =  function(loc) {  waitFor(loc).highlight().click()   }
-  * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
-
-
-@preflightChecks
-Scenario:
-  * driver "https://nodejs.org/en/download/"
-  * watchFor( '{a}64-bit / ARM64')
-  * delay(delays)
-  * waitFor( '{a}64-bit / ARM64')
+  * def delays = 10000
+  * def inputIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
+  * def appendIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); input(loc, v )   }
+  * def clickIt =  function(loc) { retry(5, delays); waitFor(loc).highlight().click ()   }
+  * def clickNth =  function(loc, n) { delay(delays);  locateAll(loc)[n].highlight().click ()   }
+  * def clickOptional =  function(loc) { retry(3, delays); optional(loc).highlight().click()   }
+  * def wrapUp = function() { delay(30000) }
+  * def switchToPage = function(p) { delay(delays); switchPage(p);delay(delays); }
 
 @LoginToCommerceCloudViaWarning2
 Scenario:
@@ -22,13 +16,13 @@ Scenario:
 https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=admin -> password=nimda -> LOGIN
 """ 
   * driver 'https://localhost:9002'
-  * watchFor( '{button}Advanced')
-  * delay(delays)
-  * watchFor( '{a}Proceed to localhost (unsafe)')
-  * watchInput('input[name=j_username]', "admin")
-  * watchInput('input[name=j_password]', "nimda")
-  * watchSubmit()
-  * delay(delays)
+  * clickIt( '{button}Advanced')
+  * clickIt( '{a}Proceed to localhost (unsafe)')
+  * inputIt('input[name=j_username]', "admin")
+  * inputIt('input[name=j_password]', "nimda")
+  * clickIt( 'button[type=submit]' )
+  * wrapUp()
+
 
 @LoginToSpartacusViaWarning
 Scenario:
@@ -36,10 +30,10 @@ Scenario:
 https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 """ 
   * driver 'https://localhost:4200'
-  * watchFor( '{button}Advanced')
-  * delay(delays)
-  * watchFor( '{a}Proceed to localhost (unsafe)')
-  * delay(delays)
+  * clickIt( '{button}Advanced')
+  * clickIt( '{a}Proceed to localhost (unsafe)')
+  * wrapUp()
+
 
 @CreateCCRepo
 Scenario:
@@ -51,15 +45,12 @@ https://portal.commerce.ondemand.com -> Repository
   -> Save
 """
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(60000)
-  * watchFor( '{}Repository')
-  * delay(10000)
-  * watchInput("//input[@data-placeholder='Repository URL']", "github.tools.sap/"+MY_GITHUB_USERNAME+"/concerttours-ccloud")
-  * watchInput("//input[@data-placeholder='Username']", ""+MY_GITHUB_USERNAME )
-  * watchInput("//input[@data-placeholder='Token']", ""+MY_GITHUB_TOKEN )
-  * watchFor( '{button}Save')
-  * delay(delays)
-
+  * clickIt( '{}Repository')
+  * inputIt("//input[@data-placeholder='Repository URL']", "github.tools.sap/"+MY_GITHUB_USERNAME+"/concerttours-ccloud")
+  * inputIt("//input[@data-placeholder='Username']", ""+MY_GITHUB_USERNAME )
+  * inputIt("//input[@data-placeholder='Token']", ""+MY_GITHUB_TOKEN )
+  * clickIt( '{button}Save')
+  * wrapUp()
 
 @TriggerABuild
 Scenario:
@@ -70,16 +61,13 @@ https://portal.commerce.ondemand.com -> Builds -> Create
   -> Save
 """
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(60000)
-  * watchFor( '{}Repository')
-  * delay(60000)
-  * watchFor( '{}Builds')
-  * delay(30000)
-  * watchFor( '{^a}Create')
-  * watchInput("//input[@data-placeholder='Name']", 'Build'+NOW  )
-  * watchInput("//input[@data-placeholder='Git Branch or Tag']", 'main' )
-  * watchFor( '{button}Save')
-  * delay(delays)
+  * clickIt( '{}Repository')
+  * clickIt( '{}Builds')
+  * clickIt( '{^a}Create')
+  * inputIt("//input[@data-placeholder='Name']", 'Build'+NOW  )
+  * inputIt("//input[@data-placeholder='Git Branch or Tag']", 'main' )
+  * clickIt( '{button}Save')
+  * wrapUp()
 
 @RegisterInSpartacus
 Scenario:
@@ -91,16 +79,18 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} -> Sign In / Register -> Register ->
 """
   * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
   * driver spartacusURL
-  * watchFor('{a}Sign In / Register')
-  * watchFor('{a}Register')
-  * watchInput( 'input[name=firstname]', 'Bob')
-  * watchInput( 'input[name=lastname]', 'Builder')
-  * watchInput( 'input[name=email]', 'bob@tbuilder.com')
-  * watchInput( 'input[name=password]', 'Builder123!')
-  * watchInput( 'input[name=confirmpassword]', 'Builder123!')
-  * watchFor( 'input[name=newsletter]')
-  * watchFor( 'input[name=termsandconditions]')
-  * watchSubmit()
+  * clickIt( '{a}Sign In / Register')
+  * clickIt( '{a}Register')
+  * inputIt( 'input[name=firstname]', 'Bob')
+  * inputIt( 'input[name=lastname]', 'Builder')
+  * inputIt( 'input[name=email]', 'bob@tbuilder.com')
+  * inputIt( 'input[name=password]', 'Builder123!')
+  * inputIt( 'input[name=confirmpassword]', 'Builder123!')
+  * clickIt( 'input[name=newsletter]')
+  * clickIt( 'input[name=termsandconditions]')
+  * clickIt( 'button[type=submit]' )
+  * wrapUp()
+
 
 @DeployBuild
 Scenario:
@@ -112,30 +102,18 @@ https://portal.commerce.ondemand.com -> Builds -> LatestBuild  ->  Deploy to Env
   -> Deploy -> Deploy
 """
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(60000)
-  * watchFor( '{}Builds')
-  * delay(20000)
-  * watchFor("{mat-cell:0}" )
-  * watchFor( '{}Deploy to Environment')
-  * delay(10000)
-  
-  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[2].highlight().click() 
-  * delay(1000)
-  * watchFor('{}Recreate (fastest, with downtime)')
-  
-  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[1].highlight().click() 
-  * delay(1000)
-  * watchFor('{}Initialize database')
-
-  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[0].highlight().click() 
-  * delay(1000)
-  * watchFor('{}dev')  
-  * delay(1000)
-    
-  * watchFor( '{button}Deploy')
-  * watchFor( '{button:2}Deploy')
-  * delay(delays)
-
+  * clickIt( '{}Builds')
+  * clickIt("{mat-cell:0}" )
+  * clickIt( '{}Deploy to Environment')
+  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[2].highlight().clickIt() 
+  * clickIt( '{}Recreate (fastest, with downtime)')  
+  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[1].highlight().clickIt() 
+  * clickIt( '{}Initialize database')
+  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[0].highlight().clickIt() 
+  * clickIt( '{}dev')  
+  * clickIt( '{button}Deploy')
+  * clickIt( '{button:2}Deploy')
+  * wrapUp()
 
 
 @AllowAccessToCloudCommerceAndAccessSpartacus
@@ -150,38 +128,36 @@ https://portal.commerce.ondemand.com -> Environments
   -> JS Storefront URL
 """
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(20000)
-  * watchFor( '{a}dev')
-  * watchFor( '{}API')
-  * watchForOptional( '{}Deny all')
-  * watchForOptional( '{}Allow all')
-  * watchFor( '{}Save')
-  * watchFor( '{}Cancel')
-  * watchFor( '{}Backoffice')
-  * watchForOptional( '{}Deny all')
-  * watchForOptional( '{}Allow all')
-  * watchFor( '{}Save')
-  * watchFor( '{}Cancel')
-  * watchFor( '{}JS Storefront')
-  * watchForOptional( '{}Deny all')
-  * watchForOptional( '{}Allow all')
-  * watchFor( '{}Save')
-  * watchFor( '{}Cancel')
-  * watchFor( '{}Storefront')
-  * watchForOptional( '{}Deny all')
-  * watchForOptional( '{}Allow all')
-  * watchFor( '{}Save')
-  * watchFor( '{}Cancel')
-  * delay(2000)
-  * locateAll("//fd-icon[starts-with(@class, 'icon-external-link ')]")[2].click() 
-  * delay(10000)
-  
+  * clickIt( '{a}dev')
+  * clickIt( '{}API')
+  * clickOptional( '{}Deny all')
+  * clickOptional( '{}Allow all')
+  * clickIt( '{}Save')
+  * clickIt( '{}Cancel')
+  * clickIt( '{}Backoffice')
+  * clickOptional( '{}Deny all')
+  * clickOptional( '{}Allow all')
+  * clickIt( '{}Save')
+  * clickIt( '{}Cancel')
+  * clickIt( '{}JS Storefront')
+  * clickOptional( '{}Deny all')
+  * clickOptional( '{}Allow all')
+  * clickIt( '{}Save')
+  * clickIt( '{}Cancel')
+  * clickIt( '{}Storefront')
+  * clickOptional( '{}Deny all')
+  * clickOptional( '{}Allow all')
+  * clickIt( '{}Save')
+  * clickIt( '{}Cancel')
+  * clickNth("//fd-icon[starts-with(@class, 'icon-external-link ')]", 2) 
+  * wrapUp()
+
   
 @GetAdminPwdAndLoginToBackoffice
 Scenario:
 """
 https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all -> hcs_admin -> Properties -> admin -> Copy to clipboard
-<New Browser Tab> -> https://portal.commerce.ondemand.com -> Environments -> Backoffice URL ->
+<New Browser Tab> -> https://portal.commerce.ondemand.com -> Environments -> dev -> Backoffice URL ->
   -> username = admin
   -> Password = Password from clipboard
   -> Login
@@ -191,45 +167,33 @@ https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all 
   -> Login
 """
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(20000)
-  * watchFor( '{a}dev')
-  * watchFor( '{}View all (7)')
-  * delay(10000)
-  * watchFor( '{}hcs_admin')
-  * watchFor( '{}Properties')
-  * delay(10000)
-  * locateAll("//a[contains(@class, 'sap-icon--show')]")[0].click() 
-  * delay(5000)
-  * mouse('{}Copy to Clipboard').click()
-  * delay(5000)
+  * clickIt( '{a}dev')
+  * clickIt( '{}View all (7)')
+  * clickIt( '{}hcs_admin')
+  * clickIt( '{}Properties')
+  
+  * clickNth("//fd-icon[contains(@class, 'sap-icon--show')]",0 )
+  * clickIt('{}Copy to Clipboard')
+  
   * driver 'https://portal.commerce.ondemand.com'
-  * delay(40000)
-  * watchFor( '{a}dev')
-  * delay(20000)
-  * locateAll("//fd-icon[starts-with(@class, 'icon-external-link ')]")[1].click() 
-  * switchPage('SAP CX Backoffice | Login')
-  * delay(2000)
-  * input('input[name=j_username]', 'admin' )
-  * delay(5000)
-  * watchFor( '{}Login') 
-  * delay(delays)
-  * watchFor( '{}Home') 
-  * switchPage('SAP Commerce Cloud')
-  * delay(5000)
-  * locateAll("//fd-icon[starts-with(@class, 'icon-external-link ')]")[1].click() 
-  * delay(5000)
-  * switchPage('SAP CX Backoffice')
-  * delay(5000)
-  * def getHacUrl = function(locator){ return driver.url.replace("backoffice/", "hac/");  }
-  * def hacUrl = getHacUrl()
+  * clickIt( '{a}dev')
+  * clickNth("//fd-icon[starts-with(@class, 'icon-external-link ')]",1)
+
+  * switchToPage('SAP CX Backoffice | Login')
+  * inputIt('input[name=j_username]', 'admin' )
+  * clickIt( '{}Login') 
+  * clickIt( '{}Home') 
+
+  * switchToPage('SAP Commerce Cloud')
+  * clickNth("//fd-icon[starts-with(@class, 'icon-external-link ')]",1 )
+  
+  * switchToPage('SAP CX Backoffice')
+  * def hacUrl = driver.url.replace("backoffice/", "hac/"); 
+
   * driver hacUrl
-  * delay(5000)
-  * input('input[name=j_username]', 'admin' )
-  * delay(5000)
-  * watchFor( '{}login') 
-  * delay(10000)
-
-
+  * inputIt('input[name=j_username]', 'admin' )
+  * clickIt( '{}login') 
+  * wrapUp()
 
 
 @MakeFirstPurchaseWithVisa4444333322221111
@@ -239,71 +203,67 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
 """
   * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
   * driver spartacusURL
-  * watchFor( '{h3}DSC-T90')
-  * watchFor( '{button}Add to cart')
-  * watchFor( '{a}proceed to checkout')
-  * watchInput( 'input[type=email]', 'bob@thebuilder.com')
-  * watchInput( 'input[type=password]', 'Builder123!')
-  * watchSubmit()
-  * delay(5000)
+  * clickIt( '{h3}DSC-T90')
+  * clickIt( '{button}Add to cart')
+  * clickIt( '{a}proceed to checkout')
+  * inputIt( 'input[type=email]', 'bob@thebuilder.com')
+  * inputIt( 'input[type=password]', 'Builder123!')
+  * clickIt( 'button[type=submit]' )
   * waitFor('/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').click()
-  * delay(5000)
-  * watchFor( '{}Albania')
-  * watchInput( 'input[formcontrolname=firstName]', 'Bob')
-  * watchInput( 'input[formcontrolname=lastName]', 'Builder')
-  * watchInput( 'input[formcontrolname=line1]', 'BobStreet')
-  * watchInput( 'input[formcontrolname=town]', 'BobTown')
-  * watchInput( 'input[formcontrolname=line1]', 'Bob1')
-  * watchInput( 'input[formcontrolname=postalCode]', '80798')
-  * watchFor( '{button}Continue')
-  * delay(5000)
-  * watchFor( '{button}Continue')
-  * delay(5000)
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').clickIt()
+  * clickIt( '{}Albania')
+  * inputIt( 'input[formcontrolname=firstName]', 'Bob')
+  * inputIt( 'input[formcontrolname=lastName]', 'Builder')
+  * inputIt( 'input[formcontrolname=line1]', 'BobStreet')
+  * inputIt( 'input[formcontrolname=town]', 'BobTown')
+  * inputIt( 'input[formcontrolname=line1]', 'Bob1')
+  * inputIt( 'input[formcontrolname=postalCode]', '80798')
+  * clickIt( '{button}Continue')
+  * clickIt( '{button}Continue')
   * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').click()
-  * watchFor( '{}Visa')
-  * watchInput( 'input[formcontrolname=accountHolderName]', 'Bob Builder')
-  * watchInput( 'input[formcontrolname=cardNumber]', '4444333322221111')
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').clickIt()
+  * clickIt( '{}Visa')
+  * inputIt( 'input[formcontrolname=accountHolderName]', 'Bob Builder')
+  * inputIt( 'input[formcontrolname=cardNumber]', '4444333322221111')
   * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').click()
-  * watchFor( '{}01')
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').clickIt()
+  * clickIt( '{}01')
   * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').click()
-  * watchFor( '{}2024')
-  * watchInput( 'input[formcontrolname=cvn]', '123')
-  * watchFor( '{button}Continue')
-  * delay(5000)
-  * watchFor( 'input[formcontrolname=termsAndConditions]')
-  * watchFor( '{button}Place Order')
-  * delay(5000)
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').clickIt()
+  * clickIt( '{}2024')
+  * inputIt( 'input[formcontrolname=cvn]', '123')
+  * clickIt( '{button}Continue')
+  * clickIt( 'input[formcontrolname=termsAndConditions]')
+  * clickIt( '{button}Place Order')
+  * wrapUp()
+
   
 @ImportCorsFilters
 Scenario:
 """
-https://localhost:9002 -> Console -> ImpEx Import 
- -> Import content
+https://portal.commerce.ondemand.com -> Environments -> dev -> Backoffice URL -> <adjust url's /backoffice/xxx to /hac to reach the hac> -> Console -> ImpEx Import  
+-> Import content
 INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;authorizedGrantTypes  ;authorities   ;clientSecret  ;registeredRedirectUri
   ;client-side  ;hybris  ;basic  ;implicit,client_credentials   ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;
   ;mobile_android   ;hybris  ;basic  ;authorization_code,refresh_token,password,client_credentials  ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_callback;
 """
-  * driver 'https://localhost:9002'
-  * watchFor( '{}Advanced') 
-  * watchFor( '{}Proceed to localhost (unsafe)') 
-  * delay(delays)
-  * input('input[name=j_username]', 'admin' )
-  * input('input[name=j_password]', 'nimda' )
-  * watchFor( '{}login') 
-  * delay(delays)
-  * watchFor('{a}console')
-  * watchFor('{a}ImpEx import')
-  * watchInput( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', 'INSERT_UPDATE OAuthClientDetails;clientId[unique=true]    ;resourceIds       ;scope        ;authorizedGrantTypes                                            ;authorities             ;clientSecret    ;registeredRedirectUri')
-  * watchAppendInput('/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', [Key.ENTER,'                                   ;client-side              ;hybris            ;basic        ;implicit,client_credentials                                     ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;'])
-  * watchAppendInput( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre',[Key.ENTER,';mobile_android           ;hybris            ;basic        ;authorization_code,refresh_token,password,client_credentials    ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_callback;'])
-  * watchFor('/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[2]')
-  * delay(delays)
-  * watchFor('/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[1]')
-  * delay(delays)
+  * driver 'https://portal.commerce.ondemand.com'
+  * clickIt( '{a}dev')
+  * clickNth("//fd-icon[starts-with(@class, 'icon-external-link ')]",1)
+  * switchToPage('SAP CX Backoffice | Login')
+  * def hacUrl = driver.url.replace("backoffice/login.zul", "hac/"); 
+  * driver hacUrl
+  * inputIt('input[name=j_username]', 'admin' )
+  * clickIt( '{button}login') 
+  * clickIt( '{a}console')
+  * clickIt( '{a}ImpEx import')
+  * inputIt( '/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', 'INSERT_UPDATE OAuthClientDetails;clientId[unique=true]    ;resourceIds       ;scope        ;authorizedGrantTypes                                            ;authorities             ;clientSecret    ;registeredRedirectUri')
+  * appendIt('/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', [Key.ENTER,'                                   ;client-side              ;hybris            ;basic        ;implicit,client_credentials                                     ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;'])
+  * appendIt('/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre',[Key.ENTER,';mobile_android           ;hybris            ;basic        ;authorization_code,refresh_token,password,client_credentials    ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_callback;'])
+  * clickIt( '/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[2]')
+  * clickIt( '/html/body/div[2]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[1]')
+  * wrapUp()
+
 
 @AddCorsFilterProperties
 Scenario:
@@ -321,22 +281,20 @@ https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/-
 -> add
 """
   * driver 'https://localhost:9002'
-  * watchFor( '{}Advanced') 
-  * watchFor( '{}Proceed to localhost (unsafe)') 
-  * delay(delays)
-  * input('input[name=j_username]', 'admin' )
-  * input('input[name=j_password]', 'nimda' )
-  * watchFor( '{}login') 
-  * delay(5000)
-  * watchFor('{a}platform')
-  * watchFor('{a}configuration')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigins')
-  * watchInput( 'input[id=configValue]', 'http://localhost:4200 https://localhost:4200')
-  * watchFor( 'button[id=addButton]')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
-  * watchInput( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
-  * watchFor( 'button[id=addButton]')
-  * watchInput( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
-  * watchInput( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
-  * watchFor( 'button[id=addButton]')
-  * delay(10000)
+  * clickIt( '{}Advanced') 
+  * clickIt( '{}Proceed to localhost (unsafe)') 
+  * inputIt('input[name=j_username]', 'admin' )
+  * inputIt('input[name=j_password]', 'nimda' )
+  * clickIt( '{}login') 
+  * clickIt( '{a}platform')
+  * clickIt( '{a}configuration')
+  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigins')
+  * inputIt( 'input[id=configValue]', 'http://localhost:4200 https://localhost:4200')
+  * clickIt( 'button[id=addButton]')
+  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
+  * inputIt( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
+  * clickIt( 'button[id=addButton]')
+  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
+  * inputIt( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
+  * clickIt( 'button[id=addButton]')
+  * wrapUp()

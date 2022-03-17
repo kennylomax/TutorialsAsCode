@@ -30,7 +30,7 @@ class JourneyTest {
         Boolean runningOnMac = os.contains("Mac");
         System.out.println("Testing journey: "+journeyName+"\nRunningOnMac is "+ runningOnMac+"\nPath is "+path);
         System.out.println("README : "+  path+"/journeys/"+journeyName+"/README.md");
-        System.out.println("commands.sh : "+  path+"/commands.sh");
+        System.out.println("commands.sh : "+  path+"/commands.sh");        
         confirmEachClickPathAppearsInAScenario(path+"/journeys/"+journeyName+"/README.md", path+"/journeys/"+journeyName+"/journey.feature");
         readMeToScript( path+"/journeys/"+journeyName+"/README.md", path+"/journeyvalidator/commands.sh", runningOnMac, fromCmd, toCmd);
         runCommand("chmod 700 "+path+"/journeyvalidator/commands.sh");
