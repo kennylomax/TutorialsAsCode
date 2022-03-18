@@ -23,7 +23,6 @@ https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=
   * clickIt( 'button[type=submit]' )
   * wrapUp()
 
-
 @LoginToSpartacusViaWarning
 Scenario:
 """
@@ -33,7 +32,6 @@ https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
   * clickIt( '{button}Advanced')
   * clickIt( '{a}Proceed to localhost (unsafe)')
   * wrapUp()
-
 
 @CreateCCRepo
 Scenario:
@@ -69,29 +67,6 @@ https://portal.commerce.ondemand.com -> Builds -> Create
   * clickIt( '{button}Save')
   * wrapUp()
 
-@RegisterInSpartacus
-Scenario:
-"""
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} -> Sign In / Register -> Register ->
-  -> Register yourself
-  -> Check both checkboxes
-  -> Register
-"""
-  * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
-  * driver spartacusURL
-  * clickIt( '{a}Sign In / Register')
-  * clickIt( '{a}Register')
-  * inputIt( 'input[name=firstname]', 'Bob')
-  * inputIt( 'input[name=lastname]', 'Builder')
-  * inputIt( 'input[name=email]', 'bob@tbuilder.com')
-  * inputIt( 'input[name=password]', 'Builder123!')
-  * inputIt( 'input[name=confirmpassword]', 'Builder123!')
-  * clickIt( 'input[name=newsletter]')
-  * clickIt( 'input[name=termsandconditions]')
-  * clickIt( 'button[type=submit]' )
-  * wrapUp()
-
-
 @DeployBuild
 Scenario:
 """
@@ -105,11 +80,11 @@ https://portal.commerce.ondemand.com -> Builds -> LatestBuild  ->  Deploy to Env
   * clickIt( '{}Builds')
   * clickIt("{mat-cell:0}" )
   * clickIt( '{}Deploy to Environment')
-  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[2].highlight().clickIt() 
+  * clickNth("//div[starts-with(@class, 'mat-select-arrow ')]",2) 
   * clickIt( '{}Recreate (fastest, with downtime)')  
-  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[1].highlight().clickIt() 
+  * clickNth("//div[starts-with(@class, 'mat-select-arrow ')]",1) 
   * clickIt( '{}Initialize database')
-  * locateAll("//div[starts-with(@class, 'mat-select-arrow ')]")[0].highlight().clickIt() 
+  * clickNth("//div[starts-with(@class, 'mat-select-arrow ')]",0) 
   * clickIt( '{}dev')  
   * clickIt( '{button}Deploy')
   * clickIt( '{button:2}Deploy')
@@ -152,7 +127,6 @@ https://portal.commerce.ondemand.com -> Environments
   * clickNth("//fd-icon[starts-with(@class, 'icon-external-link ')]", 2) 
   * wrapUp()
 
-  
 @GetAdminPwdAndLoginToBackoffice
 Scenario:
 """
@@ -194,49 +168,6 @@ https://portal.commerce.ondemand.com ->  Environments -> dev -> API -> view all 
   * inputIt('input[name=j_username]', 'admin' )
   * clickIt( '{}login') 
   * wrapUp()
-
-
-@MakeFirstPurchaseWithVisa4444333322221111
-Scenario:
-"""
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}
-"""
-  * def spartacusURL = 'https://jsapps.'+MY_COMMERCE_CLOUD_DOMAIN
-  * driver spartacusURL
-  * clickIt( '{h3}DSC-T90')
-  * clickIt( '{button}Add to cart')
-  * clickIt( '{a}proceed to checkout')
-  * inputIt( 'input[type=email]', 'bob@thebuilder.com')
-  * inputIt( 'input[type=password]', 'Builder123!')
-  * clickIt( 'button[type=submit]' )
-  * waitFor('/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select').clickIt()
-  * clickIt( '{}Albania')
-  * inputIt( 'input[formcontrolname=firstName]', 'Bob')
-  * inputIt( 'input[formcontrolname=lastName]', 'Builder')
-  * inputIt( 'input[formcontrolname=line1]', 'BobStreet')
-  * inputIt( 'input[formcontrolname=town]', 'BobTown')
-  * inputIt( 'input[formcontrolname=line1]', 'Bob1')
-  * inputIt( 'input[formcontrolname=postalCode]', '80798')
-  * clickIt( '{button}Continue')
-  * clickIt( '{button}Continue')
-  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select').clickIt()
-  * clickIt( '{}Visa')
-  * inputIt( 'input[formcontrolname=accountHolderName]', 'Bob Builder')
-  * inputIt( 'input[formcontrolname=cardNumber]', '4444333322221111')
-  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select').clickIt()
-  * clickIt( '{}01')
-  * waitFor( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').highlight()
-  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select').clickIt()
-  * clickIt( '{}2024')
-  * inputIt( 'input[formcontrolname=cvn]', '123')
-  * clickIt( '{button}Continue')
-  * clickIt( 'input[formcontrolname=termsAndConditions]')
-  * clickIt( '{button}Place Order')
-  * wrapUp()
-
   
 @ImportCorsFilters
 Scenario:
@@ -265,36 +196,68 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
   * wrapUp()
 
 
-@AddCorsFilterProperties
+@RegisterInSpartacus
 Scenario:
 """
-https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/-
--> Platform -> Configuration
--> New key...=corsfilter.ycommercewebservices.allowedOrigin
--> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
--> add
--> New key...=corsfilter.ycommercewebservices.allowedMethods
--> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
--> add
--> New key...=corsfilter.ycommercewebservices.allowedHeaders
--> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
--> add
+https://portal.commerce.ondemand.com ->  Environments -> dev -> JS Storefront URL -> Sign In / Register -> Register ->
+  -> Register yourself
+  -> Check both checkboxes
+  -> Register
 """
-  * driver 'https://localhost:9002'
-  * clickIt( '{}Advanced') 
-  * clickIt( '{}Proceed to localhost (unsafe)') 
-  * inputIt('input[name=j_username]', 'admin' )
-  * inputIt('input[name=j_password]', 'nimda' )
-  * clickIt( '{}login') 
-  * clickIt( '{a}platform')
-  * clickIt( '{a}configuration')
-  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigins')
-  * inputIt( 'input[id=configValue]', 'http://localhost:4200 https://localhost:4200')
-  * clickIt( 'button[id=addButton]')
-  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
-  * inputIt( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
-  * clickIt( 'button[id=addButton]')
-  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
-  * inputIt( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
-  * clickIt( 'button[id=addButton]')
+  * driver 'https://portal.commerce.ondemand.com'
+  * clickIt( '{a}dev')
+  * clickNth("//fd-icon[starts-with(@class, 'icon-external-link ')]",2)
+  * switchToPage('Homepage')
+  * clickIt( '{a}Sign In / Register')
+  * clickIt( '{a}Register')
+  * inputIt( 'input[name=firstname]', 'Test')
+  * inputIt( 'input[name=lastname]', 'User')
+  * inputIt( 'input[name=email]', 'test@user.com')
+  * inputIt( 'input[name=password]', 'Testing123!')
+  * inputIt( 'input[name=confirmpassword]', 'Testing123!')
+  * clickIt( 'input[name=newsletter]')
+  * clickIt( 'input[name=termsandconditions]')
+  * clickIt( 'button[type=submit]' )
+  * wrapUp()
+
+
+@MakeFirstPurchaseWithVisa4444333322221111
+Scenario:
+"""
+https://portal.commerce.ondemand.com ->  Environments -> dev -> JS Storefront URL -> <Purchase something>
+"""
+  * driver 'https://portal.commerce.ondemand.com'
+  * clickIt( '{a}dev')
+  * clickNth("//fd-icon[starts-with(@class, 'icon-external-link ')]",2)
+  * switchToPage('Homepage')
+  * clickIt( '{h3}DSC-T90')
+  * clickIt( '{button}Add to cart')
+  * clickIt( '{a}proceed to checkout')
+  * inputIt( 'input[type=email]', 'test@user.com')
+  * inputIt( 'input[type=password]', 'Testing123!')
+  * clickIt( 'button[type=submit]' )
+  * delay(delays)
+  * mouse(  '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-shipping-address/cx-address-form/form/div[1]/div/div[1]/div/label/ng-select/div').down().up()
+  * clickIt( '{}Albania')
+  * inputIt( 'input[formcontrolname=firstName]', 'Test')
+  * inputIt( 'input[formcontrolname=lastName]', 'User')
+  * inputIt( 'input[formcontrolname=line1]', 'AStreet')
+  * inputIt( 'input[formcontrolname=town]', 'ATown')
+  * inputIt( 'input[formcontrolname=line1]', 'TU1')
+  * inputIt( 'input[formcontrolname=postalCode]', '80798')
+  * clickIt( '{button}Continue')
+  * clickIt( '{button}Continue')
+  * delay(delays)
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[1]/div/label/ng-select/div').down().up()
+  * clickIt( '{}Visa')
+  * inputIt( 'input[formcontrolname=accountHolderName]', 'Test User')
+  * inputIt( 'input[formcontrolname=cardNumber]', '4444333322221111')
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[1]/ng-select/div').down().up()
+  * clickIt( '{}01')
+  * mouse( '/html/body/app-root/cx-storefront/main/cx-page-layout/cx-page-slot[2]/cx-payment-method/cx-payment-form/form/div[1]/div/div[4]/div[1]/fieldset/label[2]/ng-select/div').down().up()
+  * clickIt( '{}2024')
+  * inputIt( 'input[formcontrolname=cvn]', '123')
+  * clickIt( '{button}Continue')
+  * clickIt( 'input[formcontrolname=termsAndConditions]')
+  * clickIt( '{button}Place Order')
   * wrapUp()

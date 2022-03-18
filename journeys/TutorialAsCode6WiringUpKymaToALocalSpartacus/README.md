@@ -1,18 +1,13 @@
 # Tutorials as Code - Wiring Spartacus up to Kyma
 
 # THIS TUTORIAL IS UNDER CONSTRUCTION _ NOT YET READY FOR USE..
+
+This is based on [this great journey](https://wiki.wdf.sap.corp/wiki/display/supc/Wyvern%3A+How+to+integrate+Commerce+and+Kyma+locally) by Darrell Merryweather and the Wyvern Team: 
 ## Prerequisites 
 
-- You have completed the previous journey
-  - [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)  and have 
+- You have completed [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)  and have 
     - a running Commerce Backoffice at https://localhost:9002/backoffice
     - a running Spartacus at https://localhost:4200
-- You have a (free) BTP trial account on [SAP's BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) and **have enabled Kyma**  on it, and can access your Kyma dashboard via it.
-- ????? You have opened a tunnel to your Commerce backoffice with [ngrok](https://ngrok.com/download): 
-  - download [ngrok](https://ngrok.com/download) 
-  - run the command **ngrok tls 9002** to open an https tunnel to your Commerce, 
-  - identify the URL the ngrok has activated (it should be something like **tls://xxx.ngrok.io** )
-  - assign the URL that ngrok has activated to the TUNNEL variable in your  **journeysetup.sh** file, with an https prefix, so something like **https://xxx.ngrok.io**
 - You have downloaded, personalized and sourced the file journeysetupexample.sh:
   - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode1WiringUpKymaToALocalSpartacus/journeysetupexample.sh > journeysetup.sh 
   - personalize its contents, 
@@ -20,34 +15,64 @@
 # Journey
 
 
-## Create a System on BTP
-
-```clickpath:CreateBTPSystem
-BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
-  System Name = mykymasystem
-  Type = SAP Commerce Cloud
-  -> Register
-  -> Copy the token to your clipboard
+## Install K3D
+```commands
+brew update
+brew upgrade
+brew install k3d
 ```
 
-
-## Create a Formation on BTP
-
-```clickpath:CreateBTPFormation
-BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
-  Name = myformation{UNIQUEID}
-  Select Subaccount=trial
-  Select Systems = mykymasystem{UNIQUEID}
-  -> Create
+## Install Kyma CLI
+```commands
+brew install kyma-cli
 ```
 
-
-Wait a few minutes, until it the System appears in your list of Applications/Systems in Kyma:
-
-```clickpath:ConfirmSystemAppearsInKyma
-KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
+## Install Kyma in K3D
+```commands
+kyma provision k3d
+kyma deploy
 ```
 
+## Import Kyma's Certificate into our keystore
+```commands
+sudo kyma import certs
+```
+
+## Create an application in Kyma called commerce
+
+## Disable SSL Validation for the commerce application
+```
+kubectl edit deployment <APPLICATION_NAME>-application-gateway -n kyma-integration
+.. and adjust /spec/template/spec/containers/0/args/skipVerify from false to true
+```
+## Restart Kyma Cluster
+``` commands
+k3d cluster stop kyma
+k3d cluster start kyma
+```
+
+## Open the Kyma dashbord
+``` commands
+kyma dashboard
+```
+
+# Notify CCV2 of your Kyma Certificate 
+- Download the local-kyma-dev certification from your OSX Keychain
+- From the directory ./hybris/bin/platform/resources/devcerts, set the keytool command to import this certificate into the cacerts file (ydevelopers.jks) file that SAP Commerce uses:
+```
+keytool -keystore ydevelopers.jks -storepass 123456 -import -file <downloaded certification location>/local-kyma-dev.cer -alias local-kyma-dev
+````
+
+# Update then start SAP Commerce
+```
+ant clean all
+ant initialize
+./hybrisserver.sh start
+```
+## Monitor Events coming into Kyma
+```
+kubectl logs -n kyma-system eventing-nats-0
+```
 
 ## Pair your SAP Commerce with Kyma
 

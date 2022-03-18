@@ -119,29 +119,12 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
   ;mobile_android   ;hybris  ;basic  ;authorization_code,refresh_token,password,client_credentials  ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_callback;
 ```
 
-Personalize, then add corsfilter properties via the hac (hybris Administration Console):
-```clickpath:AddCorsFilterProperties
-https://backoffice.{MY_COMMERCE_CLOUD_DOMAIN}/hac/-
--> Platform -> Configuration
--> New key...=corsfilter.ycommercewebservices.allowedOrigin
--> New value...=https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
--> add
--> New key...=corsfilter.ycommercewebservices.allowedMethods
--> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
--> add
--> New key...=corsfilter.ycommercewebservices.allowedHeaders
--> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
--> add
-```
-
-https://user-images.githubusercontent.com/6401254/153720457-54561ef2-befb-492b-9885-c66b55d4d1a7.mov
-
 ## You can now use your deployed Spartacus
 
 Register an account in Spartacus so you can purchase something
 
 ```clickpath:RegisterInSpartacus
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} -> Sign In / Register -> Register ->
+https://portal.commerce.ondemand.com ->  Environments -> dev -> JS Storefront URL -> Sign In / Register -> Register ->
   -> Register yourself
   -> Check both checkboxes
   -> Register
@@ -149,13 +132,7 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} -> Sign In / Register -> Register ->
 
 Confirm you can purchase an item from Spartacus. Use visa card number 4444333322221111 (with any other card details).
 ```clickpath:MakeFirstPurchaseWithVisa4444333322221111
-https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN} 
-  -> DSC-T90 -> Add To Cart -> Proceed To Checkout 
-  -> Fill in Shipping Address -> Continue
-  -> Fill in Shipping Address -> Continue
-  -> Specify Shipping Method -> Continue
-  -> Specify payment type as Visa card with number 4444333322221111 -> Continue
-  -> Check "I am confirming.." -> Place Order
+https://portal.commerce.ondemand.com ->  Environments -> dev -> JS Storefront URL -> <Purchase something>
 ```
 
 https://user-images.githubusercontent.com/6401254/153721176-74605164-9a7a-454e-bbcb-1a47150a3c57.mov
