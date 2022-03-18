@@ -27,24 +27,41 @@ brew install k3d
 brew install kyma-cli
 ```
 
-## Install Kyma in K3D
+## Install Kyma on K3D
 ```commands
 kyma provision k3d
 kyma deploy
 ```
 
-## Import Kyma's Certificate into our keystore
+## Import Kyma's Certificate to your OSX Keychain
 ```commands
 sudo kyma import certs
 ```
 
 ## Create an application in Kyma called commerce
+```
+cat <<EOF | kubectl apply -n kyma-system -f -
+apiVersion: applicationconnector.kyma-project.io/v1alpha1
+kind: Application
+metadata:
+  name: commerce
+  labels:
+    app: commerce
+  annotations: {}
+spec:
+  accessLabel: commerce
+  description: ''
+  services: []
+EOF
+```
 
-## Disable SSL Validation for the commerce application
+## Disable SSL Validation for this new commerce application
 ```
-kubectl edit deployment <APPLICATION_NAME>-application-gateway -n kyma-integration
-.. and adjust /spec/template/spec/containers/0/args/skipVerify from false to true
+kubectl get deployment commerce-application-gateway -n kyma-integration -o yaml |\
+  sed -e 's|skipVerify=false|skipVerify=true|'| \
+  kubectl apply -f -
 ```
+
 ## Restart Kyma Cluster
 ``` commands
 k3d cluster stop kyma
@@ -57,10 +74,18 @@ kyma dashboard
 ```
 
 # Notify CCV2 of your Kyma Certificate 
+
 - Download the local-kyma-dev certification from your OSX Keychain
 - From the directory ./hybris/bin/platform/resources/devcerts, set the keytool command to import this certificate into the cacerts file (ydevelopers.jks) file that SAP Commerce uses:
+
 ```
-keytool -keystore ydevelopers.jks -storepass 123456 -import -file <downloaded certification location>/local-kyma-dev.cer -alias local-kyma-dev
+security find-certificate -c local-kyma-dev -p > ~/local-kyma-dev-temp.pem
+
+openssl x509 -outform der -in ~/local-kyma-dev-temp.pem -out ~/local-kyma-dev.cer
+
+cd <??>/hybris/bin/platform/resources/devcerts
+
+keytool -keystore ydevelopers.jks -storepass 123456 -import -file ~/local-kyma-dev.cer -alias local-kyma-dev
 ````
 
 # Update then start SAP Commerce
