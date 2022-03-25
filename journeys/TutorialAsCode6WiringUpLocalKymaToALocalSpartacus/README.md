@@ -1,7 +1,5 @@
 # Tutorials as Code - Wiring Spartacus up to Kyma
 
-# THIS TUTORIAL IS UNDER CONSTRUCTION _ NOT YET READY FOR USE..
-
 This is based on [this great journey](https://wiki.wdf.sap.corp/wiki/display/supc/Wyvern%3A+How+to+integrate+Commerce+and+Kyma+locally) by Darrell Merryweather and the Wyvern Team. It is tested on Mac OSX.
 
 ## Prerequisites
