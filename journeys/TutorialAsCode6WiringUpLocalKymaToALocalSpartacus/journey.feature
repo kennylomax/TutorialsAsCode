@@ -2,20 +2,12 @@ Feature: CommerceCloud
 
 Background:
   * def delays = 10000
-  * def waitFrame = function(f) { delay(delays); switchFrame(f) }
-  * def resetFrame = function(f) { waitFrame(null); waitFrame(f) }
-  * def watchInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
-  * def reframeThenWatchInput = function(f, loc, v) { waitFrame(f);  delay(delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input(loc, v )  }
-  * def watchAppendInput = function(loc, v) {  delay(delays); waitFor(loc).highlight(); input(loc, v, 200 )  }
-  * def watchSubmit = function() {  delay(delays); waitFor('button[type=submit]').highlight(); click('button[type=submit]') }
-  * def reframeThenWatchFor =  function(f, loc) { waitFrame(f);  delay(delays);  waitFor(loc).highlight().click()  }
-  * def watchFor =  function(loc) {    delay(delays);  waitFor(loc).highlight().click()  }
-  * def watchForOptional =  function(loc) { delay(delays); optional(loc).highlight().click()   }
-  * def btpMouseDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).down().up() }
-  * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click()}
-  * def btpMouseClickDownUp = function(loc) { delay(delays); highlight(loc); mouse(loc).click(); delay(delays); mouse(loc).down().up() }
-  * def waitPage = function(p) { delay(delays); delay(delays); switchPage(p) }
-  * def wrapup = function() { delay(delays),  delay(delays) }
+  * def inputIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input (loc, v )  }
+  * def appendIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); inputIt(loc, v )   }
+  * def clickIt =  function(loc) { retry(20).highlight(loc).click ()   }
+  * def clickOptional = function(loc) { delay(delays); optional(loc).highlight().click()   }
+  * def wrapUp = function() { delay(30000) }
+
 
   # Perhaps needed for Kyma Dhasboard
   # * driver "https://account.hanatrial.ondemand.com"
@@ -231,3 +223,112 @@ https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
   * watchFor( 'input[formcontrolname=termsAndConditions]')
   * watchFor( '{button}Place Order')
   * wrapup()
+
+@ImportCorsFilters
+Scenario:
+"""
+https://localhost:9002 -> Console -> ImpEx Import 
+ -> Import content
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;authorizedGrantTypes  ;authorities   ;clientSecret  ;registeredRedirectUri
+  ;client-side  ;hybris  ;basic  ;implicit,client_credentials   ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;
+  ;mobile_android   ;hybris  ;basic  ;authorization_code,refresh_token,password,client_credentials  ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_callback;
+
+"""
+  * driver 'https://localhost:9002'
+  * clickIt( '{}Advanced') 
+  * clickIt( '{}Proceed to localhost (unsafe)') 
+  * inputIt( 'input[name=j_username]', 'admin' )
+  * inputIt( 'input[name=j_password]', 'nimda' )
+  * clickIt( '{}login') 
+  * clickIt( '{a}console')
+  * clickIt( '{a}ImpEx import')
+  * inputIt( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', 'INSERT_UPDATE OAuthClientDetails;clientId[unique=true]    ;resourceIds       ;scope        ;authorizedGrantTypes                                            ;authorities             ;clientSecret    ;registeredRedirectUri')
+  * appendIt( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre', [Key.ENTER,'                                   ;client-side              ;hybris            ;basic        ;implicit,client_credentials                                     ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;'])
+  * appendIt( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/div[1]/div[1]/div[5]/div/div[1]/div/div/div/div[3]/div/pre',[Key.ENTER,';mobile_android           ;hybris            ;basic        ;authorization_code,refresh_token,password,client_credentials    ;ROLE_CLIENT             ;secret          ;http://localhost:9001/authorizationserver/oauth2_callback;'])
+  * clickIt( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[2]')
+  * clickIt( '/html/body/div[1]/div[2]/div/div[1]/div[1]/form/fieldset/p/input[1]')
+  * wrapUp()
+
+
+@AddCorsKymaProperties
+Scenario:
+"""
+https://localhost:9002 -> Platform -> Configuration
+-> New key...=kymaintegrationservices.truststore.cacerts.path -> New value...=$MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin/platform/resources/devcerts/ydevelopers.jks -> add
+-> New key...=kymaintegrationservices.truststore.password -> New value...=123456 -> add
+-> New key...=ccv2.services.api.url.0 -> New value...=https://host.k3d.internal:9002 -> add
+-> New key...=apiregistryservices.events.exporting -> New value...=true -> add
+-> New key...=corsfilter.ycommercewebservices.allowedOrigins -> New value...=http://localhost:4200 https://localhost:4200 -> add
+-> New key...=corsfilter.ycommercewebservices.allowedMethods -> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE -> add
+-> New key...=corsfilter.ycommercewebservices.allowedHeaders -> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents -> add
+-> apply all
+"""
+  * driver 'https://localhost:9002'
+  * clickIt( '{}Advanced')
+  * clickIt( '{}Proceed to localhost (unsafe)') 
+  * inputIt( 'input[name=j_username]', 'admin' )
+  * inputIt( 'input[name=j_password]', 'nimda' )
+  * clickIt( '{}login') 
+  * clickIt( '{a}platform')
+  * clickIt( '{a}configuration')
+
+
+
+  * delay( delays )
+  * inputIt( 'input[id=configKey]', 'kymaintegrationservices.truststore.cacerts.path')
+  * inputIt( 'input[id=configValue]', '$MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin/platform/resources/devcerts/ydevelopers.jks')
+  * delay( delays )
+  * clickIt( 'button[id=addButton]')
+
+
+  * delay( delays )
+  * inputIt( 'input[id=configKey]', 'kymaintegrationservices.truststore.password')
+  * inputIt( 'input[id=configValue]', '123456')
+  * delay( delays )
+  * clickIt( 'button[id=addButton]')
+
+
+  * delay( delays )
+  * inputIt( 'input[id=configKey]', 'ccv2.services.api.url.0')
+  * inputIt( 'input[id=configValue]', 'https://host.k3d.internal:9002')
+  * delay( delays )
+  * clickIt( 'button[id=addButton]')
+
+
+  * delay( delays )
+  * inputIt( 'input[id=configKey]', 'apiregistryservices.events.exporting')
+  * inputIt( 'input[id=configValue]', 'true')
+  * delay( delays )
+  * clickIt( 'button[id=addButton]')
+
+
+  * delay( delays )
+  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedOrigins')
+  * inputIt( 'input[id=configValue]', 'http://localhost:4200 https://localhost:4200')
+  * delay( delays )
+  * clickIt( 'button[id=addButton]')
+
+  * delay( delays )
+  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedMethods')
+  * inputIt( 'input[id=configValue]', 'GET HEAD OPTIONS PATCH PUT POST DELETE')
+  * delay( delays )
+  * clickIt( 'button[id=addButton]')
+  
+  * delay( delays )
+  * inputIt( 'input[id=configKey]', 'corsfilter.ycommercewebservices.allowedHeaders')
+  * inputIt( 'input[id=configValue]', 'origin content-type accept authorization cache-control if-none-match x-anonymous-consents')
+  * delay( delays )
+  * clickIt( 'button[id=addButton]')
+
+  * delay( delays )
+  * clickIt( '{button}apply all')
+  * wrapUp()
+
+
+@GetKymaConnectionURL
+Scenario:
+"""
+KYMA_DASHBOARD → Integration → Applications → commerce → Connect Application -> Copy to Clipboard
+"""
+* TODO
+* delay( delays )

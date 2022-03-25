@@ -60,8 +60,6 @@ Wait a few minutes, until it the System appears in your list of Applications/Sys
 KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
 ```
 
-
-
 https://user-images.githubusercontent.com/6401254/158362894-43040579-f30f-4927-afc6-d6f0e5af93ca.mp4
 
 

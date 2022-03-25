@@ -1,0 +1,6 @@
+serverless:
+  containers:
+    manager:
+      envs:
+        functionBuildExecutorArgs:
+          value: --insecure,--skip-tls-verify,--skip-unused-stages,--log-format=text,--cache=true,--force

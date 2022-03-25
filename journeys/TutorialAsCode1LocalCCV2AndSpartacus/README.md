@@ -60,14 +60,24 @@ chmod 700 setantenv.sh
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin/platform; ant addoninstall -Daddonnames="smarteditaddon,textfieldconfiguratortemplateaddon,assistedservicestorefront,assistedservicepromotionaddon,customerticketingaddon,orderselfserviceaddon,adaptivesearchsamplesaddon,multicountrysampledataaddon,pcmbackofficesamplesaddon,personalizationaddon" -DaddonStorefront.yacceleratorstorefront="yacceleratorstorefront"
 ```
 
+## Set up OCC credentials to enable the Spartacus purchase workflow
+
+[For an explanation why this is necessary, see here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
+
 Adjust the property corsfilter.acceleratorservices.allowedOrigins to avoid CORS issues when Spartacus makes calls to the acceleratorservices API. 
 ```commands
+echo "corsfilter.ycommercewebservices.allowedOrigins=http://localhost:4200 https://localhost:4200" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
+echo "corsfilter.ycommercewebservices.allowedMethods=GET HEAD OPTIONS PATCH PUT POST DELETE" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
+echo "corsfilter.ycommercewebservices.allowedHeaders=origin content-type accept authorization cache-control if-none-match x-anonymous-consents" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
 echo "corsfilter.acceleratorservices.allowedOrigins=*" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
+EOT
 ```
 
 Build, initialize and then run SAP Commerce locally
 ```commands
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin/platform
+chmod 700 setantenv.sh
+. ./setantenv.sh
 ant clean all
 ant initialize
 ``` 
@@ -93,6 +103,8 @@ Access SAP Commerce @ https://localhost:9002
 ```clickpath:LoginToCommerceCloudViaWarning2
 https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=admin -> password=nimda -> LOGIN
 ``` 
+
+
 
 ## Compile and start Spartacus  
 
@@ -307,21 +319,6 @@ https://localhost:9002 -> Console -> ImpEx Import
 INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;authorizedGrantTypes  ;authorities   ;clientSecret  ;registeredRedirectUri
   ;client-side  ;hybris  ;basic  ;implicit,client_credentials   ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_implicit_callback;
   ;mobile_android   ;hybris  ;basic  ;authorization_code,refresh_token,password,client_credentials  ;ROLE_CLIENT   ;secret  ;http://localhost:9001/authorizationserver/oauth2_callback;
-```
-
-Add CorsFilter properties via the hac (hybris Administration Console):
-```clickpath:AddCorsFilterProperties
-https://localhost:9002 -> Platform -> Configuration
--> New key...=corsfilter.ycommercewebservices.allowedOrigins
--> New value...=http://localhost:4200 https://localhost:4200
--> add
--> New key...=corsfilter.ycommercewebservices.allowedMethods
--> New value...=GET HEAD OPTIONS PATCH PUT POST DELETE
--> add
--> New key...=corsfilter.ycommercewebservices.allowedHeaders
--> New value...=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
--> add
--> apply all
 ```
 
 You should now be able to select and purchase an article in Spartacus, using the fake VISA card number 4444333322221111.

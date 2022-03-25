@@ -64,6 +64,7 @@ class JourneyTest {
         List<String> lines = Files.readAllLines(Paths.get(fileFrom));
     
         boolean commands = false;
+        boolean multilinecommand = false;
         boolean clickpath = false;
         boolean file = false;
         String clickPathName="";
@@ -78,12 +79,19 @@ class JourneyTest {
             if ( l.contains("**") && l.indexOf("**")  != l.lastIndexOf("**")){
                 lastBoldText = l.substring(l.indexOf("**")+2, l.lastIndexOf("**"));
             }
-            if  (  l.startsWith("```commands" )){
+            if  (  l.startsWith("```command" )  ){
                 if (    runningOnMac && l.startsWith("```commandsDebianOnly" ) ||
                         !runningOnMac && l.startsWith("```commandsOsxOnly" ))
                     ;
                 else
                     commands = true;
+            }
+            else if  (  l.startsWith("```multilinecommand" )){
+                if (    runningOnMac && l.startsWith("```commandsDebianOnly" ) ||
+                        !runningOnMac && l.startsWith("```commandsOsxOnly" ))
+                    ;
+                else
+                    multilinecommand = true;
             }
             else if (l.startsWith("```clickpath"))
                 clickpath = true;
@@ -94,9 +102,10 @@ class JourneyTest {
                 commands=false;
                 clickpath=false;
                 file=false;
+                multilinecommand=false;
             }
 
-            if ( commands &&  !l.startsWith("```commands")){
+            if ( commands &&  !l.startsWith("```command")){
                 if (l.length()>0){         
                     if (i>=fromCmd&& i<=toCmd) {
                         script.append("echo Command["+i +"]: ;");               
@@ -113,6 +122,24 @@ class JourneyTest {
                     }
                     i++;
                 }
+            }
+           else  if ( multilinecommand &&  !l.startsWith("```multilinecommand")){   
+                String contents = "";
+                l=lines.get(j);
+                while  (!l.contains("```")){
+                    contents += l+"\n";
+                    l=lines.get(++j);
+                }    
+                j--;
+                if (i>=fromCmd&& i<=toCmd) {  
+                    script.append("echo Command["+i +"]: ;");               
+                    script.append("echo \"\u001b[31m $PWD : \u001b[32m"+contents+"\u001b[0m\"; ");
+                }
+                else{
+                    script.append("echo Command["+i +"]: ;");               
+                    script.append("echo \"\u001b[31m $PWD : \u001b[31m"+contents+"\u001b[0m\"; ");
+                }
+                i++;              
             }
             else if  ( clickpath &&  l.startsWith("```clickpath:")){
                 addedClickpath=false;
@@ -200,4 +227,3 @@ class JourneyTest {
         assert exitCode == 0;
     }
 }
-
