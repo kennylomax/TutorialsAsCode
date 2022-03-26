@@ -7,7 +7,7 @@
 
 - install golang: brew install go
 - Download the file journeysetupexample.sh to journeysetup.sh and personalize its contents
-  - curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleNativeExtension/journeysetupexample.sh > journeysetup.sh
+  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCodeJourney/main/journeys/TutorialAsCode_3.0_UpscaleCustomExtension/journeysetupexample.sh > journeysetup.sh
   - source ./journeysetup.sh
 
 

@@ -1,13 +1,13 @@
 # Tutorials as Code - Tutorials and End2End Tests in one:
 
-- Current Tutorials are:
-  - [TutorialAsCode1: Running CCV2 and Spartacus locally](journeys/TutorialAsCode1LocalCCV2AndSpartacus)
-  - [TutorialAsCode6: WiringUpLocalKymaToALocalSpartacus](journeys/TutorialAsCode6WiringUpLocalKymaToALocalSpartacus)
-  - [TutorialAsCode2: Deploying CCV2 and Spartacus to Commerce Cloud](journeys/TutorialAsCode2DeployCCV2AndSpartacusToCommerceCloud)
-  - [TutorialAsCode3: Wiring Kyma up to a deployed CCV2 and Spartacus](journeys/TutorialAsCode3WiringUpKymaWithYourDeployedSpartacus)
-  - [TutorialAsCode4: Upscale Custom Extension](journeys/TutorialAsCodeUpscaleCustomExtension)
-  - [TutorialAsCode5: Upscale Native Extension](journeys/TutorialAsCodeUpscaleNativeExtension)
-- these journeys serve as demos and tutorials, **and  as end2end tests, that can be executed automatically on Docker and in CICD Pipelines**
+- Current TutorialsAsCode include:
+  - [Running CCV2 and Spartacus locally](journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus)
+  - [WiringUpLocalKymaToALocalSpartacus](journeys/TutorialAsCode_1.1_ WiringUpLocalKymaToALocalSpartacus)
+  - [Deploying CCV2 and Spartacus to Commerce Cloud](journeys/TutorialAsCode_2.0_DeployCCV2AndSpartacusToCommerceCloud)
+  - [Wiring Kyma up to a deployed CCV2 and Spartacus](journeys/TutorialAsCode_2.1_WiringUpKymaWithYourDeployedSpartacus)
+  - [Upscale Custom Extension](journeys/TutorialAsCode_3.0_UpscaleCustomExtension)
+  - [Upscale Native Extension](journeys/TutorialAsCode_3.1_UpscaleNativeExtension)
+- these journeys serve as demos and tutorials, **and  as end2end tests, that can be executed manually and automatically on Mac, Docker and in CICD Pipelines**
 - their particular format makes them followable by humans but also by a computer, meaning they can be run and the journey verified in CICD pipeline.
 - when run in Docker/CICD
   - **Karate** features execute the clickpaths
@@ -58,3 +58,4 @@ Clickpath text Identical to that in the README (otherwise the text validator wil
 - At any point you can try out your journey locally on OSX, with the command:
   **./validatejourney.sh yourJourneyFolder**  Once it is working reliably, run on Docker using the commands listed earlier.
 - when your journey runs on docker, videos of the clickpaths can be found in MY_JOURNEY_DIR. You can edit these as appopriate, then drag into your README directly within github, and github will encode and embed that video in the README file.
+

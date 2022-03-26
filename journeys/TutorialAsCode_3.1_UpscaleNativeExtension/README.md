@@ -11,7 +11,7 @@
 - pm2: npm install pm2 -g
 - mvn: brew install mvn
 - Download the file journeysetupexample.sh to journeysetup.sh and personalize its contents:
-  - curl https://raw.githubusercontent.com/kennylomax/  TutorialsAsCodeJourney/main/journeys/upscaleNativeExtension/journeysetupexample.sh > journeysetup.sh 
+  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCodeJourney/main/journeys/TutorialAsCode_3.1_UpscaleNativeExtension/journeysetupexample.sh > journeysetup.sh 
   - source ./journeysetup.sh 
 
 # Journey

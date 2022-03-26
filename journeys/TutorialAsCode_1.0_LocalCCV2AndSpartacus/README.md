@@ -1,28 +1,30 @@
 # Tutorials as Code - Getting CCV2 and Spartacus to run locally, then customizing Spartacus
 
 In this journey we
-* Get CCV2 and Spartacus running locally, 
+
+* Get CCV2 and Spartacus running locally,
 * Extend Spartacus with a custom component.
- 
- 
+
 Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondemand.com/), then wire up to [Kyma](https://github.com/kyma-project/kyma) for further fun.
 
-## Prerequisites 
+## Prerequisites
 
-- Use [JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html).  To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
-
-- Download a SAP Commerce **2105** ZIP from [SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
+- Use[JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html).  To switch java versions on a Mac, see[here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
+- Download a SAP Commerce**2105** ZIP from[SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, personalize the data in journeysetup.sh and then source its contents:
+
 ```
-curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus/journeysetupexample.sh > journeysetup.sh 
+curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus/journeysetupexample.sh > journeysetup.sh 
 
 .. then personalize its contents and then..
 
-source journeysetup.sh 
+source journeysetup.sh
 ```
+
 # Journey
 
-## Clone and modify the Cloud Commerce Sample Setup 
+## Clone and modify the Cloud Commerce Sample Setup
+
 Create a new directory and clone the Cloud Commerce Sample Setup into it:
 
 ```commands
@@ -49,7 +51,7 @@ mv $SAP_COMMERCE_BIN/modules $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-cu
 mv $SAP_COMMERCE_BIN/platform $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin
 ```
 
-##  Build your Cloud Commerce Sample Setup 
+## Build your Cloud Commerce Sample Setup
 
 Set up Apache Ant, then run an ant command to add Addons to your SAP Commerce:
 
@@ -64,7 +66,8 @@ cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin/platfor
 
 [For an explanation why this is necessary, see here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
 
-Adjust the property corsfilter.acceleratorservices.allowedOrigins to avoid CORS issues when Spartacus makes calls to the acceleratorservices API. 
+Adjust the property corsfilter.acceleratorservices.allowedOrigins to avoid CORS issues when Spartacus makes calls to the acceleratorservices API.
+
 ```commands
 echo "corsfilter.ycommercewebservices.allowedOrigins=http://localhost:4200 https://localhost:4200" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
 echo "corsfilter.ycommercewebservices.allowedMethods=GET HEAD OPTIONS PATCH PUT POST DELETE" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
@@ -74,24 +77,26 @@ EOT
 ```
 
 Build, initialize and then run SAP Commerce locally
+
 ```commands
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin/platform
 chmod 700 setantenv.sh
 . ./setantenv.sh
 ant clean all
 ant initialize
-``` 
+```
 
 ## Run and access your Cloud Commerce Sample Setup
 
-You can start it in the background as below, or run in the forgroung with **./hybrisserver.sh**, to ensure you see all log output.  But then place in the background once it has started (**ctrl-z; bg** ) 
+You can start it in the background as below, or run in the forgroung with **./hybrisserver.sh**, to ensure you see all log output.  But then place in the background once it has started (**ctrl-z; bg** )
+
 ```commands
 ./hybrisserver.sh start
 ```
 
 Note: if on a Mac..
-- you may get Security notificaitons.  If so, open the "SystemPreferences->Security & Privacy", and respond to the security checks that appear when you run the previous command. You will then have to run *./hybrisserver.sh* start a second time.  If on linux, you do not have to run this command a second time:
 
+- you may get Security notificaitons.  If so, open the "SystemPreferences->Security & Privacy", and respond to the security checks that appear when you run the previous command. You will then have to run*./hybrisserver.sh* start a second time.  If on linux, you do not have to run this command a second time:
 
 Wait for Commerce to come online.. (not optimal but until I figure out how to do this in Karate..)
 
@@ -99,14 +104,13 @@ Wait for Commerce to come online.. (not optimal but until I figure out how to do
 until $(curl -k --output /dev/null --silent --fail https://localhost:9002); do printf "."; sleep 5; done
 ```
 
-Access SAP Commerce @ https://localhost:9002 
+Access SAP Commerce @ https://localhost:9002
+
 ```clickpath:LoginToCommerceCloudViaWarning2
 https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=admin -> password=nimda -> LOGIN
-``` 
+```
 
-
-
-## Compile and start Spartacus  
+## Compile and start Spartacus
 
 Build your Spartacus Storefront and run it locally
 
@@ -128,7 +132,7 @@ Access Spartaus @ https://localhost:4200  and look around. (Note you cannot yet 
 
 ```clickpath:LoginToSpartacusViaWarning
 https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
-``` 
+```
 
 ## Customize your Spartacus Storefront with new functionality
 
@@ -139,6 +143,7 @@ echo y | npm install -g @angular/cli
 ```
 
 Generate a new module custom-voucher..
+
 ```commands
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore
 ng g m custom-voucher
@@ -183,21 +188,23 @@ import { CustomVoucherModule } from "./custom-voucher/custom-voucher.module";
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
 ```
-  
+
 Create a new component
+
 ```commands
 ng g c custom-voucher/custom-product-summary
 ```
 
 Create a new service
+
 ```commands
 ng g s custom-voucher/voucher
 ```
 
-Adjust the file 
+Adjust the file
 **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore/src/app/custom-voucher/custom-voucher.module.ts** to:
+
 ```file
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -224,8 +231,8 @@ export class CustomVoucherModule { }
 
 Confirm that you can see your new module in the spartacus storefront
 
-
 Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore/src/app/custom-voucher/custom-product-summary/custom-product-summary.component.html** to
+
 ```file
 <p>custom-product-summary works!</p>
 <ng-container *ngIf="product$ | async as product">
@@ -245,6 +252,7 @@ Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spar
 ```
 
 Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore/src/app/custom-voucher/custom-product-summary/custom-product-summary.component.ts** to
+
 ```file
 import { Component, OnInit } from "@angular/core";
 import { Product, User } from "@spartacus/core";
@@ -280,6 +288,7 @@ export class CustomProductSummaryComponent implements OnInit {
 ```
 
 Adjust the file **$MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore/src/app/custom-voucher/voucher.service.ts** to
+
 ```file
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -298,20 +307,22 @@ export class VoucherService {
 }
 ```
 
-Open Spartacus, select an item in Spartacus, and confirm you see the custom component in the Spartacus storefront.. 
+Open Spartacus, select an item in Spartacus, and confirm you see the custom component in the Spartacus storefront..
 
 ```clickpath:SpartacusCustomVoucher
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
-``` 
+```
 
 https://user-images.githubusercontent.com/6401254/158601033-3dade944-38a3-4fee-b8cb-12b1e1a1c20c.mp4
 
 (Note for testing team: Karate can run this clickpath for version CXCOMM201100P_15-70005693 but  gives an error when running CXCOMM210500P_8-70005661..  GET .../occ/v2/electronics-spa/cms/pages?lang=en&curr=USD net::ERR_CERT_AUTHORITY_INVALID.  To be investigated..)
 
 ## Set up OCC credentials to enable the Spartacus purchase workflow
- [For an explanation why this is necessary, see here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
+
+[For an explanation why this is necessary, see here](https://sap.github.io/spartacus-docs/installing-sap-commerce-cloud-1905/#configuring-cors)
 
 Import this impex via the hac (hybris Administration Console):
+
 ```clickpath:ImportCorsFilters
 https://localhost:9002 -> Console -> ImpEx Import 
  -> Import content
@@ -323,10 +334,10 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
 
 You should now be able to select and purchase an article in Spartacus, using the fake VISA card number 4444333322221111.
 
+## Prepare this for SAP Commerce Cloud
 
-## Prepare this for SAP Commerce Cloud 
+To deploy this to SAP Commerce Cloud (in a following tutorial) you need to check your CCV2 Spartacus code into Github.tools.sap.  So
 
-To deploy this to SAP Commerce Cloud (in a following tutorial) you need to check your CCV2 Spartacus code into Github.tools.sap.  So 
 - create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account, then
 - remove the existing .git folder from your cloud-commerce-sample-setup:
 
@@ -334,6 +345,7 @@ To deploy this to SAP Commerce Cloud (in a following tutorial) you need to check
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
 rm -rf .git
 ```
+
 - Commit your code to your new concerttours-ccloud repository:
 
 ```commands
@@ -350,10 +362,7 @@ git push -u origin main
 ## Next
 
 For a comprehensive, hands-on walk-through of CCV2 capabilities:
--  use the Learning System and supporting EBook from our Training Depts' [SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a)  These give you a preconfigured CCV2 environment, and exercises to work through :)
-<img width="791" alt="Screenshot 2022-03-11 at 10 47 37" src="https://user-images.githubusercontent.com/6401254/157843905-63ba9a77-e433-4eed-97bd-c2132a0e8c02.png">
-- and/or try [Commerce 123](https://help.sap.com/viewer/3fb5dcdfe37f40edbac7098ed40442c0/2105/en-US/a1ef894ac89545e79c470c726b487d13.html) which is similar to the (in)famous Cuppy Trail of yore.
+
+- use the Learning System and supporting EBook from our Training Depts'[SAP Commerce Cloud Developer Part 1 and Part 2 courses](https://learning-journeys-prod.cfapps.eu10.hana.ondemand.com/#/learning-journeys/learningJourney/5009ab8a7a261014b60ce7241ebd605a)  These give you a preconfigured CCV2 environment, and exercises to work through :)`<img width="791" alt="Screenshot 2022-03-11 at 10 47 37" src="https://user-images.githubusercontent.com/6401254/157843905-63ba9a77-e433-4eed-97bd-c2132a0e8c02.png">`
+- and/or try[Commerce 123](https://help.sap.com/viewer/3fb5dcdfe37f40edbac7098ed40442c0/2105/en-US/a1ef894ac89545e79c470c726b487d13.html) which is similar to the (in)famous Cuppy Trail of yore.
 - and/or try more TutorialsAsCode journeys
-
-
-

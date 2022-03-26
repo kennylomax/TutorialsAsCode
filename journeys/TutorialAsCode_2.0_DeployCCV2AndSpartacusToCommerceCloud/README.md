@@ -7,7 +7,7 @@ In this journey we deploy CCV2 and Spartacus to SAP Commerce Cloud and configure
 - You have a (free) trial account @ [SAP COmmerce Cloud](https://portal.commerce.ondemand.com/subscription), with an environment in there called "dev". 
 - Download the file journeysetupexample.sh to journeysetup.sh, personalize the data in journeysetup.sh and then source its contents:
 ```
-curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus/journeysetupexample.sh > journeysetup.sh 
+curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_2.0_DeployCCV2AndSpartacusToCommerceCloud/journeysetupexample.sh > journeysetup.sh 
 
 .. then personalize its contents and then..
 
