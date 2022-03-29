@@ -2,7 +2,7 @@
 
 - Current TutorialsAsCode include:
   - [Running CCV2 and Spartacus locally](journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus)
-  - [WiringUpLocalKymaToALocalSpartacus](journeys/TutorialAsCode_1.1_ WiringUpLocalKymaToALocalSpartacus)
+  - [WiringUpLocalKymaToALocalSpartacus](journeys/TutorialAsCode_1.1_WiringUpLocalKymaToALocalSpartacus)
   - [Deploying CCV2 and Spartacus to Commerce Cloud](journeys/TutorialAsCode_2.0_DeployCCV2AndSpartacusToCommerceCloud)
   - [Wiring Kyma up to a deployed CCV2 and Spartacus](journeys/TutorialAsCode_2.1_WiringUpKymaWithYourDeployedSpartacus)
   - [Upscale Custom Extension](journeys/TutorialAsCode_3.0_UpscaleCustomExtension)
