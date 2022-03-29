@@ -9,7 +9,7 @@ Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondem
 
 ## Prerequisites
 
-- Use[JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html).  To switch java versions on a Mac, see[here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
+- Use[JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). (To switch java versions on a Mac, see[here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a))
 - Download a SAP Commerce**2105** ZIP from[SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, personalize the data in journeysetup.sh and then source its contents:
 
@@ -138,7 +138,7 @@ https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
 
 Install angular CLI:
 
-```commands
+```command
 echo y | npm install -g @angular/cli
 ```
 
@@ -333,31 +333,6 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
 ```
 
 You should now be able to select and purchase an article in Spartacus, using the fake VISA card number 4444333322221111.
-
-## Prepare this for SAP Commerce Cloud
-
-To deploy this to SAP Commerce Cloud (in a following tutorial) you need to check your CCV2 Spartacus code into Github.tools.sap.  So
-
-- create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account, then
-- remove the existing .git folder from your cloud-commerce-sample-setup:
-
-```commands
-cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
-rm -rf .git
-```
-
-- Commit your code to your new concerttours-ccloud repository:
-
-```commands
-cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
-echo "# concerttours-ccloud" >> README.md
-git init
-git add *
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN@github.tools.sap/$MY_GITHUB_USERNAME/concerttours-ccloud.git
-git push -u origin main
-```
 
 ## Next
 

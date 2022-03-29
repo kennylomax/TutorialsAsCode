@@ -19,14 +19,15 @@
 - **To follow those tutorials manually**, simply follow the "ReadMe"s in them
 - **To execute the tutorials as end2end tests directly on OSX**:
   - Copy journeys/xx/journeysetupexample.sh to journeys/xx/journeysetup.sh and personalize it, then:
-  - ./validatejourney.sh <tutorial folder name e.g. TutorialAsCode1LocalCCV2AndSpartacus>
+  - ./validatejourney.sh <journey>  for example ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
+  -  You then specify the fromCommand toCommand range to execute. It can help to do this gradually, to observe/control what is happening.
 - **To execute the tutorials as end2end tests directly in Docker (under construction)**
-  - source ./journeys/upscaleNativeExtension|upscaleCustomExtension|commercecloudSpartacus/journeysetup.sh
-  - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -v $MY_DOWNLOAD_FOLDER:/home/chrome/Downloads -v "$PWD":/src kenlomax/karatejourneys:v1.05
-  - open vnc://localhost:5900
+  - source ./journeys/<journey>/journeysetup.sh   For example  source ./journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus/journeysetup.sh 
+  - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -v $MY_DOWNLOAD_FOLDER:/home/chrome/Downloads -v "$PWD":/src kenlomax/karatejourneys:v1.06
+  - open vnc://localhost:5900 (password=karate)
   - docker exec -it -w /src karate bash
-  - source ./validatejourney.sh upscaleNativeExtension | upscaleCustomExtension | commercecloudSpartacus
-  - Videos are generated in the journey folder and can be modified as needed, then dragged into the README
+  - source ./validatejourney.sh <journey> For example:  ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
+  - Videos are generated in the journey folder and can be modified as needed, then dragged into the README directly on github
 
 ## To add a journey ABC, use the existing ones as examples:
 

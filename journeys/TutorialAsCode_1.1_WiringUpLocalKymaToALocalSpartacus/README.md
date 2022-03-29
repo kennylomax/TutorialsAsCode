@@ -4,10 +4,10 @@ This is based on [this great journey](https://wiki.wdf.sap.corp/wiki/display/sup
 
 ## Prerequisites
 
-- You have completed [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode1LocalCCV2AndSpartacus)  where you had
-  - a running Commerce Backoffice at https://localhost:9002/backoffice
+- You have completed [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus)  where you had
+  - a running Commerce  at https://localhost:9002
   - a running Spartacus at https://localhost:4200
-  - and have stopped it again (use ./hybrisserver.sh stop)
+  - and have stopped them again (use ./hybrisserver.sh stop to stop Commerce, and ctrl-c from your yarn start command)
 - You have Docker running
 - You are using [JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
 - You have downloaded, personalized and sourced the file journeysetupexample.sh:
@@ -87,19 +87,6 @@ EOF
 kyma deploy --values-file ~/localkymatlsoverrides.yaml
 ```
 
- Restart your Kyma Cluster
-
-```commands
-k3d cluster stop kyma
-k3d cluster start kyma
-```
-
-Confirm you can now see the hostname host.k3d.internal:
-
-```
-kubectl describe cm coredns -n kube-system
-```
-
 Enable insecureSpecDownload:
 
 ```commands
@@ -116,14 +103,22 @@ kubectl get deployment commerce-application-gateway -n kyma-integration -o yaml 
   kubectl apply -f -
 ```
 
+Restart your Kyma Cluster 
+
+```commands
+k3d cluster stop kyma
+k3d cluster start kyma
+```
+
 Before proceeding, use the following queries to confirm that:
 
 - insecureSpecDownload=true and
-- skipVerify=true.
-
+- skipVerify=true
+- you can now see the hostname host.k3d.internal in the coredns description:
 ```
 kubectl get deployment application-registry -n kyma-integration -o yaml 
 kubectl get deployment commerce-application-gateway -n kyma-integration -o yaml
+kubectl describe cm coredns -n kube-system
 ```
 
 ## Import your Kyma Certificate into Commerce
@@ -199,8 +194,12 @@ kyma dashboard
 
 ## Monitor Kyma and Commerce Logs
 
-View CCV2 log file using Mac's  Console Application cloud-commerce-sample-setup/core-customize/hybris/log/tomcat/console*.log
-And view Kyma logs at:
+View CCV2 log file 
+```
+tail -f -n100  $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/log/tomcat/console*.log
+```
+
+And view Kyma Events at:
 ```
 kubectl logs -n kyma-system eventing-nats-0
 ```
@@ -214,7 +213,7 @@ KYMA_DASHBOARD → Integration → Applications → commerce → Connect Applica
 ## Pair your SAP Commerce with Kyma
 
 ```clickpath:PairBackoffice
-BACKOFFICE → System → API → Destination Target → Default_Template → Wizard →
+https://localhost:9002/backoffice → System → API → Destination Target → Default_Template → Wizard →
   -> TOken URL = <Paste URL that you copied earlier>
   -> New Destination's Id = mykyma
   -> Register Destination Target

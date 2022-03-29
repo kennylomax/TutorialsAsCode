@@ -4,7 +4,7 @@ Background:
   * def delays = 10000
   * def inputIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input (loc, v )  }
   * def appendIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); inputIt(loc, v )   }
-  * def clickIt =  function(loc) { retry(20).highlight(loc).click ()   }
+  * def clickIt =  function(loc) {  retry(5, delays); highlight(loc).click ()   }
   * def clickOptional = function(loc) { delay(delays); optional(loc).highlight().click()   }
   * def wrapUp = function() { delay(30000) }
 
@@ -40,6 +40,7 @@ https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summa
   * driver 'https://localhost:4200'
   * clickOptional( '{button}Advanced')
   * clickOptional( '{a}Proceed to localhost (unsafe)')
+  * delay( 30000)
   * clickIt( '{^}Photosmart E317 Digital Camera')
   * clickIt( '{}custom-product-summary works!')
   * wrapUp()

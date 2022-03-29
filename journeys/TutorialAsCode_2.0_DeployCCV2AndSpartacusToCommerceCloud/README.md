@@ -15,6 +15,32 @@ source journeysetup.sh
 ```
 # Journey
 
+
+## Prepare your local CCV2 and Spartacus for SAP Commerce Cloud
+
+You need to check your CCV2 Spartacus code into Github.tools.sap.  So
+
+- create a new git repository named concerttours-ccloud in your https://github.tools.sap/ account, then
+- remove the existing .git folder from your cloud-commerce-sample-setup:
+
+```commands
+cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
+rm -rf .git
+```
+
+- Commit your code to your new concerttours-ccloud repository:
+
+```commands
+cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup
+echo "# concerttours-ccloud" >> README.md
+git init
+git add *
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://$MY_GITHUB_USERNAME:$MY_GITHUB_TOKEN@github.tools.sap/$MY_GITHUB_USERNAME/concerttours-ccloud.git
+git push -u origin main
+```
+
 ## Deploy your CCV2 and Spartacus solution to SAP Commerce Cloud
 
 Create a reference in SAP Commerce Cloud to your Github Commerce Cloud Repository:

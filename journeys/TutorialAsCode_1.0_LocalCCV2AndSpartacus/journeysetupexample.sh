@@ -1,14 +1,14 @@
-#!/bin/bash
-
-export MY_DOWNLOAD_FOLDER=/Users/xx/Downloads
-export MY_GITHUB_USERNAME=xx
+### Personalize these
+export MY_DOWNLOAD_FOLDER=/Users/xxx/Downloads
+export MY_GITHUB_USERNAME=xxx
 # Token with repo and write:packages permissions
-export MY_GITHUB_TOKEN=xx
-export MY_GITHUB_EMAIL=xx
+export MY_GITHUB_TOKEN=xxx
+export MY_GITHUB_EMAIL=xxx
+# The version you are downloading
+export SAP_COMMERCE=CXCOMM210500P_8-70005661
 export MY_JOURNEY_DIR=~/journey/$NOW
+### End of Personalize these
 
-# Set to the version you are downlading
-export SAP_COMMERCE=CXCOMM201100P_15-70005693
 
 git config --global user.name "$MY_GITHUB_USERNAME"
 git config --global user.password "$MY_GITHUB_TOKEN"

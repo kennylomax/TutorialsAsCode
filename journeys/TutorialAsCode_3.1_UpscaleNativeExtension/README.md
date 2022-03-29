@@ -10,10 +10,14 @@
 - ng: brew install angular-cli
 - pm2: npm install pm2 -g
 - mvn: brew install mvn
-- Download the file journeysetupexample.sh to journeysetup.sh and personalize its contents:
-  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCodeJourney/main/journeys/TutorialAsCode_3.1_UpscaleNativeExtension/journeysetupexample.sh > journeysetup.sh 
-  - source ./journeysetup.sh 
+- You have downloaded, personalized and sourced the file journeysetupexample.sh:
+```
+curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_3.1_UpscaleNativeExtension/journeysetupexample.sh > journeysetup.sh 
 
+.. then personalize its contents and then..
+
+source journeysetup.sh 
+``` 
 # Journey
 
 Create an Angular app and within that an Angular library:

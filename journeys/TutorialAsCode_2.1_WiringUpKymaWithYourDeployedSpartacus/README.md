@@ -7,10 +7,14 @@
   - [TutorialAsCode2: Deploying CCV2 and Spartacus to Commerce Cloud](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode2DeployCCV2AndSpartacusToCommerceCloud)
 - You have a (free) BTP trial account @ [SAP's BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) and **have enabled Kyma**  on it, and can access your Kyma dashboard via it.
 - You have downloaded, personalized and sourced the file journeysetupexample.sh:
-  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_2.1_WiringUpKymaWithYourDeployedSpartacus/journeysetupexample.sh > journeysetup.sh 
-  - personalize its contents, 
-  - then source it with the command **source journeysetup.sh**
- - This takes inspiration from [this cool tutorial](https://developers.sap.com/tutorials/cp-kyma-mocks.html), which you might want to read first.
+```
+curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_2.1_WiringUpKymaWithYourDeployedSpartacus/journeysetupexample.sh > journeysetup.sh 
+
+.. then personalize its contents and then..
+
+source journeysetup.sh 
+``` 
+- This takes inspiration from [this cool tutorial](https://developers.sap.com/tutorials/cp-kyma-mocks.html), which you might want to read first.
 # Journey
 
 Add a new namespace in Kyma 

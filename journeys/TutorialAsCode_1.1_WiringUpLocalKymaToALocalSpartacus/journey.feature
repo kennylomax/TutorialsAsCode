@@ -1,6 +1,7 @@
 Feature: CommerceCloud
 
 Background:
+  * def KYMA_DASHBOARD=http://localhost:3001?kubeconfigID=config.yaml
   * def delays = 10000
   * def inputIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input (loc, v )  }
   * def appendIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); inputIt(loc, v )   }
@@ -93,12 +94,12 @@ KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
 @PairBackoffice
 Scenario:
 """
-BACKOFFICE → System → API → Destination Target → Default_Template → Wizard →
+https://localhost:9002/backoffice → System → API → Destination Target → Default_Template → Wizard →
   -> TOken URL = <Paste URL that you copied earlier>
   -> New Destination's Id = mykmyasystem{UNIQUEID}
   -> Register Destination Target
 """
-  * driver BACKOFFICE
+  * driver https://localhost:9002/backoffice
   * watchInput('input[name=j_username]', "admin")
   * watchInput('input[name=j_password]', "nimda")
   * watchFor( '{}Login')
@@ -250,7 +251,7 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
   * wrapUp()
 
 
-@AddCorsKymaProperties
+@Was AddCorsKymaProperties
 Scenario:
 """
 https://localhost:9002 -> Platform -> Configuration
