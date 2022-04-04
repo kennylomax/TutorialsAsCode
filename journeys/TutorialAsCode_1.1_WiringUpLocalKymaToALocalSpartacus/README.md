@@ -11,7 +11,7 @@ This is based on [this great journey](https://wiki.wdf.sap.corp/wiki/display/sup
 - You have Docker running
 - You are using [JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
 - You have downloaded, personalized and sourced the file journeysetupexample.sh:
-  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_1.1_ WiringUpLocalKymaToALocalSpartacus/journeysetupexample.sh > journeysetup.sh
+  - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_1.1_WiringUpLocalKymaToALocalSpartacus/journeysetupexample.sh > journeysetup.sh
   - personalize its contents,
   - then source it with the command **source journeysetup.sh**
 
