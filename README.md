@@ -22,7 +22,7 @@
   - ./validatejourney.sh <journey>  for example ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
   -  You then specify the fromCommand toCommand range to execute. It can help to do this gradually, to observe/control what is happening.
 - **To execute the tutorials as end2end tests directly in Docker (under construction)**
-  - source ./journeys/journey_name/journeysetup.sh   For example  source ./journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus/journeysetup.sh 
+  - source ./journeys/xx/journeysetup.sh   For example  source ./journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus/journeysetup.sh 
   - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -v $MY_DOWNLOAD_FOLDER:/home/chrome/Downloads -v "$PWD":/src kenlomax/karatejourneys:v1.06
   - open vnc://localhost:5900 (password=karate)
   - docker exec -it -w /src karate bash

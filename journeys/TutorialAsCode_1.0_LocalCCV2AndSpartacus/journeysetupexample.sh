@@ -1,3 +1,4 @@
+#!/bin/bash
 ### Personalize these
 export MY_DOWNLOAD_FOLDER=/Users/xxx/Downloads
 export MY_GITHUB_USERNAME=xxx
@@ -32,7 +33,7 @@ if [[ "$_java" ]]; then
     else         
         echo You need java version 11; 
         exit
-    ficd java
+    fi
 fi
 
 if [[ "$OSTYPE" == *"darwin"* ]]; then
@@ -40,7 +41,7 @@ if [[ "$OSTYPE" == *"darwin"* ]]; then
 else 
   export MY_DOWNLOAD_FOLDER=/home/chrome/Downloads
   echo "$OSTYPE Running on Linux/Debian.";
-  echo "Intsalling Node, NPM6.11.0 and Yarn";
+  echo "Installing Node, NPM6.11.0 and Yarn";
   apt update
   apt install nodejs -y
   curl -L https://www.npmjs.com/install.sh | sh
@@ -48,4 +49,3 @@ else
   echo y | npm install 
   npm install -g yarn
 fi
-
