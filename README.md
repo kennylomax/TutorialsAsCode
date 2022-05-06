@@ -26,7 +26,7 @@
   - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -v $MY_DOWNLOAD_FOLDER:/home/chrome/Downloads -v "$PWD":/src kenlomax/karatejourneys:v1.06
   - open vnc://localhost:5900 (password=karate)
   - docker exec -it -w /src karate bash
-  - source ./validatejourney.sh <journey> For example:  ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
+  - ./validatejourney.sh <journey> For example:  ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
   - Videos are generated in the journey folder and can be modified as needed, then dragged into the README directly on github
 
 ## To add a journey ABC, use the existing ones as examples:

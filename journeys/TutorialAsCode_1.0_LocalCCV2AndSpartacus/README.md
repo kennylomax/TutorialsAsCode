@@ -1,5 +1,7 @@
 # Tutorials as Code - Getting CCV2 and Spartacus to run locally, then customizing Spartacus
 
+Last checked on 20220413
+
 In this journey we
 
 * Get CCV2 and Spartacus running locally,
@@ -9,7 +11,7 @@ Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondem
 
 ## Prerequisites
 
-- Use[JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). (To switch java versions on a Mac, see[here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a))
+- Use[JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). To switch java versions on a Mac, see[here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
 - Download a SAP Commerce**2105** ZIP from[SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, personalize the data in journeysetup.sh and then source its contents:
 
@@ -73,7 +75,8 @@ echo "corsfilter.ycommercewebservices.allowedOrigins=http://localhost:4200 https
 echo "corsfilter.ycommercewebservices.allowedMethods=GET HEAD OPTIONS PATCH PUT POST DELETE" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
 echo "corsfilter.ycommercewebservices.allowedHeaders=origin content-type accept authorization cache-control if-none-match x-anonymous-consents" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
 echo "corsfilter.acceleratorservices.allowedOrigins=*" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
-EOT
+echo "corsfilter.acceleratorservices.klx4=klx4" >> $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties
+
 ```
 
 Build, initialize and then run SAP Commerce locally
@@ -106,10 +109,6 @@ until $(curl -k --output /dev/null --silent --fail https://localhost:9002); do p
 
 Access SAP Commerce @ https://localhost:9002
 
-```clickpath:LoginToCommerceCloudViaWarning2
-https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=admin -> password=nimda -> LOGIN
-```
-
 ## Compile and start Spartacus
 
 Build your Spartacus Storefront and run it locally
@@ -131,7 +130,7 @@ until $(curl -k --output /dev/null --silent --fail https://localhost:4200); do p
 Access Spartaus @ https://localhost:4200  and look around. (Note you cannot yet register a user, or purchase anything in Spartacus, due to CORS issues that we will address below)
 
 ```clickpath:LoginToSpartacusViaWarning
-https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
+https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe) -> Sign In / Register
 ```
 
 ## Customize your Spartacus Storefront with new functionality
@@ -305,6 +304,21 @@ export class VoucherService {
   return this.httpClient.get( "https://my-json-server.typicode.com/kennylomax/spartacusdemojson/vouchers?id=1" )
   }
 }
+
+```
+
+## Rebuild and restart Spartarcus
+
+```commands
+cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore
+echo y | yarn build 
+echo y | yarn start &
+```
+
+Wait for Spartacus to come online.. (not optimal but until I figure out how to do this in Karate..)
+
+```commands
+until $(curl -k --output /dev/null --silent --fail https://localhost:4200); do printf "."; sleep 5; done
 ```
 
 Open Spartacus, select an item in Spartacus, and confirm you see the custom component in the Spartacus storefront..

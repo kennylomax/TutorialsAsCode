@@ -24,11 +24,13 @@ https://localhost:9002 -> Advanced -> Proceed to localhost (unsafe) -> username=
 @LoginToSpartacusViaWarning
 Scenario:
 """
-https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe)
+https://localhost:4200 -> Advanced -> Proceed to localhost (unsafe) -> Sign In / Register
 """ 
+  * call read('journey.feature@LoginToCommerceCloudViaWarning2') 
   * driver 'https://localhost:4200'
-  * clickIt( '{button}Advanced')
-  * clickIt( '{a}Proceed to localhost (unsafe)')
+  * delay(5000)
+  * clickOptional( '{button}Advanced')
+  * clickOptional( '{a}Proceed to localhost (unsafe)')
   * clickIt( '{a}Sign In / Register')
   * wrapUp()
 
@@ -37,6 +39,7 @@ Scenario:
 """
 https://localhost:4200 -> Photosmart E317 Digital Camera -> custom-product-summary works!
 """
+  * call read('journey.feature@LoginToCommerceCloudViaWarning2') 
   * driver 'https://localhost:4200'
   * clickOptional( '{button}Advanced')
   * clickOptional( '{a}Proceed to localhost (unsafe)')
