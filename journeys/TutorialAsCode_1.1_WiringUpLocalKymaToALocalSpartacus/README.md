@@ -89,7 +89,7 @@ kyma deploy --values-file ~/localkymatlsoverrides.yaml
 
 Enable insecureSpecDownload:
 
-```commands
+```multilinecommand
 kubectl get deployment application-registry -n kyma-integration -o yaml |\
   sed -e 's|insecureSpecDownload=false|insecureSpecDownload=true|'| \
   kubectl apply -f -
@@ -97,7 +97,7 @@ kubectl get deployment application-registry -n kyma-integration -o yaml |\
 
 Disable SSL Validation for your application
 
-```commands
+```multilinecommand
 kubectl get deployment commerce-application-gateway -n kyma-integration -o yaml |\
   sed -e 's|skipVerify=false|skipVerify=true|'| \
   kubectl apply -f -

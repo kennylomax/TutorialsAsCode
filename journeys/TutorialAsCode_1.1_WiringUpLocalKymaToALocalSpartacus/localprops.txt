@@ -1,0 +1,7 @@
+kymaintegrationservices.truststore.cacerts.path=${platformhome}/resources/devcerts/ydevelopers.jks
+kymaintegrationservices.truststore.password=123456
+ccv2.services.api.url.0=https://host.k3d.internal:${tomcat.ssl.port}
+apiregistryservices.events.exporting=true
+corsfilter.ycommercewebservices.allowedOrigins=http://localhost:4200 https://localhost:4200
+corsfilter.ycommercewebservices.allowedMethods=GET HEAD OPTIONS PATCH PUT POST DELETE
+corsfilter.ycommercewebservices.allowedHeaders=origin content-type accept authorization cache-control if-none-match x-anonymous-consents

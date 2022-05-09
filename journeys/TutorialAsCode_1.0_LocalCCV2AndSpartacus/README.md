@@ -11,8 +11,8 @@ Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondem
 
 ## Prerequisites
 
-- Use[JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). To switch java versions on a Mac, see[here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
-- Download a SAP Commerce**2105** ZIP from[SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
+- Use[ JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). To switch java versions on a Mac, see[ here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
+- Download a SAP Commerce**2105** ZIP from[ SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, personalize the data in journeysetup.sh and then source its contents:
 
 ```
