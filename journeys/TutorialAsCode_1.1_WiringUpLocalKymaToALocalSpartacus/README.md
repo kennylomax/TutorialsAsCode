@@ -136,17 +136,8 @@ keytool -keystore ydevelopers.jks -storepass 123456 -import -file ~/local-kyma-d
 
 Add some properties to $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/config/local.properties:
 
-```multilinecommand
-cat > ~/localprops.txt <<EOF
-
-kymaintegrationservices.truststore.cacerts.path=\${platformhome}/resources/devcerts/ydevelopers.jks
-kymaintegrationservices.truststore.password=123456
-ccv2.services.api.url.0=https://host.k3d.internal:\${tomcat.ssl.port}
-apiregistryservices.events.exporting=true
-corsfilter.ycommercewebservices.allowedOrigins=http://localhost:4200 https://localhost:4200
-corsfilter.ycommercewebservices.allowedMethods=GET HEAD OPTIONS PATCH PUT POST DELETE
-corsfilter.ycommercewebservices.allowedHeaders=origin content-type accept authorization cache-control if-none-match x-anonymous-consents
-EOF
+```commands
+curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_1.1_WiringUpLocalKymaToALocalSpartacus/localprops.txt > ~/localprops.txt 
 ```
 
 ```commands
@@ -191,6 +182,8 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
 ```commands
 kyma dashboard
 ```
+
+*Note at present this runs only on my Safari and not Chrome...*
 
 ## Monitor Kyma and Commerce Logs
 

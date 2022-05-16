@@ -1,7 +1,7 @@
 Feature: CommerceCloud
 
 Background:
-  * def KYMA_DASHBOARD=http://localhost:3001?kubeconfigID=config.yaml
+  * def KYMA_DASHBOARD = "http://localhost:3001?kubeconfigID=config.yaml"
   * def delays = 10000
   * def inputIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); script(loc, "_.value = ''"); input (loc, v )  }
   * def appendIt = function(loc, v) { retry(5, delays); waitFor(loc).highlight(); inputIt(loc, v )   }
@@ -331,5 +331,5 @@ Scenario:
 """
 KYMA_DASHBOARD → Integration → Applications → commerce → Connect Application -> Copy to Clipboard
 """
-* TODO
 * delay( delays )
+
