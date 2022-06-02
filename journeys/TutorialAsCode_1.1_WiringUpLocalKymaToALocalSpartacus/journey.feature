@@ -117,8 +117,8 @@ https://localhost:9002/backoffice → System → API → Destination Target → 
 @createKymaBinding
 Scenario:
 """
-KymaCockpit-> Integration -> Applications → mp-mykmyasystem20220314a → Create Namespace Binding 
-  -> Namespace = 20220314a
+KymaCockpit-> Integration -> Applications → commerce → Create Namespace Binding 
+  -> Namespace = default
   -> Create
 """
   * driver KYMA_COCKPIT

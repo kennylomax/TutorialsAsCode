@@ -1,6 +1,6 @@
 # Tutorials as Code - Getting CCV2 and Spartacus to run locally, then customizing Spartacus
 
-Last checked on 20220413
+Last checked on 20220602 with Commerce Release CXCOMM220500P_0-80006942
 
 In this journey we
 
@@ -11,8 +11,8 @@ Other journeys deploy this to [SAP Commerce Cloud](https://portal.commerce.ondem
 
 ## Prerequisites
 
-- Use[ JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). To switch java versions on a Mac, see[ here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
-- Download a SAP Commerce**2105** ZIP from[ SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
+- Use[ JDK  17.x.x](https://www.oracle.com/java/technologies/downloads/#java17). To switch java versions on a Mac, see[ here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
+- Download a SAP Commerce**2205** ZIP from[ SAP Software Downloads web site](https://launchpad.support.sap.com/#/softwarecenter/template/products/_APP=00200682500000001943&_EVENT=NEXT&HEADER=Y&FUNCTIONBAR=Y&EVENT=TREE&NE=NAVIGATE&ENR=67837800100800007216&V=MAINT&TA=ACTUAL/SAP%20COMMERCE) into your downloads folder
 - Download the file journeysetupexample.sh to journeysetup.sh, personalize the data in journeysetup.sh and then source its contents:
 
 ```
@@ -305,20 +305,6 @@ export class VoucherService {
   }
 }
 
-```
-
-## Rebuild and restart Spartarcus
-
-```commands
-cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore
-echo y | yarn build 
-echo y | yarn start &
-```
-
-Wait for Spartacus to come online.. (not optimal but until I figure out how to do this in Karate..)
-
-```commands
-until $(curl -k --output /dev/null --silent --fail https://localhost:4200); do printf "."; sleep 5; done
 ```
 
 Open Spartacus, select an item in Spartacus, and confirm you see the custom component in the Spartacus storefront..

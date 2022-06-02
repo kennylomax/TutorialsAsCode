@@ -2,6 +2,9 @@
 
 This is based on [this great journey](https://wiki.wdf.sap.corp/wiki/display/supc/Wyvern%3A+How+to+integrate+Commerce+and+Kyma+locally) by Darrell Merryweather and the Wyvern Team. It is tested on Mac OSX.
 
+Last tested manually 20220516
+Last tested automatically 20220416
+
 ## Prerequisites
 
 - You have completed [TutorialAsCode1: Running CCV2 and Spartacus locally](https://github.com/kennylomax/TutorialsAsCode/tree/main/journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus)  where you had
@@ -21,7 +24,7 @@ This is based on [this great journey](https://wiki.wdf.sap.corp/wiki/display/sup
 
 ```commands
 brew update
-brew upgrade
+brew upgradex
 brew install k3d
 ```
 
@@ -39,6 +42,7 @@ kyma deploy
 ```
 
 ## Import Kyma's Certificate to your OSX Keychain
+Request Privileges on your Mac (see https://github.com/SAP/macOS-enterprise-privileges) and then import certificates,
 
 ```commands
 sudo kyma import certs
@@ -131,6 +135,7 @@ openssl x509 -outform der -in ~/local-kyma-dev-temp.pem -out ~/local-kyma-dev.ce
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/core-customize/hybris/bin/platform/resources/devcerts
 keytool -keystore ydevelopers.jks -storepass 123456 -import -file ~/local-kyma-dev.cer -alias local-kyma-dev
 ```
+(If you need to delete the key: keytool -delete -noprompt -alias local-kyma-dev  -keystore ydevelopers.jks -storepass 123456)
 
 ## Add Cors and Kyma properties to CCV2:
 
@@ -183,7 +188,7 @@ INSERT_UPDATE OAuthClientDetails;clientId[unique=true]  ;resourceIds   ;scope  ;
 kyma dashboard
 ```
 
-*Note at present this runs only on my Safari and not Chrome...*
+Note at present I can view the [Kyma dashboard](http://localhost:3001?kubeconfigID=config.yaml) on Safari and not Chrome... 
 
 ## Monitor Kyma and Commerce Logs
 
@@ -207,31 +212,53 @@ KYMA_DASHBOARD → Integration → Applications → commerce → Connect Applica
 
 ```clickpath:PairBackoffice
 https://localhost:9002/backoffice → System → API → Destination Target → Default_Template → Wizard →
-  -> TOken URL = <Paste URL that you copied earlier>
+  -> Token URL = <Paste URL that you copied earlier>
   -> New Destination's Id = mykyma
   -> Register Destination Target
 ```
 
+Return to 
+KymaCockpit-> Integration -> Applications → commerce  
+where you should see the "Provided Services and Events"  being populated over the next minute or two.
+Once this list is populated with entries including "CC Events v1" and "CC OCC Commerce Webservices v2" you can proceed..
+
 ## Creating a binding in Kyma
 
 ```clickpath:createKymaBinding
-KymaCockpit -> Integration -> Applications → Create Application → CreateBinding → Namespace
-```
+KymaCockpit-> Integration -> Applications → commerce → Create Namespace Binding 
+  -> Namespace = default
+  -> Create
+``` 
 
 ## Set up Events
 
 ```clickpath:setUpEventsInKyma
-Kyma → defaultNamespace -> Catalog -> mykymasystem20220314a -> + Add -> Create
+Kyma → NamesSpaces -> default -> Service Management -> Catalog -> CC Events v1 -> Add once + -> Create
+Kyma → NamesSpaces -> default -> Service Management -> Catalog -> CC OCC Commerce Webservices v2 ->  Add once + -> Create
 ```
 
 ## Creating a Kyma Function
 
 ```clickpath:createKymaFunction
-Kyma -> defaultNamespace -> Workloads -> Functions ->  Create Function -> Create -> 
-  Configuration -> Create Event Subscription -> order.created -> Save -> 
+Kyma → NamesSpaces -> default -> Workloads -> Functions ->  Create Function -> 
+  Name=function1 
+  -> Create -> 
+  Configuration -> Create Subscription -> 
+  Application name=commerce
+  Event name=order.created
+  Event version=v1
+-> Create
   Code ->
     Source = module.exports = { main: function (event, context) { console.log("Hi there"); return "Hello World!";} }
   -> Save
+```
+
+## Restart Spartacus
+
+```commands
+cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore
+echo y | yarn build 
+echo y | yarn start &
 ```
 
 ## Purchase something in Spartacus
