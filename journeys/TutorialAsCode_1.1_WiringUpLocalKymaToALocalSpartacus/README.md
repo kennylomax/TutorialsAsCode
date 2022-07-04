@@ -12,7 +12,7 @@ Last tested automatically 20220416
   - a running Spartacus at https://localhost:4200
   - and have stopped them again (use ./hybrisserver.sh stop to stop Commerce, and ctrl-c from your yarn start command)
 - You have Docker running
-- You are using [JDK  11.x.x](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html). To switch java versions on a Mac, see [here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
+- Use[ JDK  17.x.x](https://www.oracle.com/java/technologies/downloads/#java17). To switch java versions on a Mac, see[ here](https://medium.com/@devkosal/switching-java-jdk-versions-on-macos-80bc868e686a)
 - You have downloaded, personalized and sourced the file journeysetupexample.sh:
   - curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_1.1_WiringUpLocalKymaToALocalSpartacus/journeysetupexample.sh > journeysetup.sh
   - personalize its contents,
