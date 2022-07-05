@@ -38,7 +38,8 @@ brew install kyma-cli
 
 ```commands
 kyma provision k3d
-kyma deploy
+# kyma deploy
+kyma deploy --source=2.2.0
 ```
 
 ## Import Kyma's Certificate to your OSX Keychain
