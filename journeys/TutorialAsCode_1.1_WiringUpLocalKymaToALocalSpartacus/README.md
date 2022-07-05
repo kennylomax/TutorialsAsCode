@@ -24,7 +24,7 @@ Last tested automatically 20220416
 
 ```commands
 brew update
-brew upgradex
+brew upgrade
 brew install k3d
 ```
 
