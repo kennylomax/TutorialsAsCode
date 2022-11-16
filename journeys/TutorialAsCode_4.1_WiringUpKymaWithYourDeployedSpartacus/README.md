@@ -21,12 +21,16 @@ https://user-images.githubusercontent.com/6401254/158362790-23ee4170-eaa9-40f3-9
 ## Create a System on BTP
 
 ```clickpath:CreateBTPSystem
-BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Systems -> Register System -> 
-  System Name = mykymasystem
+BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Systems -> Add System -> 
+  System Name = mykymasystem{UNIQUEID}
   Type = SAP Commerce Cloud
-  -> Register
+  -> Add
+  -> Get Token
   -> Copy the token to your clipboard
+  
 ```
+
+Wait a minute for the Kyma system to be setup.  
 
 https://user-images.githubusercontent.com/6401254/158362823-a1c5098d-cbe4-4af0-a373-47f38dd30c5a.mp4
 
@@ -34,9 +38,10 @@ https://user-images.githubusercontent.com/6401254/158362823-a1c5098d-cbe4-4af0-a
 
 ```clickpath:CreateBTPFormation
 BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
-  Name = myformation{UNIQUEID}
+  Formation Name = myformation{UNIQUEID}
+  Formation Type = Side-by-side extensibility with Kyma
   Select Subaccount=trial
-  Select Systems = mykymasystem{UNIQUEID}
+  Select Systems = mykymasystem{UNIQUEID}.  (If you do not see it wait a few minutes and repeat)
   -> Create
 ```
 
