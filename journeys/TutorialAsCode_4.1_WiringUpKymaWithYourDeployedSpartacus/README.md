@@ -2,7 +2,9 @@
 
 ## Prerequisites
 
-* You have a (free) BTP trial account @[SAP&#39;s BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) and **have enabled Kyma**  on it, and can access your Kyma dashboard via it.
+* You set up a (free) BTP trial account @[SAP&#39;s BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) 
+* you enable Kyma in your BTP trial account
+* you can access your Kyma dashboard via your BTP trial account.
 
 # Journey
 
