@@ -12,7 +12,8 @@ Add a new namespace in Kyma
 
 ```clickpath:AddKymaNamespace
 KymaCockpit -> Namespaces  -> Create Namespace 
-  Name={UNIQUEID} 
+ Name={UNIQUEID} 
+->  Enabnled Sidercar = true
 -> Create
 ```
 
@@ -41,13 +42,14 @@ BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Formations -> Cre
   Formation Name = myformation{UNIQUEID}
   Formation Type = Side-by-side extensibility with Kyma
   Select Subaccount=trial
-  Select Systems = mykymasystem{UNIQUEID}.  (If you do not see it wait a few minutes and repeat)
+  Include System = mykymasystem{UNIQUEID}.  (If you do not see it wait a few minutes and repeat)
+  -> Next Step 
   -> Create
 ```
 
 https://user-images.githubusercontent.com/6401254/158362859-916caa9c-d666-4544-84c2-aabfa28bc571.mp4
 
-Wait a few minutes, until it the System appears in your list of Applications/Systems in Kyma:
+Wait a few minutes, until the System appears in your list of Applications/Systems in Kyma:
 
 ```clickpath:ConfirmSystemAppearsInKyma
 KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
