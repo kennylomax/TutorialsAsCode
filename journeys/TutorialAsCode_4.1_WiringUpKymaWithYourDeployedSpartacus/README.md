@@ -12,8 +12,8 @@ Add a new namespace in Kyma
 
 ```clickpath:AddKymaNamespace
 KymaCockpit -> Namespaces  -> Create Namespace 
- Name={UNIQUEID} 
-->  Enabnled Sidercar = true
+Name={UNIQUEID} 
+-> Enable Sidecar = true
 -> Create
 ```
 
@@ -61,28 +61,12 @@ https://user-images.githubusercontent.com/6401254/158362894-43040579-f30f-4927-a
 
 ```clickpath:PairBackoffice
 BACKOFFICE → System → API → Destination Target → Default_Template → Wizard →
-  -> TOken URL = <Paste URL that you copied earlier>
+  -> Token URL = <Paste URL that you copied earlier>
   -> New Destination's Id = mykmyasystem{UNIQUEID}
   -> Register Destination Target
 ```
 
 https://user-images.githubusercontent.com/6401254/158362912-85af36b7-85d0-43fb-888f-c078895faeb9.mp4
-
-## Creating a binding in Kyma
-
-```clickpath:createKymaBinding
-KymaCockpit -> Integration -> Applications → Create Application → CreateBinding → Namespace
-```
-
-https://user-images.githubusercontent.com/6401254/158362932-dc4cc60b-02c5-4a65-95ce-d073d1835cde.mp4
-
-## Set up Events
-
-```clickpath:setUpEventsInKyma
-Kyma → defaultNamespace -> Catalog -> mykymasystem20220314a -> + Add -> Create
-```
-
-https://user-images.githubusercontent.com/6401254/158362954-2885c4db-f187-41a7-b21b-6a9573f9050d.mp4
 
 ## Creating a Kyma Function
 
