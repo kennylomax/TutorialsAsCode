@@ -71,10 +71,18 @@ Kyma -> < yourNameSpace > -> Workloads -> Functions ->  Create Function ->
   -> Create 
 ```
 
+## Open the function's logs
+
+```clickpath:OpenFunctionLogs
+Kyma -> < yourNameSpace > -> Workloads -> Functions ->  <your Function> -> View Logs
+```
+
+
 ## Purchase something in Spartacus
 
 ```clickpath:MakeFirstPurchaseWithVisa4444333322221111
 https://jsapps.{MY_COMMERCE_CLOUD_DOMAIN}...
 ```
 
-.. and you should see that your function has been called
+
+.. and you should see in the function logs, that your function has been invoked
