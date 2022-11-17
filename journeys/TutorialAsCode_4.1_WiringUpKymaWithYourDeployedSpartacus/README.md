@@ -13,7 +13,7 @@ Add a new namespace in Kyma
 ```clickpath:AddKymaNamespace
 KymaCockpit -> Namespaces  -> Create Namespace 
 Name={UNIQUEID} 
--> Enable Sidecar = true
+Enable Sidecar Injection = true
 -> Create
 ```
 
