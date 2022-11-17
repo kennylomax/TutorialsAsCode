@@ -62,11 +62,13 @@ BACKOFFICE → System → API → Destination Target → Default_Template → Wi
 ## Creating a Kyma Function
 
 ```clickpath:createKymaFunction
-Kyma -> < yourNameSpace > -> Workloads -> Functions ->  Create Function -> Create -> 
-  Configuration -> Create Event Subscription -> order.created -> Save -> 
-  Code ->
-    Source = module.exports = { main: function (event, context) { console.log("Hi there"); return "Hello World!";} }
-  -> Save
+Kyma -> < yourNameSpace > -> Workloads -> Functions ->  Create Function -> 
+  Name = < yourFunctionName > -> Create -> 
+  Configuration -> Create Subscription -> 
+  Application name = < your new Application > 
+  Event name = order.created 
+  Event version = v1 
+  -> Create 
 ```
 
 ## Purchase something in Spartacus
