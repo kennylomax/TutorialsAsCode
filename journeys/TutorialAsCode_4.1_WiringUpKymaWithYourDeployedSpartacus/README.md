@@ -60,6 +60,8 @@ BACKOFFICE → System → API → Destination Target → Default_Template → Wi
   -> Register Destination Target
 ```
 
+________________
+## APPENDIX is  OPTIONAL
 ## Creating a Kyma Function
 
 ```clickpath:createKymaFunction
