@@ -3,7 +3,7 @@
 ## Prerequisites
 
 * You set up a (free) BTP trial account @[SAP&#39;s BTP (Business Technology Platform) Cockpit](https://account.hanatrial.ondemand.com) 
-* Create a subaccount and add the **Kyma runtime  Service Plan** to its list of **Entitlements**
+* Create a subaccount **named trial**, and add the **Kyma runtime  Service Plan** to its list of **Entitlements**
 * Enable Kyma runtime in your subaccount
 * access your Kyma dashboard from your BTP subaccount.
 
