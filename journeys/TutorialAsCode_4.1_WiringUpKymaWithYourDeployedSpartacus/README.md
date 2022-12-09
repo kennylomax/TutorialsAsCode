@@ -9,11 +9,14 @@
 
 # Journey
 
+Set an environment variable to your Kyma Namespace:
+export KYMA_NAMESPACE=something
+
 Add a new namespace in Kyma
 
 ```clickpath:AddKymaNamespace
 KymaCockpit -> Namespaces  -> Create Namespace 
-Name={UNIQUEID} 
+Name=$KYMA_NAMESPACE 
 Enable Sidecar Injection = true
 -> Create
 ```
@@ -22,7 +25,7 @@ Enable Sidecar Injection = true
 
 ```clickpath:CreateBTPSystem
 BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Systems -> Add System -> 
-  System Name = mykymasystem{UNIQUEID}
+  System Name = mykymasystem< $KYMA_NAMESPACE >
   Type = SAP Commerce Cloud
   -> Add
   -> Get Token
@@ -37,10 +40,10 @@ Wait a minute for the Kyma system to be setup.
 
 ```clickpath:CreateBTPFormation
 BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Formations -> Create Formation  -> 
-  Formation Name = myformation{UNIQUEID}
+  Formation Name = myformation< $KYMA_NAMESPACE >
   Formation Type = Side-by-side extensibility with Kyma
   Select Subaccount=trial
-  Include System = mykymasystem{UNIQUEID}.  (If you do not see it wait a few minutes and repeat)
+  Include System = mykymasystem< $KYMA_NAMESPACE >.  (If you do not see it wait a few minutes and repeat)
   -> Next Step 
   -> Create
 ```
@@ -48,7 +51,7 @@ BTP_COCKPIT -> Go To Your Trial Account -> System Landscape -> Formations -> Cre
 Wait a few minutes, until the System appears in your list of Applications/Systems in Kyma:
 
 ```clickpath:ConfirmSystemAppearsInKyma
-KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
+KymaCockpit -> Integration -> Applications ->  mp-mykymasystem< $KYMA_NAMESPACE >
 ```
 
 ## Pair your SAP Commerce with Kyma
@@ -56,10 +59,9 @@ KymaCockpit -> Integration -> Applications ->  mp-mykymasystem{UNIQUEID}
 ```clickpath:PairBackoffice
 BACKOFFICE → System → API → Destination Target → Default_Template → Wizard →
   -> Token URL = <Paste URL that you copied earlier>
-  -> New Destination's Id = mykmyasystem{UNIQUEID}
+  -> New Destination's Id = mykmyasystem< $KYMA_NAMESPACE >
   -> Register Destination Target
 ```
-
 ________________
 ## APPENDIX is  OPTIONAL
 ## Creating a Kyma Function
