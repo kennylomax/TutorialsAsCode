@@ -25,6 +25,10 @@ class JourneyTest {
         String fromCmd = System.getProperty("fromCmd");
         String toCmd = System.getProperty("toCmd");
         String path = String.valueOf(System.getProperty("Path"));
+
+        String journeyDir = String.valueOf(System.getProperty("now"));
+
+
         System.out.println("Path is "+path);
         String os = System.getProperty("os.name");
         Boolean runningOnMac = os.contains("Mac");
@@ -35,6 +39,7 @@ class JourneyTest {
         readMeToScript( path+"/journeys/"+journeyName+"/README.md", path+"/journeyvalidator/commands.sh", runningOnMac, fromCmd, toCmd);
         runCommand("chmod 700 "+path+"/journeyvalidator/commands.sh");
         runCommand(path+"/journeyvalidator/commands.sh");
+        System.out.println("Last command sequence: ./validatejourney.sh "+journeyName+" "+journeyDir  +" (with fromCmd: "+fromCmd +" toCmd (inclusive): "+toCmd +")");           
     }
 
     public void confirmEachClickPathAppearsInAScenario(String readMeFile, String featureFile) throws IOException{
