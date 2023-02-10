@@ -6,6 +6,7 @@ This is an example in TutorialsAsCode, to show how they can contain:
 - environment variables
 - code samples with respective file names,
 - click paths that are implemented by respective Karate Scenarios
+- a video of the clickpath(s) as created by running this in Docker (as notated in the main readme)
 
 ## Prerequisites
 
