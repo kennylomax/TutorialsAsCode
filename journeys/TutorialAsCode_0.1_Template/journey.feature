@@ -1,10 +1,8 @@
 Feature: TutorialAsCode
 
 Background:
-  * def delays = 10000
-  * def clickIt =  function(loc) {  retry(5, delays); highlight(loc).click ()   }
+  * def delays = 5000
   * def watchFor =  function(loc) {    delay(delays);  waitFor(loc).highlight().click()  }
-  * def btpMouseClick = function(loc) { delay(delays); highlight(loc); mouse(loc).click()   }
 
 @confirmThatYouSeeYourName
 Scenario:

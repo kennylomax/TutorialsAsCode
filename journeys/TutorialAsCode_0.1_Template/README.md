@@ -1,16 +1,18 @@
 # Tutorials as Code - A minimal template, to serve as an example starting point
 
-This is an example tutorial, to show how TutorialsAsCode can be used to write tutorials that contains:
-- prerequisites that need personalising
-- code samples
+This is an example in TutorialsAsCode, to show how they can contain:
+
+- personalized prerequisites
 - environment variables
-- click paths
-  
+- code samples with respective file names,
+- click paths that are implemented by respective Karate Scenarios
 
 ## Prerequisites
+
 - You have installed Node (https://nodejs.org/en/download/)
 
 ## Set up
+
 Download, personlize then source your journey's setup:
 
 ```
@@ -23,7 +25,7 @@ source journeysetup.sh
 
 # Journey
 
-## Create a new folder and initialise a node site 
+## Create a new folder and initialise a node site
 
 ```commands
 mkdir -p $MY_JOURNEY_DIR
@@ -31,9 +33,9 @@ cd $MY_JOURNEY_DIR
 npm init -y
 ```
 
-## Code some node..
+## Write some node code..
 
-Code some basic node code in the file **$MY_JOURNEY_DIR/mysupercoolwebsite.js** to show a webpage with a button in:
+Write some basic node code in the file **$MY_JOURNEY_DIR/mysupercoolwebsite.js** to show a webpage with a button in it. The idea is that the user should click the button, and their name is then shown.
 
 ```file
 const http = require("http")
@@ -49,12 +51,15 @@ console.log("Listening on port 3000")
 
 ## Launch your website
 
-Run your website
+Run your website in the background:
+
 ```commands
 node mysupercoolwebsite.js &
 ```
 
-## Confirm you can see and click the button in the website, and that the button invokes your API..
+## Click the button in the website
+
+Click the button in the website and confirm that you see your name appear.
 
 ```clickpath:confirmThatYouSeeYourName
 https://localhost:3000 -> ClickMe -> confirmThatYouSeeYourName :)
@@ -63,7 +68,9 @@ https://localhost:3000 -> ClickMe -> confirmThatYouSeeYourName :)
 ## Stop the node process
 
 Kill the node process that is runnin in the background
+
 ```commands
 killall -9 node
 ```
 
+That's it :)
