@@ -73,4 +73,8 @@ Kill the node process that is runnin in the background
 killall -9 node
 ```
 
+
+https://user-images.githubusercontent.com/6401254/218129945-26ee6b58-5282-4061-8d38-afc1afc1d8bf.mp4
+
+
 That's it :)
