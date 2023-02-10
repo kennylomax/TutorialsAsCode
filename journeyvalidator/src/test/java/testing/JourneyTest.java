@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 import java.nio.file.Paths;
@@ -28,7 +27,6 @@ class JourneyTest {
 
         String journeyDir = String.valueOf(System.getProperty("now"));
 
-
         System.out.println("Path is "+path);
         String os = System.getProperty("os.name");
         Boolean runningOnMac = os.contains("Mac");
@@ -36,7 +34,7 @@ class JourneyTest {
         System.out.println("README : "+  path+"/journeys/"+journeyName+"/README.md");
         System.out.println("commands.sh : "+  path+"/commands.sh");        
         confirmEachClickPathAppearsInAScenario(path+"/journeys/"+journeyName+"/README.md", path+"/journeys/"+journeyName+"/journey.feature");
-        readMeToScript( path+"/journeys/"+journeyName+"/README.md", path+"/journeyvalidator/commands.sh", runningOnMac, fromCmd, toCmd);
+        readMeToScript( journeyDir, path+"/journeys/"+journeyName+"/README.md", path+"/journeyvalidator/commands.sh", runningOnMac, fromCmd, toCmd);
         runCommand("chmod 700 "+path+"/journeyvalidator/commands.sh");
         runCommand(path+"/journeyvalidator/commands.sh");
         System.out.println("Last command sequence: ./validatejourney.sh "+journeyName+" "+journeyDir  +" (with fromCmd: "+fromCmd +" toCmd (inclusive): "+toCmd +")");           
@@ -58,7 +56,7 @@ class JourneyTest {
         }
     }
 
-    public void readMeToScript(String fileFrom, String fileTo, boolean runningOnMac, String sFromCmd, String sToCmd)throws Exception{
+    public void readMeToScript(String journeyDir, String fileFrom, String fileTo,  boolean runningOnMac, String sFromCmd, String sToCmd)throws Exception{
         int fromCmd=0, toCmd=999;
         if (StringUtils.isNumeric(sFromCmd))
             fromCmd = Integer.parseInt(sFromCmd);
@@ -77,6 +75,7 @@ class JourneyTest {
         boolean addedClickpath=false;
         if (!runningOnMac)
             script.append("#!/bin/bash\n "); 
+        script.append("export MY_JOURNEY_DIR=~/journey/"+journeyDir+" ; ");
         script.append("export TESTING_HOME=$PWD ; ");
         int i=0;
         for (int j=0; j<lines.size() ; j++){
@@ -113,8 +112,8 @@ class JourneyTest {
             if ( commands &&  !l.startsWith("```command")){
                 if (l.length()>0){         
                     if (i>=fromCmd&& i<=toCmd) {
-                        script.append("echo Command["+i +"]: ;");               
-                        script.append("echo \"\u001b[31m $PWD : \u001b[32m"+l+"\u001b[0m\"; ");
+                        script.append("echo Command_"+i +": ;");               
+                        script.append("echo \" $PWD : "+l+"\"; ");
 
                         if (l.trim().endsWith("&"))
                             script.append(l+" ");
@@ -122,8 +121,8 @@ class JourneyTest {
                             script.append(l+"; ");
                     }
                     else{
-                        script.append("echo Command["+i +"]: ;");               
-                        script.append("echo \"\u001b[31m $PWD : \u001b[31m"+l+"\u001b[0m\"; ");
+                        script.append("echo Command_"+i +": ;");               
+                        script.append("echo \" $PWD : "+l+"\"; ");
                     }
                     i++;
                 }
@@ -137,12 +136,12 @@ class JourneyTest {
                 }    
                 j--;
                 if (i>=fromCmd&& i<=toCmd) {  
-                    script.append("echo Command["+i +"]: ;");               
-                    script.append("echo \"\u001b[31m $PWD : \u001b[32m"+contents+"\u001b[0m\"; ");
+                    script.append("echo Command_"+i +": ;");               
+                    script.append("echo \" $PWD : "+contents+"\"; ");
                 }
                 else{
-                    script.append("echo Command["+i +"]: ;");               
-                    script.append("echo \"\u001b[31m $PWD : \u001b[31m"+contents+"\u001b[0m\"; ");
+                    script.append("echo Command_"+i +": ;");               
+                    script.append("echo \" $PWD : "+contents+"\"; ");
                 }
                 i++;              
             }
@@ -152,30 +151,30 @@ class JourneyTest {
             }
             else if  ( clickpath &&  !l.startsWith("```clickpath") && !addedClickpath){
                 addedClickpath=true;
-                script.append("echo Command["+i +"]: ;");
-                script.append("echo \"\u001b[34m Clickpath "+l+"\"; ");           
+                script.append("echo Command_"+i +": ;");
+                script.append("echo \" Clickpath "+l+"\"; ");           
                 script.append("pushd ${TESTING_HOME}; ");
                 if (runningOnMac){
                     if (i>=fromCmd && i<=toCmd){
                         String c =  "mvn clean test -Dkarate.options='--tags @"+clickPathName+"' -Dtest=\\!JourneyTest#runThruTutorial;  ";
-                        script.append("echo \"\u001b[32m"+c+"\u001b[0m\"; ");
+                        script.append("echo \""+c+"\"; ");
                         if (i>=fromCmd && i<=toCmd)
                             script.append(c);
                     }
                     else{
                         String c =  "mvn clean test -Dkarate.options='--tags @"+clickPathName+"' -Dtest=\\!JourneyTest#runThruTutorial;  ";
-                        script.append("echo \"\u001b[31m"+c+"\u001b[0m\"; ");
+                        script.append("echo \""+c+"\"; ");
                     }
                 }else {
                      if (i>=fromCmd && i<=toCmd){
                         String c = "mvn test  -Dtest=\\!JourneyTest#runThruTutorial -DargLine='-Dkarate.env=docker -Dkarate.options=\"--tags @"+clickPathName+ "\"' -Dtest=WebRunner; ";             
-                        script.append("echo \"\u001b[32m"+c+"\u001b[0m\"; ");
+                        script.append("echo \""+c+"\"; ");
                         script.append(c);
                         script.append("mkdir -p /src/journey/$NOW;  cp /tmp/karate.mp4 /src/journey/$NOW/karate_"+clickPathName+".mp4; ");
                     }
                     else{
                         String c = "mvn test  -Dtest=\\!JourneyTest#runThruTutorial -DargLine='-Dkarate.env=docker -Dkarate.options=\"--tags @"+clickPathName+ "\"' -Dtest=WebRunner; ";             
-                        script.append("echo \"\u001b[31m"+c+"\u001b[0m\"; ");
+                        script.append("echo \""+c+"\"; ");
                     }
                 }  
                 script.append("popd; ");
@@ -189,17 +188,22 @@ class JourneyTest {
                     l=lines.get(++j);
                 } 
                 j--;
-//                contents=contents.replace("|","\\|");  // Command 36 of TutorialAsCode1LocalCCV2AndSpartacus
-//                contents=contents.replace("'","\\\"");
-                String command = "echo '"+contents+"' > "+lastBoldText +";";
-                script.append("echo Command["+i++ +"]: ;");               
-                    if (i>fromCmd&& i<toCmd){
-                        script.append("echo \"\u001b[32m $PWD :  \u001b[32m"+command.replace("|","\\|")+"\u001b[0m\"; ");
-                        script.append(command);
-                    }
-                    else {
-                        script.append("echo \"\u001b[31m $PWD :  \u001b[31m"+command.replace("|","\\|")+"\u001b[0m\"; ");
-                    }
+
+                String command = "cat > "+lastBoldText+" << EOF \n" +contents+"EOF\n ";  
+                String quotedCommand = command;
+                quotedCommand= quotedCommand.replace("`","Q");
+                quotedCommand= quotedCommand.replace("\"","Q");
+                quotedCommand= quotedCommand.replace("|","\\|");
+                command=command.replace("`","\\`"); 
+
+                script.append("echo Command_"+i++ +": ;");               
+                if (i>=fromCmd && i<=toCmd){
+                    script.append("echo \" $PWD :  "+quotedCommand+"\"; ");
+                    script.append(command);
+                }
+                else {
+                    script.append("echo \" $PWD :  "+quotedCommand+"\"; ");
+                }
             }
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileTo));
@@ -208,7 +212,8 @@ class JourneyTest {
     }
 
     public void runCommand(String s) throws IOException, InterruptedException {
-        System.out.println("\u001b[34m"+s+"\u001b[0m" );
+        System.out.println(s);
+        System.out.println("IN RUNCOMMAND "+ s);
         ProcessBuilder builder = new ProcessBuilder();
         builder.command(s.split(" "));   
         builder.redirectErrorStream(true);

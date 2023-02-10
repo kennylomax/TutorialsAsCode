@@ -5,6 +5,7 @@ function fn() {
         MY_UPSCALE_PASSWORD: java.lang.System.getenv('MY_UPSCALE_PASSWORD'), 
         MY_GITHUB_USERNAME: java.lang.System.getenv('MY_GITHUB_USERNAME'), 
         MY_GITHUB_TOKEN: java.lang.System.getenv('MY_GITHUB_TOKEN'), 
+        AN_EXAMPLE_ENVIRONMENT_VARIABLE: java.lang.System.getenv('AN_EXAMPLE_ENVIRONMENT_VARIABLE'), 
         MY_DOWNLOAD_FOLDER: java.lang.System.getenv('MY_DOWNLOAD_FOLDER'), 
         MY_JOURNEY_DIR: java.lang.System.getenv('MY_JOURNEY_DIR'), 
         MY_COMMERCE_CLOUD_DOMAIN: java.lang.System.getenv('MY_COMMERCE_CLOUD_DOMAIN'), 

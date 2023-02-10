@@ -115,7 +115,7 @@ Build your Spartacus Storefront and run it locally
 
 ```commands
 cd $MY_JOURNEY_DIR/cloud-commerce-sample-setup/js-storefront/spartacusstore
-echo y | npm install
+echo y | npm install --legacy-peer-deps
 npm install --global yarn
 echo y | yarn build 
 echo y | yarn start &
