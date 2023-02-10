@@ -17,7 +17,7 @@ This is an example in TutorialsAsCode, to show how they can contain:
 Download, personlize then source your journey's setup:
 
 ```
-curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus/journeysetupexample.sh > journeysetup.sh 
+curl https://raw.githubusercontent.com/kennylomax/TutorialsAsCode/main/journeys/TutorialAsCode_0.1_Template/journeysetupexample.sh > journeysetup.sh 
 
 .. then personalize its contents and then source it: ..
 
