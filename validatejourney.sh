@@ -12,6 +12,13 @@ if [ "$#" -ge "2" ]; then
 fi
 
 cp journeys/$1/journey.feature journeyvalidator/src/test/java/testing
+
+echo "Checking for existence of ./journeys/"$1"/journeysetup.sh"
+if [[ ! -f ./journeys/$1/journeysetup.sh ]] ; then
+    echo 'File "./journeys/'$1'/journeysetup.sh" is not found..  aborting.'
+    exit
+fi
+
 source ./journeys/$1/journeysetup.sh;
 mvn test  -f journeyvalidator/pom.xml -Dtest=JourneyTest#runThruTutorial -Dnow=${NOW} -Djourney=$1 -DPath=${PWD} -DfromCmd=999 -DtoCmd=9999
 read -p "Run from command:" n1
