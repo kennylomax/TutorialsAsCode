@@ -1,12 +1,13 @@
 # Tutorials as Code - Tutorials and End2End Tests in one:
 
 - Current TutorialsAsCode include:
+  - [Template (for demoing how to write these tutorials) ](journeys/TutorialAsCode_0.1_Template)
   - [Running CCV2 and Spartacus locally](journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus)
   - [WiringUpLocalKymaToALocalSpartacus](journeys/TutorialAsCode_1.1_WiringUpLocalKymaToALocalSpartacus)
   - [Deploying CCV2 and Spartacus to Commerce Cloud](journeys/TutorialAsCode_2.0_DeployCCV2AndSpartacusToCommerceCloud)
   - [Wiring Kyma up to a deployed CCV2 and Spartacus](journeys/TutorialAsCode_2.1_WiringUpKymaWithYourDeployedSpartacus)
-  - [Upscale Custom Extension](journeys/TutorialAsCode_3.0_UpscaleCustomExtension)
-  - [Upscale Native Extension](journeys/TutorialAsCode_3.1_UpscaleNativeExtension)
+  - Archived: [Upscale Custom Extension](journeys/TutorialAsCode_3.0_UpscaleCustomExtension)
+  - Archived: [Upscale Native Extension](journeys/TutorialAsCode_3.1_UpscaleNativeExtension)
 - these journeys serve as demos and tutorials,**and  as end2end tests, that can be executed manually and automatically on Mac, Docker and in CICD Pipelines**
 - their particular format makes them followable by humans but also by a computer, meaning they can be run and the journey verified in CICD pipeline.
 - when run in Docker/CICD
