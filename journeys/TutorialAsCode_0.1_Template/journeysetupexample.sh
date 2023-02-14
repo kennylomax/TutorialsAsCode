@@ -12,16 +12,12 @@ if [[ "$OSTYPE" == *"darwin"* ]]; then
  echo "$OSTYPE Running on Mac. ..";
 else 
   #  For example, if you are downdloading someting in the tutorial with chrome, you would find it at /home/chrome/Downloads, so can set that variable here.
-
   echo "$OSTYPE Running on Linux/Debian.";
   # If on docker we want to install node ourselves..
-  echo "Installing Node, NPM6.11.0 and Yarn";
+  echo "Installing Node";
   apt update
   apt install nodejs -y
-  curl -L https://www.npmjs.com/install.sh | sh
-  npm install -g npm@6.11.0
-  echo y | npm install 
-  echo "node js installed"
+  echo "node installed"
 fi
 
 echo "Running with:"
