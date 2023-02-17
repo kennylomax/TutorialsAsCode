@@ -1,6 +1,7 @@
 # Tutorials as Code - Tutorials and End2End Tests in one:
 
 - Current TutorialsAsCode include:
+  - [Example Tutorial Template](journeys/TutorialAsCode_0.1_Template)
   - [Running CCV2 and Spartacus locally](journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus)
   - [WiringUpLocalKymaToALocalSpartacus](journeys/TutorialAsCode_1.1_WiringUpLocalKymaToALocalSpartacus)
   - [Deploying CCV2 and Spartacus to Commerce Cloud](journeys/TutorialAsCode_2.0_DeployCCV2AndSpartacusToCommerceCloud)
