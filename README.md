@@ -20,26 +20,31 @@
 - **To follow those tutorials manually**, simply follow the "ReadMe"s in them
 - **To execute the tutorials as end2end tests directly on OSX**:
   - git clone https://github.com/kennylomax/TutorialsAsCode.git
-  - decide which journey you want to run 
-  - copy journeys/xx/journeysetupexample.sh to journeys/xx/journeysetup.sh and personalize it, for example:
-    - cp journeys/TutorialAsCode_0.1_Template/journeysetupexample.sh  journeys/TutorialAsCode_0.1_Template/journeysetup.sh 
-  - ./validatejourney.sh`<journey><optional journeyid>` for example ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
+  - cd into TutorialsAsCode folder
+  - decide which journey you want to run and assign to env variable:
+    - export ACTIVE_JOURNEY=TutorialAsCode_0.1_Template
+  - copy and personalize the respective journeysetup script:
+    - cp journeys/$ACTIVE_JOURNEY/journeysetupexample.sh  journeys/$ACTIVE_JOURNEY/journeysetup.sh 
+  - Execite the validatejourney script: 
+    - ./validatejourney.sh $ACTIVE_JOURNEY
   - You then specify the fromCommand toCommand range to execute. It can help to do this gradually, to observe/control what is happening.
 - **To execute the tutorials as end2end tests directly in Docker **
+  - git clone https://github.com/kennylomax/TutorialsAsCode.git
   - cd into TutorialsAsCode folder
-  - source ./journeys/xx/journeysetup.sh   For example  source ./journeys/TutorialAsCode_1.0_LocalCCV2AndSpartacus/journeysetup.sh
-  - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 \
-     -e JOURNEY_NAME=TutorialAsCode_0.1_Template \
-     -v "$PWD":/src kenlomax/karatejourneys:v1.40
-  - or to run automatically:
-  -  docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 \
-     -e JOURNEY_NAME=TutorialAsCode_0.1_Template \
-     -e AUTO_START=autostart \
-     -v "$PWD":/src kenlomax/karatejourneys:v1.40
-
-  - open vnc://localhost:5900 (password=karate)
-  - docker exec -it -w /src karate bash
-  - ./validatejourney.sh`<journey>` For example:  ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
+  - decide which journey you want to run and assign to env variable:
+    - export ACTIVE_JOURNEY=TutorialAsCode_0.1_Template
+  - Source the journeysetup script for the selected journey:
+    - source ./journeys/$ACTIVE_JOURNEY/journeysetup.sh
+  - Either execute Docker this way if you want to select which command range to run:
+    - docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -e JOURNEY_NAME=$ACTIVE_JOURNEY -v "$PWD":/src kenlomax/karatejourneys:v1.40
+    - In another shell exe into the docker image:
+      - docker exec -it -w /src karate bash
+    - And in that shell execute validatejourney.sh:
+      - ./validatejourney.sh $JOURNEY_NAME
+  - .. or this way if you want all commands to run by default:
+    -  docker run --name karate --rm -p 5900:5900 --cap-add=SYS_ADMIN -p 4200:4200 -p 9002:9002 -p 9001:9001 -e JOURNEY_NAME=TutorialAsCode_0.1_Template -e AUTO_START=autostart -v "$PWD":/src kenlomax/karatejourneys:v1.40
+  - Open a viewer so you can see the chrome browser within the docker image, (note that password=karate):
+    - open vnc://localhost:5900 
   - Videos are generated in the journey folder and can be modified as needed, then dragged into the README directly on github
 
 ## To add a journey ABC, use the existing ones as examples:
