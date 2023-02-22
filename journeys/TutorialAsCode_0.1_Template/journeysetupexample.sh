@@ -5,7 +5,7 @@
 export MY_JOURNEY_DIR=~/journey/$NOW
 
 ### Any environment variables that need personalizing
-export AN_EXAMPLE_ENVIRONMENT_VARIABLE=something
+export YOUR_NAME="Your Name"
 
 # Any adjustements needed if we are running on Linux we can do here..
 if [[ "$OSTYPE" == *"darwin"* ]]; then
@@ -21,6 +21,6 @@ else
 fi
 
 echo "Running with:"
-echo "AN_EXAMPLE_ENVIRONMENT_VARIABLE: " ${AN_EXAMPLE_ENVIRONMENT_VARIABLE}
+echo "YOUR_NAME: " ${YOUR_NAME}
 echo "MY_JOURNEY_DIR: " ${MY_JOURNEY_DIR}
 
