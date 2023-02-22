@@ -63,7 +63,7 @@ node mysupercoolwebsite.js &
 Click the button in the website and confirm that you see your name appear.
 
 ```clickpath:confirmThatYouSeeYourName
-https://localhost:3000 -> ClickMe -> confirmThatYouSeeYourName :)
+http://localhost:3000 -> ClickMe -> confirmThatYouSeeYourName :)
 ```
 
 ## Stop the node process
