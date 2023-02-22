@@ -19,7 +19,9 @@
 
 - **To follow those tutorials manually**, simply follow the "ReadMe"s in them
 - **To execute the tutorials as end2end tests directly on OSX**:
-  - Copy journeys/xx/journeysetupexample.sh to journeys/xx/journeysetup.sh and personalize it, then:
+  - git clone https://github.com/kennylomax/TutorialsAsCode.git
+  - decide which journey you want to run 
+  - copy journeys/xx/journeysetupexample.sh to journeys/xx/journeysetup.sh and personalize it, then:
   - ./validatejourney.sh`<journey><optional journeyid>` for example ./validatejourney.sh TutorialAsCode_1.0_LocalCCV2AndSpartacus
   - You then specify the fromCommand toCommand range to execute. It can help to do this gradually, to observe/control what is happening.
 - **To execute the tutorials as end2end tests directly in Docker **
