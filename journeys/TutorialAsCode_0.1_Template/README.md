@@ -36,7 +36,9 @@ npm init -y
 
 ## Write some node code..
 
-Write some basic node code in the file **$MY_JOURNEY_DIR/mysupercoolwebsite.js** to show a webpage with a button in it. The idea is that the user should click the button, and their name is then shown.
+Write some basic node code in the file **$MY_JOURNEY_DIR/mysupercoolwebsite.js** to show a webpage with a button in it. The idea is that the user should click the button, and their name is then shown. 
+
+Replace the text $YOUR_NAME in the code below with the value you assigned to YOUR_NAME in the journeysetup.sh file earlier.
 
 ```file
 const http = require("http")
@@ -44,7 +46,7 @@ const port = 3000
 const server = http.createServer((req, res) => {
  console.log(req.headers)
  res.statusCode = 200
- res.end(" <html><body><button onclick='document.getElementById(`greeting` ).innerText=`$AN_EXAMPLE_ENVIRONMENT_VARIABLE`' >ClickMe</button> <p id='greeting' > </p></body></html> " );
+ res.end(" <html><body><button onclick='document.getElementById(`greeting` ).innerText=`$YOUR_NAME`' >ClickMe</button> <p id='greeting' > </p></body></html> " );
 })
 server.listen(port)
 console.log("Listening on port 3000")
