@@ -36,9 +36,7 @@ npm init -y
 
 ## Write some node code..
 
-Write some basic node code in the file **$MY_JOURNEY_DIR/mysupercoolwebsite.js** to show a webpage with a button in it. The idea is that the user should click the button, and their name is then shown. 
-
-Replace the text $YOUR_NAME in the code below with the value you assigned to YOUR_NAME in the journeysetup.sh file earlier.
+Write some basic node code in the file **$MY_JOURNEY_DIR/mysupercoolwebsite.js** that will show a webpage with a button in it. Replace the text $YOUR_NAME in the code below with the value you assigned to YOUR_NAME in the journeysetup.sh file earlier.  The idea is that the user should click the button, and their name is then shown. 
 
 ```file
 const http = require("http")
